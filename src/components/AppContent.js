@@ -15,7 +15,7 @@ const AppContent = () => {
               route.component && (
                 <Route
                   key={idx}
-                  path={route.path}
+                  path={`/admin` + route.path}
                   exact={route.exact}
                   name={route.name}
                   render={(props) => (
@@ -27,7 +27,7 @@ const AppContent = () => {
               )
             )
           })}
-          <Redirect from="/" to="/dashboard" />
+          <Redirect from="/" to="/admin/dashboard" />
         </Switch>
       </Suspense>
     </CContainer>
