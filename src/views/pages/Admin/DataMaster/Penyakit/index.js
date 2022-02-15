@@ -1,20 +1,11 @@
-import React, { useMemo, useState } from 'react'
-import {
-  CRow,
-  CCol,
-  CCard,
-  CCardHeader,
-  CCardBody,
-  CButton,
-  CFormInput,
-  CButtonGroup,
-} from '@coreui/react'
+import React, { useState } from 'react'
+import { CCard, CCardHeader, CCardBody, CButton, CButtonGroup } from '@coreui/react'
 
-import DataTable from 'react-data-table-component'
 import PropTypes from 'prop-types'
 import { SampleGambar } from 'src/assets'
 import CIcon from '@coreui/icons-react'
 import { cilInfo, cilPen, cilTrash } from '@coreui/icons'
+import { MyDataTable, TableControl } from 'src/components'
 
 const Penyakit = () => {
   const [filterText, setFilterText] = useState('')
@@ -92,20 +83,6 @@ const Penyakit = () => {
       item.nm_penyakit.toLowerCase().includes(filterText.toLowerCase()),
   )
 
-  // Custom Styles
-  const customStyles = {
-    headCells: {
-      style: {
-        fontSize: '1.3em', // Change text size in head cells
-      },
-    },
-    cells: {
-      style: {
-        fontSize: '1.1em', // Change text size in body cells
-      },
-    },
-  }
-
   const ExpandedComponent = ({ data }) => (
     <>
       <div className="px-3 pt-2">
@@ -146,33 +123,29 @@ const Penyakit = () => {
     setFilterText(val)
   }
 
+  const handleFilterReset = () => {
+    setFilterText('')
+  }
+
   return (
     <>
       <CCard>
         <CCardHeader>
           <h3>Penyakit</h3>
         </CCardHeader>
-        <CCardBody>
-          <div className="table-control mb-3 d-sm-block d-md-flex justify-content-between">
-            <CButton color="primary btn-tambah">Tambah</CButton>
-            <CFormInput
-              className="input-pencarian"
-              type="text"
-              name="pencarian"
-              placeholder="Pencarian..."
-              aria-label="Pencarian"
-              onChange={(e) => handleFilter(e)}
-            />
-          </div>
-
-          {/* Datatable */}
-          <DataTable
+        <CCardBody className="pb-5">
+          {/* Table Control */}
+          <TableControl
+            handleFilter={handleFilter}
+            handleFilterReset={handleFilterReset}
+            filterText={filterText}
+          />
+          {/* Datatable Custom */}
+          <MyDataTable
+            mainData={data}
+            filteredData={filteredData}
+            expandedComponent={ExpandedComponent}
             columns={columns}
-            data={filteredData}
-            expandableRows
-            expandOnRowClicked
-            expandableRowsComponent={ExpandedComponent}
-            customStyles={customStyles}
           />
         </CCardBody>
       </CCard>
