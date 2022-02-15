@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './scss/style.scss'
+import './assets/css/my-custom-styles.css'
 
 const loading = (
   <div className="pt-3 text-center">

@@ -50,9 +50,20 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
+// Data Master
+// Penyakit
+const Penyakit = React.lazy(() => import('./views/pages/Admin/DataMaster/Penyakit'))
+
 const routes = [
+  // Dashboard
   // { path: '/', name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard, exact: true },
+
+  // Data Master
+  // Penyakit
+  { path: '/data-master', name: 'Data Master', component: Penyakit, exact: true },
+  { path: '/data-master/penyakit', name: 'Penyakit', component: Penyakit },
+
   { path: '/theme', name: 'Theme', component: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', component: Colors },
   { path: '/theme/typography', name: 'Typography', component: Typography },

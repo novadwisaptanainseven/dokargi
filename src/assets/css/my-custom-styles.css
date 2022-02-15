@@ -1,0 +1,14 @@
+.input-pencarian {
+  width: 250px;
+}
+
+/* Responsive Mobile Device */
+@media screen and (max-width: 768px) {
+  .btn-tambah {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .input-pencarian {
+    width: 100%;
+  }
+}

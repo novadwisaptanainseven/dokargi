@@ -49,6 +49,14 @@ import {
 const Dashboard = () => {
   return (
     <>
+      <div className="mb-5">
+        <h1 className="display-3">DOKARGI (Dokter Karies Gigi)</h1>
+        <p>
+          DOKARGI merupakan aplikasi sistem pakar untuk mendiagnosa penyakit Karies Gigi dengan
+          menggunakan metode Certainty Vector
+        </p>
+      </div>
+
       <CRow>
         <CCol xs={6} md={4}>
           <CWidgetStatsF
