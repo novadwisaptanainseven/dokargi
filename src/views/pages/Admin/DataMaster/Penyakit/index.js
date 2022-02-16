@@ -6,9 +6,18 @@ import { SampleGambar } from 'src/assets'
 import CIcon from '@coreui/icons-react'
 import { cilInfo, cilPen, cilTrash } from '@coreui/icons'
 import { MyDataTable, TableControl } from 'src/components'
+import { useHistory, useRouteMatch } from 'react-router-dom'
 
 const Penyakit = () => {
   const [filterText, setFilterText] = useState('')
+  const history = useHistory()
+  const match = useRouteMatch()
+  const { url } = match
+
+  // Go To Insert Page
+  const handleInsertButton = () => {
+    history.push(`${url}/tambah`)
+  }
 
   const columns = [
     {
@@ -30,6 +39,16 @@ const Penyakit = () => {
       width: '400px',
     },
     {
+      name: 'Solusi',
+      cell: (row) => (
+        <div>
+          <CButton type="button" color="secondary">
+            Lihat
+          </CButton>
+        </div>
+      ),
+    },
+    {
       name: 'Gambar',
       cell: (row) => (
         <>
@@ -43,6 +62,7 @@ const Penyakit = () => {
     },
     {
       name: 'Aksi',
+      width: '125px',
       cell: (row) => (
         <>
           <CButtonGroup className="table-button">
@@ -139,6 +159,7 @@ const Penyakit = () => {
             handleFilter={handleFilter}
             handleFilterReset={handleFilterReset}
             filterText={filterText}
+            handleInsertButton={handleInsertButton}
           />
           {/* Datatable Custom */}
           <MyDataTable

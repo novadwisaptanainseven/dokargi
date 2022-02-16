@@ -53,6 +53,7 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 // Data Master
 // Penyakit
 const Penyakit = React.lazy(() => import('./views/pages/Admin/DataMaster/Penyakit'))
+const TambahPenyakit = React.lazy(() => import('./views/pages/Admin/DataMaster/Penyakit/Tambah'))
 
 const routes = [
   // Dashboard
@@ -62,7 +63,8 @@ const routes = [
   // Data Master
   // Penyakit
   { path: '/data-master', name: 'Data Master', component: Penyakit, exact: true },
-  { path: '/data-master/penyakit', name: 'Penyakit', component: Penyakit },
+  { path: '/data-master/penyakit', name: 'Penyakit', component: Penyakit, exact: true },
+  { path: '/data-master/penyakit/tambah', name: 'Tambah Penyakit', component: TambahPenyakit },
 
   { path: '/theme', name: 'Theme', component: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', component: Colors },

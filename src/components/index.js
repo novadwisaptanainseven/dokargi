@@ -9,6 +9,7 @@ import DocsLink from './DocsLink'
 import DocsExample from './DocsExample'
 import TableControl from './TableControl'
 import MyDataTable from './MyDataTable'
+import FormField from './FormComponents/FormField'
 
 export {
   AppBreadcrumb,
@@ -22,4 +23,5 @@ export {
   DocsExample,
   TableControl,
   MyDataTable,
+  FormField,
 }

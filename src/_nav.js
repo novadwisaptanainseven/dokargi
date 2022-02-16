@@ -1,23 +1,7 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
-import {
-  cilAddressBook,
-  cilBell,
-  cilBook,
-  cilBriefcase,
-  cilCalculator,
-  cilChartPie,
-  cilCog,
-  cilCursor,
-  cilDrop,
-  cilNotes,
-  cilPencil,
-  cilPuzzle,
-  cilSpeedometer,
-  cilStar,
-  cilUser,
-} from '@coreui/icons'
-import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
+import { cilBook, cilBriefcase, cilCog, cilSpeedometer, cilUser } from '@coreui/icons'
+import { CNavGroup, CNavItem } from '@coreui/react'
 
 const rootPath = '/admin'
 
