@@ -88,12 +88,8 @@ const Penyakit = () => {
             <CButton size="sm" color="success" onClick={() => handleEditButton(row.id_penyakit)}>
               <CIcon className="text-white" icon={cilPen} />
             </CButton>
-            <CButton size="sm" color="danger">
-              <CIcon
-                className="text-white"
-                icon={cilTrash}
-                onClick={() => handleDelete(row.id_penyakit)}
-              />
+            <CButton size="sm" color="danger" onClick={() => handleDelete(row.id_penyakit)}>
+              <CIcon className="text-white" icon={cilTrash} />
             </CButton>
           </CButtonGroup>
         </>

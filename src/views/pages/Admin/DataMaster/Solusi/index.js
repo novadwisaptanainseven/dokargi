@@ -25,11 +25,6 @@ const Solusi = () => {
     history.push(`${url}/edit/${id}`)
   }
 
-  // Go To Solusi Page
-  const handleSolusiButton = (id) => {
-    history.push(`${url}/${id}/solusi`)
-  }
-
   // Go back to parent page
   const goBackToParentPage = (e) => {
     e.preventDefault()
@@ -41,7 +36,7 @@ const Solusi = () => {
       name: 'Solusi',
       selector: (row) => row.solusi,
       sortable: true,
-      width: '800px',
+      maxWidth: '800px',
     },
     {
       name: 'Aksi',
@@ -52,15 +47,11 @@ const Solusi = () => {
             {/* <CButton size="sm" color="info">
               <CIcon className="text-white" icon={cilInfo} />
             </CButton> */}
-            <CButton size="sm" color="success" onClick={() => handleEditButton(row.id_penyakit)}>
+            <CButton size="sm" color="success" onClick={() => handleEditButton(row.id_solusi)}>
               <CIcon className="text-white" icon={cilPen} />
             </CButton>
-            <CButton size="sm" color="danger">
-              <CIcon
-                className="text-white"
-                icon={cilTrash}
-                onClick={() => handleDelete(row.id_penyakit)}
-              />
+            <CButton size="sm" color="danger" onClick={() => handleDelete(row.id_solusi)}>
+              <CIcon className="text-white" icon={cilTrash} />
             </CButton>
           </CButtonGroup>
         </>
@@ -70,26 +61,32 @@ const Solusi = () => {
 
   const data = [
     {
+      id_solusi: 1,
       solusi:
         'Aorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
     },
     {
+      id_solusi: 2,
       solusi:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
     },
     {
+      id_solusi: 3,
       solusi:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
     },
     {
+      id_solusi: 4,
       solusi:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
     },
     {
+      id_solusi: 5,
       solusi:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
     },
     {
+      id_solusi: 6,
       solusi:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
     },

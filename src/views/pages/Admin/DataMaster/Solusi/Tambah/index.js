@@ -3,43 +3,15 @@ import CIcon from '@coreui/icons-react'
 import { CCard, CRow, CCol, CCardHeader, CCardBody, CForm, CButton } from '@coreui/react'
 import { Formik } from 'formik'
 import React, { useCallback, useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useRouteMatch } from 'react-router-dom'
 import { FormField } from 'src/components'
 import initState from '../Formik/initState'
 import validationSchema from '../Formik/validationSchema'
 
 const Tambah = () => {
   const history = useHistory()
-  const [selectedFile, setSelectedFile] = useState(false)
-  const [preview, setPreview] = useState()
-
-  // Menangani preview input gambar setelah dipilih
-  const handleSelectedFile = useCallback(() => {
-    if (!selectedFile) {
-      setPreview(null)
-      return
-    }
-
-    const objectUrl = URL.createObjectURL(selectedFile)
-    setPreview(objectUrl)
-
-    // Free memory when ever this component unmount
-    return () => {
-      URL.revokeObjectURL(objectUrl)
-    }
-  }, [selectedFile])
-
-  useEffect(() => {
-    handleSelectedFile()
-  }, [handleSelectedFile])
-
-  const onSelectFile = (e) => {
-    if (!e.target.files || e.target.files.length === 0) {
-      setSelectedFile(undefined)
-    }
-
-    setSelectedFile(e.target.files[0])
-  }
+  const match = useRouteMatch()
+  const { params } = match
 
   const goBackToParentPage = (e) => {
     e.preventDefault()
@@ -50,11 +22,8 @@ const Tambah = () => {
   const handleFormSubmit = (values) => {
     const formData = new FormData()
 
-    formData.append('nm_penyakit', values.nm_penyakit)
-    formData.append('deskripsi', values.deskripsi)
-    if (values.gambar) {
-      formData.append('gambar', values.gambar)
-    }
+    formData.append('id_penyakit', params.id)
+    formData.append('solusi', values.solusi)
 
     for (let pair of formData.entries()) {
       console.log(pair)
@@ -69,7 +38,7 @@ const Tambah = () => {
             <a href="." onClick={(e) => goBackToParentPage(e)}>
               <CIcon icon={cilArrowLeft} size="xl" />
             </a>
-            <span>Tambah Solusi</span>
+            <span>Tambah Solusi untuk Penyakit {params.id}</span>
           </h3>
         </CCardHeader>
         <CCardBody>
@@ -89,47 +58,17 @@ const Tambah = () => {
                   handleBlur,
                   handleSubmit,
                   handleReset,
-                  setFieldValue,
                 }) => (
                   <CForm onSubmit={handleSubmit}>
                     <FormField
-                      name="nm_penyakit"
-                      label="Nama Solusi"
+                      name="solusi"
+                      label="Solusi"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      placeholder="Masukkan nama penyakit"
-                      value={values.nm_penyakit}
-                      error={errors.nm_penyakit && touched.nm_penyakit}
-                      errorMessage={errors.nm_penyakit}
-                    />
-                    <FormField
-                      type="textarea"
-                      rows={5}
-                      name="deskripsi"
-                      label="Deskripsi Solusi"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      placeholder="Masukkan deskripsi penyakit"
-                      value={values.deskripsi}
-                      error={errors.deskripsi && touched.deskripsi}
-                      errorMessage={errors.deskripsi}
-                    />
-                    <FormField
-                      type="file"
-                      name="gambar"
-                      label="Gambar Solusi"
-                      onChange={(e) => {
-                        setFieldValue('gambar', e.target.files[0])
-                        onSelectFile(e)
-                      }}
-                      onBlur={handleBlur}
-                      placeholder="Masukkan gambar penyakit"
-                      value={values.gambar}
-                      error={errors.gambar && touched.gambar}
-                      errorMessage={errors.gambar}
-                      preview={preview}
-                      attention="File harus bertipe jpg, jpeg, atau png dengan ukuran kurang dari 1 mb"
-                      isRequired={false}
+                      placeholder="Masukkan solusi"
+                      value={values.solusi}
+                      error={errors.solusi && touched.solusi}
+                      errorMessage={errors.solusi}
                     />
 
                     <div className="d-flex flex-column-reverse flex-md-row justify-content-md-end gap-1">
@@ -137,7 +76,6 @@ const Tambah = () => {
                         type="button"
                         onClick={() => {
                           handleReset()
-                          setPreview(null)
                         }}
                         color="warning"
                       >
