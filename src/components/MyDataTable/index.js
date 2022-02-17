@@ -39,6 +39,9 @@ const MyDataTable = ({ mainData, filteredData, columns, expandedComponent }) => 
           data={filteredData}
           expandableRows
           expandOnRowClicked
+          pagination
+          paginationRowsPerPageOptions={[5, 10, 15, 20, 25]}
+          paginationPerPage={10}
           expandableRowsComponent={expandedComponent}
           customStyles={customStyles}
           highlightOnHover

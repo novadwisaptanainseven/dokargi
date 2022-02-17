@@ -69,7 +69,7 @@ const Tambah = () => {
             <a href="." onClick={(e) => goBackToParentPage(e)}>
               <CIcon icon={cilArrowLeft} size="xl" />
             </a>
-            <span>Tambah Penyakit</span>
+            <span>Tambah Solusi</span>
           </h3>
         </CCardHeader>
         <CCardBody>
@@ -94,7 +94,7 @@ const Tambah = () => {
                   <CForm onSubmit={handleSubmit}>
                     <FormField
                       name="nm_penyakit"
-                      label="Nama Penyakit"
+                      label="Nama Solusi"
                       onChange={handleChange}
                       onBlur={handleBlur}
                       placeholder="Masukkan nama penyakit"
@@ -106,7 +106,7 @@ const Tambah = () => {
                       type="textarea"
                       rows={5}
                       name="deskripsi"
-                      label="Deskripsi Penyakit"
+                      label="Deskripsi Solusi"
                       onChange={handleChange}
                       onBlur={handleBlur}
                       placeholder="Masukkan deskripsi penyakit"
@@ -117,7 +117,7 @@ const Tambah = () => {
                     <FormField
                       type="file"
                       name="gambar"
-                      label="Gambar Penyakit"
+                      label="Gambar Solusi"
                       onChange={(e) => {
                         setFieldValue('gambar', e.target.files[0])
                         onSelectFile(e)

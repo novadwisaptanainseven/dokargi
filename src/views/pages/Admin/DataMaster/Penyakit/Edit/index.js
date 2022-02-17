@@ -3,15 +3,19 @@ import CIcon from '@coreui/icons-react'
 import { CCard, CRow, CCol, CCardHeader, CCardBody, CForm, CButton } from '@coreui/react'
 import { Formik } from 'formik'
 import React, { useCallback, useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useRouteMatch } from 'react-router-dom'
 import { FormField } from 'src/components'
 import initState from '../Formik/initState'
 import validationSchema from '../Formik/validationSchema'
 
-const Tambah = () => {
+const Edit = () => {
   const history = useHistory()
   const [selectedFile, setSelectedFile] = useState(false)
   const [preview, setPreview] = useState()
+  const match = useRouteMatch()
+  const { params } = match
+
+  console.log(params)
 
   // Menangani preview input gambar setelah dipilih
   const handleSelectedFile = useCallback(() => {
@@ -69,7 +73,7 @@ const Tambah = () => {
             <a href="." onClick={(e) => goBackToParentPage(e)}>
               <CIcon icon={cilArrowLeft} size="xl" />
             </a>
-            <span>Tambah Penyakit</span>
+            <span>Edit Penyakit</span>
           </h3>
         </CCardHeader>
         <CCardBody>
@@ -132,7 +136,7 @@ const Tambah = () => {
                       isRequired={false}
                     />
 
-                    <div className="d-flex flex-column-reverse flex-md-row justify-content-md-end gap-1">
+                    <div className="d-flex justify-content-end gap-1">
                       <CButton
                         type="button"
                         onClick={() => {
@@ -158,4 +162,4 @@ const Tambah = () => {
   )
 }
 
-export default Tambah
+export default Edit

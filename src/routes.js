@@ -54,6 +54,12 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 // Penyakit
 const Penyakit = React.lazy(() => import('./views/pages/Admin/DataMaster/Penyakit'))
 const TambahPenyakit = React.lazy(() => import('./views/pages/Admin/DataMaster/Penyakit/Tambah'))
+const EditPenyakit = React.lazy(() => import('./views/pages/Admin/DataMaster/Penyakit/Edit'))
+
+// Solusi
+const Solusi = React.lazy(() => import('./views/pages/Admin/DataMaster/Solusi'))
+const TambahSolusi = React.lazy(() => import('./views/pages/Admin/DataMaster/Solusi/Tambah'))
+const EditSolusi = React.lazy(() => import('./views/pages/Admin/DataMaster/Solusi/Edit'))
 
 const routes = [
   // Dashboard
@@ -64,7 +70,29 @@ const routes = [
   // Penyakit
   { path: '/data-master', name: 'Data Master', component: Penyakit, exact: true },
   { path: '/data-master/penyakit', name: 'Penyakit', component: Penyakit, exact: true },
-  { path: '/data-master/penyakit/tambah', name: 'Tambah Penyakit', component: TambahPenyakit },
+  {
+    path: '/data-master/penyakit/tambah',
+    name: 'Tambah Penyakit',
+    component: TambahPenyakit,
+  },
+  {
+    path: '/data-master/penyakit/edit/:id',
+    name: 'Edit Penyakit',
+    component: EditPenyakit,
+  },
+
+  // Solusi
+  { path: '/data-master/penyakit/:id/solusi', name: 'Solusi', component: Solusi, exact: true },
+  {
+    path: '/data-master/penyakit/:id/solusi/tambah',
+    name: 'Tambah Solusi',
+    component: TambahSolusi,
+  },
+  {
+    path: '/data-master/penyakit/:id/solusi/edit/:idSolusi',
+    name: 'Edit Solusi',
+    component: EditSolusi,
+  },
 
   { path: '/theme', name: 'Theme', component: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', component: Colors },

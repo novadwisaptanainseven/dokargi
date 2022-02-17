@@ -66,9 +66,7 @@ const AppHeader = () => {
         </CHeaderNav>
       </CContainer>
       <CHeaderDivider />
-      <CContainer fluid>
-        <AppBreadcrumb />
-      </CContainer>
+      <CContainer fluid>{/* <AppBreadcrumb /> */}</CContainer>
     </CHeader>
   )
 }

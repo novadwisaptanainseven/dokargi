@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useRouteMatch } from 'react-router-dom'
 
 import routes from '../routes'
 
@@ -9,11 +9,23 @@ const AppBreadcrumb = () => {
   const currentLocation = useLocation().pathname
 
   const getRouteName = (pathname, routes) => {
-    const currentRoute = routes.find((route) => {
-      return '/admin' + route.path === pathname
-    })
+    const pathname2 = pathname.split('/')
+    let pathId = ''
 
-    return currentRoute?.name || 'Home'
+    if (pathname2.length > 5) {
+      pathId = '/:id'
+      pathname2.splice(pathname2.length - 1, 1)
+    }
+
+    const pathname3 = pathname2.join('/')
+    // console.log(pathname3 + pathId)
+
+    if (pathname2.length < 6) {
+      const currentRoute = routes.find((route) => {
+        return '/admin' + route.path === pathname3 + pathId
+      })
+      return currentRoute?.name || 'Home'
+    }
   }
 
   const getBreadcrumbs = (location) => {

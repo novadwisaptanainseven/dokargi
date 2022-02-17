@@ -4,16 +4,16 @@ import { CCard, CCardHeader, CCardBody, CButton, CButtonGroup } from '@coreui/re
 import PropTypes from 'prop-types'
 import { SampleGambar } from 'src/assets'
 import CIcon from '@coreui/icons-react'
-import { cilPen, cilTrash } from '@coreui/icons'
+import { cilArrowLeft, cilPen, cilTrash } from '@coreui/icons'
 import { MyDataTable, TableControl } from 'src/components'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { handleDelete } from 'src/components/AlertMessages'
 
-const Penyakit = () => {
+const Solusi = () => {
   const [filterText, setFilterText] = useState('')
   const history = useHistory()
   const match = useRouteMatch()
-  const { url } = match
+  const { url, params } = match
 
   // Go To Insert Page
   const handleInsertButton = () => {
@@ -30,51 +30,18 @@ const Penyakit = () => {
     history.push(`${url}/${id}/solusi`)
   }
 
+  // Go back to parent page
+  const goBackToParentPage = (e) => {
+    e.preventDefault()
+    history.goBack()
+  }
+
   const columns = [
     {
-      name: 'Kode',
-      selector: (row) => row.id_penyakit,
-      sortable: true,
-      maxWidth: '100px',
-    },
-    {
-      name: 'Nama Penyakit',
-      selector: (row) => row.nm_penyakit,
-      sortable: true,
-      width: '230px',
-    },
-    {
-      name: 'Deskripsi',
-      selector: (row) => row.deskripsi,
-      sortable: true,
-      width: '400px',
-    },
-    {
       name: 'Solusi',
-      cell: (row) => (
-        <div>
-          <CButton
-            type="button"
-            color="secondary"
-            onClick={() => handleSolusiButton(row.id_penyakit)}
-          >
-            Lihat
-          </CButton>
-        </div>
-      ),
-    },
-    {
-      name: 'Gambar',
-      width: '200px',
-      cell: (row) => (
-        <>
-          <div className="p-2">
-            <a href={SampleGambar} target="_blank" rel="noreferrer">
-              <img className="img-thumbnail" width={100} src={SampleGambar} alt="gambar-penyakit" />
-            </a>
-          </div>
-        </>
-      ),
+      selector: (row) => row.solusi,
+      sortable: true,
+      width: '800px',
     },
     {
       name: 'Aksi',
@@ -103,24 +70,33 @@ const Penyakit = () => {
 
   const data = [
     {
-      id_penyakit: 'PK0001',
-      nm_penyakit: 'Karies Gigi Superfilis',
-      deskripsi:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum tempore quas, cumque delectus porro illo recusandae suscipit incidunt id dolore.',
+      solusi:
+        'Aorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
     },
     {
-      id_penyakit: 'PK0002',
-      nm_penyakit: 'Karies Gigi Media',
-      deskripsi:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum tempore quas, cumque delectus porro illo recusandae suscipit incidunt id dolore.',
+      solusi:
+        'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
+    },
+    {
+      solusi:
+        'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
+    },
+    {
+      solusi:
+        'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
+    },
+    {
+      solusi:
+        'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
+    },
+    {
+      solusi:
+        'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
     },
   ]
 
-  const filteredData = data.filter(
-    (item) =>
-      item.id_penyakit.toLowerCase().includes(filterText.toLowerCase()) ||
-      item.deskripsi.toLowerCase().includes(filterText.toLowerCase()) ||
-      item.nm_penyakit.toLowerCase().includes(filterText.toLowerCase()),
+  const filteredData = data.filter((item) =>
+    item.solusi.toLowerCase().includes(filterText.toLowerCase()),
   )
 
   const ExpandedComponent = ({ data }) => (
@@ -129,24 +105,8 @@ const Penyakit = () => {
         <table className="w-100">
           <tbody>
             <tr valign="top">
-              <th width={130}>Kode</th>
-              <td>{data.id_penyakit}</td>
-            </tr>
-            <tr valign="top">
-              <th width={130}>Penyakit</th>
-              <td>{data.nm_penyakit}</td>
-            </tr>
-            <tr valign="top">
-              <th width={130}>Deskripsi</th>
-              <td>{data.deskripsi}</td>
-            </tr>
-            <tr valign="top">
-              <th width={130}>Gambar</th>
-              <td className="py-2">
-                <a href={SampleGambar} target="_blank" rel="noreferrer">
-                  <img width={300} src={SampleGambar} alt="gambar-penyakit" />
-                </a>
-              </td>
+              <th width={130}>Solusi</th>
+              <td>{data.solusi}</td>
             </tr>
           </tbody>
         </table>
@@ -171,7 +131,12 @@ const Penyakit = () => {
     <>
       <CCard>
         <CCardHeader>
-          <h3>Penyakit</h3>
+          <h3 className="d-flex align-items-center gap-3">
+            <a href="." onClick={(e) => goBackToParentPage(e)}>
+              <CIcon icon={cilArrowLeft} size="xl" />
+            </a>
+            <span>Data Solusi untuk Penyakit {params.id}</span>
+          </h3>
         </CCardHeader>
         <CCardBody className="pb-5">
           {/* Table Control */}
@@ -194,4 +159,4 @@ const Penyakit = () => {
   )
 }
 
-export default Penyakit
+export default Solusi
