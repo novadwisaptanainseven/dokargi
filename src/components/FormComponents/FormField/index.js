@@ -1,4 +1,4 @@
-import { CFormInput, CFormLabel, CFormText, CFormTextarea } from '@coreui/react'
+import { CFormInput, CFormLabel, CFormSelect, CFormText, CFormTextarea } from '@coreui/react'
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -16,6 +16,7 @@ const FormField = ({
   attention = '',
   preview,
   isRequired = true,
+  options,
 }) => {
   return (
     <div className="mb-3">
@@ -78,6 +79,42 @@ const FormField = ({
           <CFormText className="help-block">{attention}</CFormText>
         </>
       )}
+
+      {/* If input type is date */}
+      {type === 'date' && (
+        <>
+          <CFormLabel htmlFor={name}>{label}</CFormLabel>
+          <CFormInput
+            type="date"
+            name={name}
+            id={name}
+            onChange={onChange}
+            onBlur={onBlur}
+            placeholder={placeholder}
+            value={value}
+            className={error ? 'is-invalid' : null}
+          />
+          {error && <div className="invalid-feedback">{errorMessage}</div>}
+        </>
+      )}
+
+      {/* If input type is select */}
+      {type === 'select' && (
+        <>
+          <CFormLabel htmlFor={name}>{label}</CFormLabel>
+          <CFormSelect
+            name={name}
+            id={name}
+            onChange={onChange}
+            onBlur={onBlur}
+            placeholder={placeholder}
+            value={value}
+            options={options}
+            className={error ? 'is-invalid' : null}
+          />
+          {error && <div className="invalid-feedback">{errorMessage}</div>}
+        </>
+      )}
     </div>
   )
 }
@@ -97,6 +134,7 @@ FormField.propTypes = {
   preview: PropTypes.any,
   attention: PropTypes.string,
   isRequired: PropTypes.bool,
+  options: PropTypes.array,
 }
 
 export default FormField

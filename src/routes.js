@@ -61,6 +61,16 @@ const Solusi = React.lazy(() => import('./views/pages/Admin/DataMaster/Solusi'))
 const TambahSolusi = React.lazy(() => import('./views/pages/Admin/DataMaster/Solusi/Tambah'))
 const EditSolusi = React.lazy(() => import('./views/pages/Admin/DataMaster/Solusi/Edit'))
 
+// Gejala
+const Gejala = React.lazy(() => import('./views/pages/Admin/DataMaster/Gejala'))
+const TambahGejala = React.lazy(() => import('./views/pages/Admin/DataMaster/Gejala/Tambah'))
+const EditGejala = React.lazy(() => import('./views/pages/Admin/DataMaster/Gejala/Edit'))
+
+// Pasien
+const Pasien = React.lazy(() => import('./views/pages/Admin/DataMaster/Pasien'))
+const TambahPasien = React.lazy(() => import('./views/pages/Admin/DataMaster/Pasien/Tambah'))
+const EditPasien = React.lazy(() => import('./views/pages/Admin/DataMaster/Pasien/Edit'))
+
 const routes = [
   // Dashboard
   // { path: '/', name: 'Home' },
@@ -92,6 +102,32 @@ const routes = [
     path: '/data-master/penyakit/:id/solusi/edit/:idSolusi',
     name: 'Edit Solusi',
     component: EditSolusi,
+  },
+
+  // Gejala
+  { path: '/data-master/gejala', name: 'Gejala', component: Gejala, exact: true },
+  {
+    path: '/data-master/gejala/tambah',
+    name: 'Tambah Gejala',
+    component: TambahGejala,
+  },
+  {
+    path: '/data-master/gejala/edit/:id',
+    name: 'Edit Gejala',
+    component: EditGejala,
+  },
+
+  // Pasien
+  { path: '/data-master/pasien', name: 'Pasien', component: Pasien, exact: true },
+  {
+    path: '/data-master/pasien/tambah',
+    name: 'Tambah Pasien',
+    component: TambahPasien,
+  },
+  {
+    path: '/data-master/pasien/edit/:id',
+    name: 'Edit Pasien',
+    component: EditPasien,
   },
 
   { path: '/theme', name: 'Theme', component: Colors, exact: true },
