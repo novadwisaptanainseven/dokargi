@@ -71,6 +71,16 @@ const Pasien = React.lazy(() => import('./views/pages/Admin/DataMaster/Pasien'))
 const TambahPasien = React.lazy(() => import('./views/pages/Admin/DataMaster/Pasien/Tambah'))
 const EditPasien = React.lazy(() => import('./views/pages/Admin/DataMaster/Pasien/Edit'))
 
+// Users
+const Users = React.lazy(() => import('./views/pages/Admin/Users'))
+const TambahUsers = React.lazy(() => import('./views/pages/Admin/Users/Tambah'))
+const EditUsers = React.lazy(() => import('./views/pages/Admin/Users/Edit'))
+
+// Bobot
+const Bobot = React.lazy(() => import('./views/pages/Admin/Bobot'))
+const TambahBobot = React.lazy(() => import('./views/pages/Admin/Bobot/Tambah'))
+const EditBobot = React.lazy(() => import('./views/pages/Admin/Bobot/Edit'))
+
 const routes = [
   // Dashboard
   // { path: '/', name: 'Home' },
@@ -128,6 +138,32 @@ const routes = [
     path: '/data-master/pasien/edit/:id',
     name: 'Edit Pasien',
     component: EditPasien,
+  },
+
+  // Users
+  { path: '/users', name: 'Users', component: Users, exact: true },
+  {
+    path: '/users/tambah',
+    name: 'Tambah Users',
+    component: TambahUsers,
+  },
+  {
+    path: '/users/edit/:id',
+    name: 'Edit Users',
+    component: EditUsers,
+  },
+
+  // Bobot
+  { path: '/bobot', name: 'Bobot', component: Bobot, exact: true },
+  {
+    path: '/bobot/tambah',
+    name: 'Tambah Bobot',
+    component: TambahBobot,
+  },
+  {
+    path: '/bobot/edit/:id',
+    name: 'Edit Bobot',
+    component: EditBobot,
   },
 
   { path: '/theme', name: 'Theme', component: Colors, exact: true },

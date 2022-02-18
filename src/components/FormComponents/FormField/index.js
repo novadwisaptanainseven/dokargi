@@ -21,11 +21,11 @@ const FormField = ({
   return (
     <div className="mb-3">
       {/* If input type is text */}
-      {type === 'text' && (
+      {(type === 'text' || type === 'password') && (
         <>
           <CFormLabel htmlFor={name}>{label}</CFormLabel>
           <CFormInput
-            type="text"
+            type={type}
             name={name}
             id={name}
             onChange={onChange}
@@ -59,7 +59,7 @@ const FormField = ({
         <>
           <CFormLabel htmlFor={name}>{label}</CFormLabel>
           <CFormInput
-            type="file"
+            type={type}
             name={name}
             id={name}
             onChange={onChange}
@@ -85,7 +85,7 @@ const FormField = ({
         <>
           <CFormLabel htmlFor={name}>{label}</CFormLabel>
           <CFormInput
-            type="date"
+            type={type}
             name={name}
             id={name}
             onChange={onChange}
