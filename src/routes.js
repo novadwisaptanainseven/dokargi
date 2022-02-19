@@ -81,6 +81,11 @@ const Bobot = React.lazy(() => import('./views/pages/Admin/Bobot'))
 const TambahBobot = React.lazy(() => import('./views/pages/Admin/Bobot/Tambah'))
 const EditBobot = React.lazy(() => import('./views/pages/Admin/Bobot/Edit'))
 
+// Riwayat Diagnosa
+const RiwayatDiagnosa = React.lazy(() => import('./views/pages/Admin/RiwayatDiagnosa'))
+const TambahRiwayatDiagnosa = React.lazy(() => import('./views/pages/Admin/RiwayatDiagnosa/Tambah'))
+const DetailRiwayatDiagnosa = React.lazy(() => import('./views/pages/Admin/RiwayatDiagnosa/Detail'))
+
 const routes = [
   // Dashboard
   // { path: '/', name: 'Home' },
@@ -164,6 +169,19 @@ const routes = [
     path: '/bobot/edit/:id',
     name: 'Edit Bobot',
     component: EditBobot,
+  },
+
+  // Riwayat Diagnosa
+  { path: '/riwayat-diagnosa', name: 'RiwayatDiagnosa', component: RiwayatDiagnosa, exact: true },
+  {
+    path: '/riwayat-diagnosa/tambah',
+    name: 'Tambah RiwayatDiagnosa',
+    component: TambahRiwayatDiagnosa,
+  },
+  {
+    path: '/riwayat-diagnosa/detail/:id',
+    name: 'Detail RiwayatDiagnosa',
+    component: DetailRiwayatDiagnosa,
   },
 
   { path: '/theme', name: 'Theme', component: Colors, exact: true },

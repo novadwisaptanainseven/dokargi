@@ -5,9 +5,11 @@ import PropTypes from 'prop-types'
 const TableControl = ({ handleInsertButton, handleFilter, filterText, handleFilterReset }) => {
   return (
     <div className="table-control mb-3 d-sm-block d-md-flex justify-content-between">
-      <CButton color="primary btn-tambah" onClick={handleInsertButton}>
-        Tambah
-      </CButton>
+      {handleInsertButton && (
+        <CButton color="primary btn-tambah" onClick={handleInsertButton}>
+          Tambah
+        </CButton>
+      )}
       <CInputGroup className="input-pencarian">
         <CFormInput
           type="text"

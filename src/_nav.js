@@ -52,8 +52,8 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Riwayat Konsultasi',
-    to: rootPath + '/riwayat-konsultasi',
+    name: 'Riwayat Diagnosa',
+    to: rootPath + '/riwayat-diagnosa',
     icon: <CIcon icon={cilBook} customClassName="nav-icon" />,
   },
   {
