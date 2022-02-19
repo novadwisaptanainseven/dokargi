@@ -1,45 +1,35 @@
 import { cilArrowLeft } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
-import { CCard, CRow, CCol, CCardHeader, CCardBody, CForm, CButton } from '@coreui/react'
+import {
+  CCard,
+  CRow,
+  CCol,
+  CCardHeader,
+  CCardBody,
+  CForm,
+  CButton,
+  CCardTitle,
+  CCardText,
+} from '@coreui/react'
 import { Formik } from 'formik'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { FormField } from 'src/components'
 import initState from '../Formik/initState'
-import validationSchemaEdit from '../Formik/validationSchemaEdit'
+import validationSchema from '../Formik/validationSchema'
 
 const Edit = () => {
   const history = useHistory()
-  const [selectedFile, setSelectedFile] = useState(false)
-  const [preview, setPreview] = useState()
 
-  // Menangani preview input gambar setelah dipilih
-  const handleSelectedFile = useCallback(() => {
-    if (!selectedFile) {
-      setPreview(null)
-      return
-    }
+  const options = [
+    { value: 'PK0001', label: 'Karies Gigi Superficialis' },
+    { value: 'PK0002', label: 'Karies Gigi Media' },
+  ]
 
-    const objectUrl = URL.createObjectURL(selectedFile)
-    setPreview(objectUrl)
-
-    // Free memory when ever this component unmount
-    return () => {
-      URL.revokeObjectURL(objectUrl)
-    }
-  }, [selectedFile])
-
-  useEffect(() => {
-    handleSelectedFile()
-  }, [handleSelectedFile])
-
-  const onSelectFile = (e) => {
-    if (!e.target.files || e.target.files.length === 0) {
-      setSelectedFile(undefined)
-    }
-
-    setSelectedFile(e.target.files[0])
-  }
+  const optionsGejala = [
+    { value: 'GJ0001', label: 'Karies Gigi Superficialis' },
+    { value: 'GJ0002', label: 'Karies Gigi Media' },
+  ]
 
   const goBackToParentPage = (e) => {
     e.preventDefault()
@@ -70,15 +60,70 @@ const Edit = () => {
             <a href="." onClick={(e) => goBackToParentPage(e)}>
               <CIcon icon={cilArrowLeft} size="xl" />
             </a>
-            <span>Edit User</span>
+            <span>Edit Bobot</span>
           </h3>
         </CCardHeader>
         <CCardBody>
           <CRow>
+            <CCol md="6" className="mb-3">
+              <CCard color="info" textColor="white">
+                <CCardHeader>
+                  <h5>Petunjuk Pengisian Pakar / Bobot !</h5>
+                </CCardHeader>
+                <CCardBody>
+                  <CCardText style={{ textAlign: 'justify' }}>
+                    <p>
+                      Silahkan pilih gejala yang sesuai dengan penyakit yang ada dan berikan nilai
+                      kepastian <b>(MB &amp; MD)</b> dengan cakupan sebagai berikut.
+                    </p>
+                    <ul>
+                      <li>
+                        <b>1.0</b> (Pasti Ya)
+                      </li>
+                      <li>
+                        <b>0.8</b> (Hampir Pasti)
+                      </li>
+                      <li>
+                        <b>0.6</b> (Kemungkinan Besar)
+                      </li>
+                      <li>
+                        <b>0.4</b> (Mungkin)
+                      </li>
+                      <li>
+                        <b>0.2</b> (Hampir Mungkin)
+                      </li>
+                      <li>
+                        <b>0.0</b> (Tidak Tahu atau Tidak Yakin)
+                      </li>
+                    </ul>
+                    <p>
+                      <b>CF (Pakar) = MB - MD</b> <br />
+                      MB: Ukuran kenaikan kepercayaan (measure of increased belief)
+                      <br />
+                      MD: Ukuran kenaikan ketidakpercayaan (measure of increased disbelief)
+                    </p>
+                    <p>
+                      <b>Contoh: </b> <br />
+                      Jika kepercayaan <b>(MB)</b> Anda terhadap gejala kedalaman lubang gigi kecil
+                      untuk penyakit Karies Gigi Superficialis adalah <b>0.8 (Hampir Pasti)</b>{' '}
+                      <br />
+                      Dan ketidakpercayaan <b>(MD)</b> Anda terhadap gejala kedalaman lubang gigi
+                      kecil untuk penyakit Karies Gigi Superficialis adalah{' '}
+                      <b>0.2 (Hampir Mungkin)</b>
+                    </p>
+                    <p>
+                      <b>Maka: </b> CF(Pakar) = MB - MD (0.8 - 0.2) = 0.8 <br />
+                      Di mana nilai kepastian Anda terhadap gejala kedalaman lubang gigi kecil untuk
+                      penyakit Karies Gigi Superficialis adalah <b>0.6 (Kemungkinan Besar)</b>
+                    </p>
+                  </CCardText>
+                </CCardBody>
+              </CCard>
+            </CCol>
             <CCol md="6">
               <Formik
                 initialValues={initState('')}
-                validationSchema={validationSchemaEdit}
+                validationSchema={validationSchema}
                 onSubmit={handleFormSubmit}
                 enableReinitialize
               >
@@ -94,73 +139,51 @@ const Edit = () => {
                 }) => (
                   <CForm onSubmit={handleSubmit}>
                     <FormField
-                      name="nama"
-                      label="Nama"
-                      onChange={handleChange}
+                      type="selectdata"
+                      options={options}
+                      id="id_penyakit"
+                      name="id_penyakit"
+                      label="Penyakit"
+                      onChange={(opt) => setFieldValue('id_penyakit', opt ? opt.value : '')}
                       onBlur={handleBlur}
-                      placeholder="Masukkan nama"
-                      value={values.nama}
-                      error={errors.nama && touched.nama}
-                      errorMessage={errors.nama}
+                      placeholder="-- Pilih Penyakit --"
+                      value={values.id_penyakit}
+                      error={errors.id_penyakit && touched.id_penyakit}
+                      errorMessage={errors.id_penyakit}
                     />
                     <FormField
-                      name="username"
-                      label="Username"
+                      type="selectdata"
+                      options={options}
+                      name="id_gejala"
+                      label="Gejala"
+                      onChange={(opt) => setFieldValue('id_gejala', opt ? opt.value : '')}
+                      onBlur={handleBlur}
+                      placeholder="-- Pilih Gejala --"
+                      value={values.id_gejala}
+                      error={errors.id_gejala && touched.id_gejala}
+                      errorMessage={errors.id_gejala}
+                    />
+                    <FormField
+                      type="number"
+                      name="nilai_mb"
+                      label="Nilai MB"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      placeholder="Masukkan username"
-                      value={values.username}
-                      error={errors.username && touched.username}
-                      errorMessage={errors.username}
+                      placeholder="Masukkan nilai MB. Contoh: 0.2"
+                      value={values.nilai_mb}
+                      error={errors.nilai_mb && touched.nilai_mb}
+                      errorMessage={errors.nilai_mb}
                     />
-                    <div className="mt-1" style={{ fontStyle: 'italic' }}>
-                      <b>Password bisa dikosongi jika tidak ingin ubah password</b>
-                    </div>
-                    <CRow>
-                      <CCol md="6">
-                        <FormField
-                          type="password"
-                          name="password"
-                          label="Password"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          placeholder="Masukkan password"
-                          value={values.password}
-                          error={errors.password && touched.password}
-                          errorMessage={errors.password}
-                        />
-                      </CCol>
-                      <CCol md="6">
-                        <FormField
-                          type="password"
-                          name="konfirmasi_password"
-                          label="Konfirmasi Password"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          placeholder="Masukkan konfirmasi password"
-                          value={values.konfirmasi_password}
-                          error={errors.konfirmasi_password && touched.konfirmasi_password}
-                          errorMessage={errors.konfirmasi_password}
-                        />
-                      </CCol>
-                    </CRow>
-
                     <FormField
-                      type="file"
-                      name="foto"
-                      label="Foto"
-                      onChange={(e) => {
-                        setFieldValue('foto', e.target.files[0])
-                        onSelectFile(e)
-                      }}
+                      type="number"
+                      name="nilai_md"
+                      label="Nilai MD"
+                      onChange={handleChange}
                       onBlur={handleBlur}
-                      placeholder="Masukkan foto penyakit"
-                      value={values.foto}
-                      error={errors.foto && touched.foto}
-                      errorMessage={errors.foto}
-                      preview={preview}
-                      attention="File harus bertipe jpg, jpeg, atau png dengan ukuran kurang dari 1 mb"
-                      isRequired={true}
+                      placeholder="Masukkan nilai MD. Contoh: 0.4"
+                      value={values.nilai_md}
+                      error={errors.nilai_md && touched.nilai_md}
+                      errorMessage={errors.nilai_md}
                     />
 
                     <div className="d-flex flex-column-reverse flex-md-row justify-content-md-end gap-1">

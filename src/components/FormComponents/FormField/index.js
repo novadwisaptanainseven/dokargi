@@ -1,6 +1,7 @@
 import { CFormInput, CFormLabel, CFormSelect, CFormText, CFormTextarea } from '@coreui/react'
 import React from 'react'
 import PropTypes from 'prop-types'
+import SelectData from 'react-select'
 
 const FormField = ({
   type = 'text',
@@ -18,10 +19,18 @@ const FormField = ({
   isRequired = true,
   options,
 }) => {
+  // Custom styles for select data
+  const customStyles = (error) => ({
+    control: (provided, state) => ({
+      ...provided,
+      border: error ? '1px solid #dc3545' : provided.border,
+    }),
+  })
+
   return (
     <div className="mb-3">
       {/* If input type is text */}
-      {(type === 'text' || type === 'password') && (
+      {(type === 'text' || type === 'password' || type === 'number') && (
         <>
           <CFormLabel htmlFor={name}>{label}</CFormLabel>
           <CFormInput
@@ -113,6 +122,24 @@ const FormField = ({
             className={error ? 'is-invalid' : null}
           />
           {error && <div className="invalid-feedback">{errorMessage}</div>}
+        </>
+      )}
+
+      {/* If input type is select data */}
+      {type === 'selectdata' && (
+        <>
+          <CFormLabel htmlFor={name}>{label}</CFormLabel>
+          <SelectData
+            styles={customStyles(error)}
+            inputId={name}
+            name={name}
+            options={options}
+            onChange={onChange}
+            onBlur={onBlur}
+            placeholder={placeholder}
+            isClearable
+          />
+          {error && <div className="text-danger">{errorMessage}</div>}
         </>
       )}
     </div>
