@@ -86,6 +86,10 @@ const RiwayatDiagnosa = React.lazy(() => import('./views/pages/Admin/RiwayatDiag
 const TambahRiwayatDiagnosa = React.lazy(() => import('./views/pages/Admin/RiwayatDiagnosa/Tambah'))
 const DetailRiwayatDiagnosa = React.lazy(() => import('./views/pages/Admin/RiwayatDiagnosa/Detail'))
 
+// Pengaturan
+// Informasi Umum
+const InformasiUmum = React.lazy(() => import('./views/pages/Admin/Pengaturan/InformasiUmum'))
+
 const routes = [
   // Dashboard
   // { path: '/', name: 'Home' },
@@ -172,7 +176,7 @@ const routes = [
   },
 
   // Riwayat Diagnosa
-  { path: '/riwayat-diagnosa', name: 'RiwayatDiagnosa', component: RiwayatDiagnosa, exact: true },
+  { path: '/riwayat-diagnosa', name: 'Riwayat Diagnosa', component: RiwayatDiagnosa, exact: true },
   {
     path: '/riwayat-diagnosa/tambah',
     name: 'Tambah RiwayatDiagnosa',
@@ -183,6 +187,11 @@ const routes = [
     name: 'Detail RiwayatDiagnosa',
     component: DetailRiwayatDiagnosa,
   },
+
+  // Pengaturan
+  // Informasi Umum
+  { path: '/pengaturan', name: 'Pengaturan', component: InformasiUmum, exact: true },
+  { path: '/pengaturan/informasi-umum', name: 'Informasi Umum', component: InformasiUmum },
 
   { path: '/theme', name: 'Theme', component: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', component: Colors },

@@ -63,10 +63,17 @@ const _nav = [
     icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
   },
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: 'Pengaturan',
     to: rootPath + '/pengaturan',
     icon: <CIcon icon={cilCog} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Informasi Umum',
+        to: rootPath + '/pengaturan/informasi-umum',
+      },
+    ],
   },
   // {
   //   component: CNavTitle,
