@@ -1,7 +1,11 @@
 import React from 'react'
 
 const FrontPage = () => {
-  return <div>FrontPage</div>
+  return (
+    <div>
+      <h1>This Is Front Page</h1>
+    </div>
+  )
 }
 
 export default FrontPage

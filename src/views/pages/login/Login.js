@@ -15,8 +15,16 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
+import { LoginIlustration, SampleGambar } from 'src/assets'
+import { Formik } from 'formik'
+import validationSchema from './Formik/validationSchema'
+import initState from './Formik/initState'
 
 const Login = () => {
+  const handleFormSubmit = (values) => {
+    console.log(values)
+  }
+
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -25,55 +33,78 @@ const Login = () => {
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
-                  <CForm>
-                    <h1>Login</h1>
-                    <p className="text-medium-emphasis">Sign In to your account</p>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupText>
-                        <CIcon icon={cilUser} />
-                      </CInputGroupText>
-                      <CFormInput placeholder="Username" autoComplete="username" />
-                    </CInputGroup>
-                    <CInputGroup className="mb-4">
-                      <CInputGroupText>
-                        <CIcon icon={cilLockLocked} />
-                      </CInputGroupText>
-                      <CFormInput
-                        type="password"
-                        placeholder="Password"
-                        autoComplete="current-password"
-                      />
-                    </CInputGroup>
-                    <CRow>
-                      <CCol xs={6}>
-                        <CButton color="primary" className="px-4">
-                          Login
-                        </CButton>
-                      </CCol>
-                      <CCol xs={6} className="text-right">
-                        <CButton color="link" className="px-0">
-                          Forgot password?
-                        </CButton>
-                      </CCol>
-                    </CRow>
-                  </CForm>
+                  <Formik
+                    initialValues={initState}
+                    validationSchema={validationSchema}
+                    onSubmit={handleFormSubmit}
+                  >
+                    {({ values, touched, errors, handleChange, handleBlur, handleSubmit }) => (
+                      <CForm onSubmit={handleSubmit}>
+                        <h2 className="mb-3">Login Administrator</h2>
+                        <p className="text-medium-emphasis">Masuk ke aplikasi Dokargi</p>
+                        <CInputGroup className="mb-1">
+                          <CInputGroupText
+                            className={
+                              errors.username && touched.username
+                                ? 'text-danger border-danger'
+                                : null
+                            }
+                          >
+                            <CIcon icon={cilUser} />
+                          </CInputGroupText>
+                          <CFormInput
+                            name="username"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.username}
+                            placeholder="Username"
+                            autoComplete="username"
+                            className={errors.username && touched.username ? 'is-invalid' : null}
+                          />
+                        </CInputGroup>
+                        {errors.username && touched.username && (
+                          <div className="text-danger">{errors.username}</div>
+                        )}
+                        <CInputGroup className="mt-2">
+                          <CInputGroupText
+                            className={
+                              errors.password && touched.password
+                                ? 'text-danger border-danger'
+                                : null
+                            }
+                          >
+                            <CIcon icon={cilLockLocked} />
+                          </CInputGroupText>
+                          <CFormInput
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            autoComplete="current-password"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.password}
+                            className={errors.password && touched.password ? 'is-invalid' : null}
+                          />
+                        </CInputGroup>
+                        {errors.password && touched.password && (
+                          <div className="text-danger">{errors.password}</div>
+                        )}
+                        <div className="mt-2 d-md-flex justify-content-sm-end">
+                          <CButton type="submit" color="primary" className="px-4 btn-tambah">
+                            Login
+                          </CButton>
+                        </div>
+                      </CForm>
+                    )}
+                  </Formik>
                 </CCardBody>
               </CCard>
-              <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
-                <CCardBody className="text-center">
-                  <div>
-                    <h2>Sign up</h2>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                      tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>
-                        Register Now!
-                      </CButton>
-                    </Link>
-                  </div>
-                </CCardBody>
+              <CCard className="text-white overflow-hidden d-none d-md-block">
+                <img
+                  src={LoginIlustration}
+                  alt="ilustrasi-login"
+                  style={{ height: '100%', width: '100%', objectFit: 'cover' }}
+                />
               </CCard>
             </CCardGroup>
           </CCol>
