@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import {
+  CAlert,
   CButton,
   CCard,
   CCardBody,
@@ -19,10 +20,41 @@ import { LoginIlustration, SampleGambar } from 'src/assets'
 import { Formik } from 'formik'
 import validationSchema from './Formik/validationSchema'
 import initState from './Formik/initState'
+import { GlobalContext } from 'src/context/Provider'
+import { useHistory } from 'react-router-dom'
+import { getKonten } from 'src/context/Konten'
+import { checkToken, login } from 'src/context/actions/Auth'
+import { CLEAN_UP } from 'src/context/actionTypes'
+
+import swal2 from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+const Swal = withReactContent(swal2)
 
 const Login = () => {
+  const history = useHistory()
+  const { loginState, loginDispatch, kontenState, kontenDispatch } = useContext(GlobalContext)
+  const { loading, error } = loginState
+  const { data: dataKonten } = kontenState
+
+  useEffect(() => {
+    getKonten(kontenDispatch)
+  }, [kontenDispatch])
+
+  useEffect(() => {
+    // Untuk menampilkan alert ketika user belum logout
+    checkToken(history, Swal)
+
+    return () => {
+      loginDispatch({
+        type: CLEAN_UP,
+      })
+    }
+  }, [loginDispatch])
+
   const handleFormSubmit = (values) => {
     console.log(values)
+
+    login(values, loginDispatch)
   }
 
   return (
@@ -42,6 +74,13 @@ const Login = () => {
                       <CForm onSubmit={handleSubmit}>
                         <h2 className="mb-3">Login Administrator</h2>
                         <p className="text-medium-emphasis">Masuk ke aplikasi Dokargi</p>
+                        {/* Alert if login failed */}
+                        {error && (
+                          <CAlert color="danger" dismissible>
+                            {error}
+                          </CAlert>
+                        )}
+
                         <CInputGroup className="mb-1">
                           <CInputGroupText
                             className={
@@ -90,8 +129,13 @@ const Login = () => {
                           <div className="text-danger">{errors.password}</div>
                         )}
                         <div className="mt-2 d-md-flex justify-content-sm-end">
-                          <CButton type="submit" color="primary" className="px-4 btn-tambah">
-                            Login
+                          <CButton
+                            type="submit"
+                            color="primary"
+                            className="px-4 btn-tambah"
+                            disabled={loading ? true : false}
+                          >
+                            {loading ? 'Loading...' : 'Masuk'}
                           </CButton>
                         </div>
                       </CForm>
