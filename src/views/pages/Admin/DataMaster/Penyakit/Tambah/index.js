@@ -2,9 +2,11 @@ import { cilArrowLeft } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { CCard, CRow, CCol, CCardHeader, CCardBody, CForm, CButton } from '@coreui/react'
 import { Formik } from 'formik'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { FormField } from 'src/components'
+import { insertPenyakit } from 'src/context/actions/Penyakit'
+import { GlobalContext } from 'src/context/Provider'
 import initState from '../Formik/initState'
 import validationSchema from '../Formik/validationSchema'
 
@@ -12,6 +14,8 @@ const Tambah = () => {
   const history = useHistory()
   const [selectedFile, setSelectedFile] = useState(false)
   const [preview, setPreview] = useState()
+  const [loading, setLoading] = useState(false)
+  const { penyakitDispatch } = useContext(GlobalContext)
 
   // Menangani preview input gambar setelah dipilih
   const handleSelectedFile = useCallback(() => {
@@ -59,6 +63,8 @@ const Tambah = () => {
     for (let pair of formData.entries()) {
       console.log(pair)
     }
+
+    insertPenyakit(formData, setLoading, history, penyakitDispatch)
   }
 
   return (
@@ -143,8 +149,8 @@ const Tambah = () => {
                       >
                         Reset
                       </CButton>
-                      <CButton type="submit" color="primary">
-                        Simpan
+                      <CButton type="submit" color="primary" disabled={loading}>
+                        {loading ? 'Loading...' : 'Simpan'}
                       </CButton>
                     </div>
                   </CForm>

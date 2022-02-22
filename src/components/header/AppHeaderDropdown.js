@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   CAvatar,
   CDropdown,
@@ -12,12 +12,33 @@ import { cilLockLocked, cilUser } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
 import avatar8 from './../../assets/images/avatars/8.jpg'
+import { GlobalContext } from 'src/context/Provider'
+import getImage from 'src/context/actions/Files/getImage'
 
 const AppHeaderDropdown = () => {
+  const { profileUserState } = useContext(GlobalContext)
+  const { data } = profileUserState
+
   return (
     <CDropdown variant="nav-item">
-      <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
-        <CAvatar src={avatar8} size="md" />
+      <CDropdownToggle
+        placement="bottom-end"
+        className="py-0 d-flex align-items-center gap-2"
+        caret={false}
+      >
+        <span className="d-none d-md-block">{data?.user?.nama}</span>
+        <img
+          src={getImage('foto_pengguna', data?.user?.foto)}
+          alt={data?.user?.foto}
+          style={{ width: '50px', height: '50px', objectFit: 'cover' }}
+          className="rounded-circle"
+        />
+        {/* <CAvatar
+          src={getImage('foto_pengguna', data?.user?.foto)}
+          size="md"
+          style={{ width: '20px', height: '20px' }}
+        /> */}
+        {/* <CAvatar src={avatar8} size="md" /> */}
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
         {/* <CDropdownHeader className="bg-light fw-semibold py-2">Account</CDropdownHeader>

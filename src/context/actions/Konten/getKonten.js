@@ -1,6 +1,6 @@
 import axiosInstance from 'src/helpers/axios'
 import { baseUrlImg } from 'src/helpers/url'
-import { LOADING, SUCCESS } from '../actionTypes'
+import { LOADING, SUCCESS } from '../../actionTypes'
 
 const getKonten = (dispatch) => {
   dispatch({

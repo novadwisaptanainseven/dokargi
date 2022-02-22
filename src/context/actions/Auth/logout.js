@@ -1,4 +1,4 @@
-import axiosInstance from '../../../helpers/axios'
+import axiosInstance from 'src/helpers/axios'
 
 const logout = () => {
   axiosInstance

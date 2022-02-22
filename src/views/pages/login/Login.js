@@ -22,7 +22,7 @@ import validationSchema from './Formik/validationSchema'
 import initState from './Formik/initState'
 import { GlobalContext } from 'src/context/Provider'
 import { useHistory } from 'react-router-dom'
-import { getKonten } from 'src/context/Konten'
+import { getKonten } from 'src/context/actions/Konten'
 import { checkToken, login } from 'src/context/actions/Auth'
 import { CLEAN_UP } from 'src/context/actionTypes'
 
@@ -49,7 +49,7 @@ const Login = () => {
         type: CLEAN_UP,
       })
     }
-  }, [loginDispatch])
+  }, [loginDispatch, history])
 
   const handleFormSubmit = (values) => {
     console.log(values)

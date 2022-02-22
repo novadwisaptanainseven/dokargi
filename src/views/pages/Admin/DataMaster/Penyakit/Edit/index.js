@@ -2,9 +2,12 @@ import { cilArrowLeft } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { CCard, CRow, CCol, CCardHeader, CCardBody, CForm, CButton } from '@coreui/react'
 import { Formik } from 'formik'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState, useContext } from 'react'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { FormField } from 'src/components'
+import getImage from 'src/context/actions/Files/getImage'
+import { editPenyakit, getPenyakitById } from 'src/context/actions/Penyakit'
+import { GlobalContext } from 'src/context/Provider'
 import initState from '../Formik/initState'
 import validationSchema from '../Formik/validationSchema'
 
@@ -14,13 +17,21 @@ const Edit = () => {
   const [preview, setPreview] = useState()
   const match = useRouteMatch()
   const { params } = match
+  const [loading, setLoading] = useState(false)
+  const { penyakitDispatch } = useContext(GlobalContext)
+  const [penyakit, setPenyakit] = useState('')
 
-  console.log(params)
+  // Get penyakit by id
+  useEffect(() => {
+    getPenyakitById(params.id, setPenyakit)
+  }, [params])
 
   // Menangani preview input gambar setelah dipilih
   const handleSelectedFile = useCallback(() => {
+    const gambar = penyakit ? getImage('foto_penyakit', penyakit.gambar) : null
+
     if (!selectedFile) {
-      setPreview(null)
+      setPreview(gambar)
       return
     }
 
@@ -31,7 +42,7 @@ const Edit = () => {
     return () => {
       URL.revokeObjectURL(objectUrl)
     }
-  }, [selectedFile])
+  }, [selectedFile, penyakit])
 
   useEffect(() => {
     handleSelectedFile()
@@ -63,6 +74,8 @@ const Edit = () => {
     for (let pair of formData.entries()) {
       console.log(pair)
     }
+
+    editPenyakit(params.id, formData, setLoading, history, penyakitDispatch)
   }
 
   return (
@@ -80,7 +93,7 @@ const Edit = () => {
           <CRow>
             <CCol md="6">
               <Formik
-                initialValues={initState('')}
+                initialValues={initState(penyakit)}
                 validationSchema={validationSchema}
                 onSubmit={handleFormSubmit}
                 enableReinitialize
@@ -147,8 +160,8 @@ const Edit = () => {
                       >
                         Reset
                       </CButton>
-                      <CButton type="submit" color="primary">
-                        Simpan
+                      <CButton type="submit" color="primary" disabled={loading}>
+                        {loading ? 'Loading...' : 'Simpan'}
                       </CButton>
                     </div>
                   </CForm>

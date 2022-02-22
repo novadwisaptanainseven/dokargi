@@ -1,4 +1,4 @@
-import axiosInstance from '../../../helpers/axios'
+import axiosInstance from 'src/helpers/axios'
 import { ERROR, LOADING, SUCCESS } from '../../actionTypes'
 
 const login = (values, dispatch) => {

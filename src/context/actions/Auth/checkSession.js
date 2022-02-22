@@ -1,4 +1,4 @@
-import axiosInstance from '../../../helpers/axios'
+import axiosInstance from 'src/helpers/axios'
 import { SUCCESS } from '../../actionTypes'
 
 const checkSession = (history, Swal, setIsLogin, profileUserDispatch) => {

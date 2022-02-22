@@ -1,19 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect, useMemo } from 'react'
 import { CCard, CCardHeader, CCardBody, CButton, CButtonGroup } from '@coreui/react'
 
 import PropTypes from 'prop-types'
 import { SampleGambar } from 'src/assets'
 import CIcon from '@coreui/icons-react'
 import { cilPen, cilTrash } from '@coreui/icons'
-import { MyDataTable, TableControl } from 'src/components'
+import { LoadingComponent, MyDataTable, TableControl } from 'src/components'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { handleDelete } from 'src/components/AlertMessages'
+import { GlobalContext } from 'src/context/Provider'
+import { deletePenyakit, getPenyakit } from 'src/context/actions/Penyakit'
+import getImage from 'src/context/actions/Files/getImage'
 
 const Penyakit = () => {
   const [filterText, setFilterText] = useState('')
   const history = useHistory()
   const match = useRouteMatch()
   const { url } = match
+  const { penyakitState, penyakitDispatch } = useContext(GlobalContext)
+  const { data: dataPenyakit, loading } = penyakitState
+
+  // Get data penyakit
+  useEffect(() => getPenyakit(penyakitDispatch), [penyakitDispatch])
 
   // Go To Insert Page
   const handleInsertButton = () => {
@@ -69,8 +77,13 @@ const Penyakit = () => {
       cell: (row) => (
         <>
           <div className="p-2">
-            <a href={SampleGambar} target="_blank" rel="noreferrer">
-              <img className="img-thumbnail" width={100} src={SampleGambar} alt="gambar-penyakit" />
+            <a href={getImage('foto_penyakit', row.gambar)} target="_blank" rel="noreferrer">
+              <img
+                className="img-thumbnail"
+                width={100}
+                src={getImage('foto_penyakit', row.gambar)}
+                alt={getImage('foto_penyakit', row.gambar)}
+              />
             </a>
           </div>
         </>
@@ -88,7 +101,11 @@ const Penyakit = () => {
             <CButton size="sm" color="success" onClick={() => handleEditButton(row.id_penyakit)}>
               <CIcon className="text-white" icon={cilPen} />
             </CButton>
-            <CButton size="sm" color="danger" onClick={() => handleDelete(row.id_penyakit)}>
+            <CButton
+              size="sm"
+              color="danger"
+              onClick={() => handleDelete(row.id_penyakit, deletePenyakit, penyakitDispatch)}
+            >
               <CIcon className="text-white" icon={cilTrash} />
             </CButton>
           </CButtonGroup>
@@ -97,7 +114,16 @@ const Penyakit = () => {
     },
   ]
 
-  const data = [
+  const data = !dataPenyakit
+    ? []
+    : dataPenyakit.map((item) => ({
+        id_penyakit: item.id_penyakit,
+        nm_penyakit: item.nm_penyakit,
+        deskripsi: item.deskripsi,
+        gambar: item.gambar,
+      }))
+
+  const data2 = [
     {
       id_penyakit: 'PK0001',
       nm_penyakit: 'Karies Gigi Superfilis',
@@ -139,8 +165,12 @@ const Penyakit = () => {
             <tr valign="top">
               <th width={130}>Gambar</th>
               <td className="py-2">
-                <a href={SampleGambar} target="_blank" rel="noreferrer">
-                  <img width={300} src={SampleGambar} alt="gambar-penyakit" />
+                <a href={getImage('foto_penyakit', data.gambar)} target="_blank" rel="noreferrer">
+                  <img
+                    width={300}
+                    src={getImage('foto_penyakit', data.gambar)}
+                    alt={getImage('foto_penyakit', data.gambar)}
+                  />
                 </a>
               </td>
             </tr>
@@ -165,27 +195,32 @@ const Penyakit = () => {
 
   return (
     <>
-      <CCard>
-        <CCardHeader>
-          <h3>Penyakit</h3>
-        </CCardHeader>
-        <CCardBody className="pb-5">
-          {/* Table Control */}
-          <TableControl
-            handleFilter={handleFilter}
-            handleFilterReset={handleFilterReset}
-            filterText={filterText}
-            handleInsertButton={handleInsertButton}
-          />
-          {/* Datatable Custom */}
-          <MyDataTable
-            mainData={data}
-            filteredData={filteredData}
-            expandedComponent={ExpandedComponent}
-            columns={columns}
-          />
-        </CCardBody>
-      </CCard>
+      {/* Loading Spinner */}
+      {!dataPenyakit && loading ? (
+        <LoadingComponent />
+      ) : (
+        <CCard>
+          <CCardHeader>
+            <h3>Penyakit</h3>
+          </CCardHeader>
+          <CCardBody className="pb-5">
+            {/* Table Control */}
+            <TableControl
+              handleFilter={handleFilter}
+              handleFilterReset={handleFilterReset}
+              filterText={filterText}
+              handleInsertButton={handleInsertButton}
+            />
+            {/* Datatable Custom */}
+            <MyDataTable
+              mainData={data}
+              filteredData={filteredData}
+              expandedComponent={ExpandedComponent}
+              columns={columns}
+            />
+          </CCardBody>
+        </CCard>
+      )}
     </>
   )
 }

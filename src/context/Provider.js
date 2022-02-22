@@ -12,11 +12,60 @@ export const GlobalProvider = ({ children }) => {
   // Konten
   const [kontenState, kontenDispatch] = useReducer(reducer, initState)
 
-  const dataGlobal = { loginState, loginDispatch, kontenState, kontenDispatch }
+  // Profile User
+  const [profileUserState, profileUserDispatch] = useReducer(reducer, initState)
+
+  // Dashboard
+  const [dashboardState, dashboardDispatch] = useReducer(reducer, initState)
+
+  // Penyakit
+  const [penyakitState, penyakitDispatch] = useReducer(reducer, initState)
+
+  // Gejala
+  const [gejalaState, gejalaDispatch] = useReducer(reducer, initState)
+
+  // Pasien
+  const [pasienState, pasienDispatch] = useReducer(reducer, initState)
+
+  // Bobot
+  const [bobotState, bobotDispatch] = useReducer(reducer, initState)
+
+  // Diagnosa
+  const [diagnosaState, diagnosaDispatch] = useReducer(reducer, initState)
+
+  // Users
+  const [usersState, usersDispatch] = useReducer(reducer, initState)
+
+  const dataGlobal = {
+    loginState,
+    loginDispatch,
+    kontenState,
+    kontenDispatch,
+    profileUserState,
+    profileUserDispatch,
+    dashboardState,
+    dashboardDispatch,
+    penyakitState,
+    penyakitDispatch,
+    gejalaState,
+    gejalaDispatch,
+    pasienState,
+    pasienDispatch,
+    bobotState,
+    bobotDispatch,
+    usersState,
+    usersDispatch,
+    diagnosaState,
+    diagnosaDispatch,
+  }
 
   return (
     <>
       <GlobalContext.Provider value={dataGlobal}>{children}</GlobalContext.Provider>
     </>
   )
+}
+
+GlobalProvider.propTypes = {
+  children: PropTypes.node,
 }
