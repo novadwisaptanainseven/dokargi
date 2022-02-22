@@ -196,9 +196,9 @@ const Penyakit = () => {
   return (
     <>
       {/* Loading Spinner */}
-      {!dataPenyakit && loading ? (
-        <LoadingComponent />
-      ) : (
+      {!dataPenyakit && loading && <LoadingComponent />}
+
+      {dataPenyakit && (
         <CCard>
           <CCardHeader>
             <h3>Penyakit</h3>

@@ -1,19 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { CCard, CCardHeader, CCardBody, CButton, CButtonGroup } from '@coreui/react'
 
 import PropTypes from 'prop-types'
-import { SampleGambar } from 'src/assets'
 import CIcon from '@coreui/icons-react'
 import { cilArrowLeft, cilPen, cilTrash } from '@coreui/icons'
 import { MyDataTable, TableControl } from 'src/components'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { handleDelete } from 'src/components/AlertMessages'
+import { getSolusiByIdPenyakit } from 'src/context/actions/Solusi'
+import { LoadingComponent } from 'src/components/'
 
 const Solusi = () => {
   const [filterText, setFilterText] = useState('')
   const history = useHistory()
   const match = useRouteMatch()
   const { url, params } = match
+  const [solusi, setSolusi] = useState('')
+
+  // Get data solusi by id penyakit
+  useEffect(() => {
+    getSolusiByIdPenyakit(params.id, setSolusi)
+  }, [params])
 
   // Go To Insert Page
   const handleInsertButton = () => {
@@ -59,7 +66,14 @@ const Solusi = () => {
     },
   ]
 
-  const data = [
+  const data = !solusi
+    ? []
+    : solusi.map((item) => ({
+        id_solusi: item.id_solusi,
+        solusi: item.solusi,
+      }))
+
+  const dataDummy = [
     {
       id_solusi: 1,
       solusi:
@@ -126,32 +140,37 @@ const Solusi = () => {
 
   return (
     <>
-      <CCard>
-        <CCardHeader>
-          <h3 className="d-flex align-items-center gap-3">
-            <a href="." onClick={(e) => goBackToParentPage(e)}>
-              <CIcon icon={cilArrowLeft} size="xl" />
-            </a>
-            <span>Data Solusi untuk Penyakit {params.id}</span>
-          </h3>
-        </CCardHeader>
-        <CCardBody className="pb-5">
-          {/* Table Control */}
-          <TableControl
-            handleFilter={handleFilter}
-            handleFilterReset={handleFilterReset}
-            filterText={filterText}
-            handleInsertButton={handleInsertButton}
-          />
-          {/* Datatable Custom */}
-          <MyDataTable
-            mainData={data}
-            filteredData={filteredData}
-            expandedComponent={ExpandedComponent}
-            columns={columns}
-          />
-        </CCardBody>
-      </CCard>
+      {/* Loading Spinner */}
+      {!solusi ? (
+        <LoadingComponent />
+      ) : (
+        <CCard>
+          <CCardHeader>
+            <h3 className="d-flex align-items-center gap-3">
+              <a href="." onClick={(e) => goBackToParentPage(e)}>
+                <CIcon icon={cilArrowLeft} size="xl" />
+              </a>
+              <span>Data Solusi untuk Penyakit {params.id}</span>
+            </h3>
+          </CCardHeader>
+          <CCardBody className="pb-5">
+            {/* Table Control */}
+            <TableControl
+              handleFilter={handleFilter}
+              handleFilterReset={handleFilterReset}
+              filterText={filterText}
+              handleInsertButton={handleInsertButton}
+            />
+            {/* Datatable Custom */}
+            <MyDataTable
+              mainData={data}
+              filteredData={filteredData}
+              expandedComponent={ExpandedComponent}
+              columns={columns}
+            />
+          </CCardBody>
+        </CCard>
+      )}
     </>
   )
 }

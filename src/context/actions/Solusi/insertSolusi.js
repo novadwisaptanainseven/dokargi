@@ -3,14 +3,15 @@ import { getSolusi } from '.'
 import { showAlertError, showAlertSuccess } from '../../../components/AlertMessages'
 import axiosInstance from 'src/helpers/axios'
 
-const insertSolusi = (values, setLoading, history, dispatch) => {
+const insertSolusi = (idPenyakit, values, setLoading, history, dispatch) => {
   setLoading(true)
 
   axiosInstance
     .post(`solusi/insert`, values)
     .then((res) => {
       setLoading(false)
-      showAlertSuccess(messageSuccessTambah, 'solusi', history)
+      // console.log(`/data-master/penyakit/${idPenyakit}/solusi`)
+      showAlertSuccess(messageSuccessTambah, `data-master/penyakit/${idPenyakit}/solusi`, history)
       getSolusi(dispatch)
     })
     .catch((err) => {
