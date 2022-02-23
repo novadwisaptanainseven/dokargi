@@ -1,8 +1,7 @@
-import React, { useState, useContext, useEffect, useMemo } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { CCard, CCardHeader, CCardBody, CButton, CButtonGroup } from '@coreui/react'
 
 import PropTypes from 'prop-types'
-import { SampleGambar } from 'src/assets'
 import CIcon from '@coreui/icons-react'
 import { cilPen, cilTrash } from '@coreui/icons'
 import { LoadingComponent, MyDataTable, TableControl } from 'src/components'

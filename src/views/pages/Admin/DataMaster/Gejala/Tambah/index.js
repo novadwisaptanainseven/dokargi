@@ -2,14 +2,18 @@ import { cilArrowLeft } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { CCard, CRow, CCol, CCardHeader, CCardBody, CForm, CButton } from '@coreui/react'
 import { Formik } from 'formik'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { FormField } from 'src/components'
 import initState from '../Formik/initState'
 import validationSchema from '../Formik/validationSchema'
+import { GlobalContext } from 'src/context/Provider'
+import { insertGejala } from 'src/context/actions/Gejala'
 
 const Tambah = () => {
   const history = useHistory()
+  const [loading, setLoading] = useState(false)
+  const { gejalaDispatch } = useContext(GlobalContext)
 
   const goBackToParentPage = (e) => {
     e.preventDefault()
@@ -25,6 +29,8 @@ const Tambah = () => {
     for (let pair of formData.entries()) {
       console.log(pair)
     }
+
+    insertGejala(formData, setLoading, history, gejalaDispatch)
   }
 
   return (
@@ -78,8 +84,8 @@ const Tambah = () => {
                       >
                         Reset
                       </CButton>
-                      <CButton type="submit" color="primary">
-                        Simpan
+                      <CButton type="submit" color="primary" disabled={loading}>
+                        {loading ? 'Loading...' : 'Simpan'}
                       </CButton>
                     </div>
                   </CForm>

@@ -10,7 +10,7 @@ const editGejala = (id, values, setLoading, history, dispatch) => {
     .post(`gejala/update/${id}`, values)
     .then((res) => {
       setLoading(false)
-      showAlertSuccess(messageSuccessUpdate, 'gejala', history)
+      showAlertSuccess(messageSuccessUpdate, 'data-master/gejala', history)
       getGejala(dispatch)
     })
     .catch((err) => {

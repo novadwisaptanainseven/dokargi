@@ -5,11 +5,4 @@ import getPasienById from './getPasienById'
 import insertPasien from './insertPasien'
 import editPasien from './editPasien'
 
-export {
-  selectPasien,
-  deletePasien,
-  getPasien,
-  getPasienById,
-  insertPasien,
-  editPasien,
-}
+export { selectPasien, deletePasien, getPasien, getPasienById, insertPasien, editPasien }

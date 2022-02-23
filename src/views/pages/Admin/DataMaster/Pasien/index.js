@@ -1,19 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { CCard, CCardHeader, CCardBody, CButton, CButtonGroup } from '@coreui/react'
 
 import PropTypes from 'prop-types'
 import CIcon from '@coreui/icons-react'
 import { cilPen, cilTrash } from '@coreui/icons'
-import { MyDataTable, TableControl } from 'src/components'
+import { LoadingComponent, MyDataTable, TableControl } from 'src/components'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { handleDelete } from 'src/components/AlertMessages'
 import { format } from 'date-fns'
+import { GlobalContext } from 'src/context/Provider'
+import { deletePasien, getPasien } from 'src/context/actions/Pasien'
 
 const Pasien = () => {
   const [filterText, setFilterText] = useState('')
   const history = useHistory()
   const match = useRouteMatch()
   const { url } = match
+  const { pasienState, pasienDispatch } = useContext(GlobalContext)
+  const { data: dataPasien, loading } = pasienState
+
+  // Get data pasien
+  useEffect(() => {
+    getPasien(pasienDispatch)
+  }, [pasienDispatch])
 
   // Go To Insert Page
   const handleInsertButton = () => {
@@ -63,7 +72,11 @@ const Pasien = () => {
             <CButton size="sm" color="success" onClick={() => handleEditButton(row.id_pasien)}>
               <CIcon className="text-white" icon={cilPen} />
             </CButton>
-            <CButton size="sm" color="danger" onClick={() => handleDelete(row.id_pasien)}>
+            <CButton
+              size="sm"
+              color="danger"
+              onClick={() => handleDelete(row.id_pasien, deletePasien, pasienDispatch)}
+            >
               <CIcon className="text-white" icon={cilTrash} />
             </CButton>
           </CButtonGroup>
@@ -72,7 +85,19 @@ const Pasien = () => {
     },
   ]
 
-  const data = [
+  const data = !dataPasien
+    ? []
+    : dataPasien.map((item) => ({
+        id_pasien: item.id_pasien,
+        nama: item.nama,
+        tmpt_lahir: item.tmpt_lahir,
+        tgl_lahir: item.tgl_lahir,
+        jkel: item.jkel,
+        alamat: item.alamat,
+        ip: item.ip,
+      }))
+
+  const dataDummy = [
     {
       id_pasien: 'GJ0001',
       nama: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
@@ -151,27 +176,32 @@ const Pasien = () => {
 
   return (
     <>
-      <CCard>
-        <CCardHeader>
-          <h3>Pasien</h3>
-        </CCardHeader>
-        <CCardBody className="pb-5">
-          {/* Table Control */}
-          <TableControl
-            handleFilter={handleFilter}
-            handleFilterReset={handleFilterReset}
-            filterText={filterText}
-            handleInsertButton={handleInsertButton}
-          />
-          {/* Datatable Custom */}
-          <MyDataTable
-            mainData={data}
-            filteredData={filteredData}
-            expandedComponent={ExpandedComponent}
-            columns={columns}
-          />
-        </CCardBody>
-      </CCard>
+      {/* Loading Spinner */}
+      {!dataPasien && loading && <LoadingComponent />}
+
+      {dataPasien && (
+        <CCard>
+          <CCardHeader>
+            <h3>Pasien</h3>
+          </CCardHeader>
+          <CCardBody className="pb-5">
+            {/* Table Control */}
+            <TableControl
+              handleFilter={handleFilter}
+              handleFilterReset={handleFilterReset}
+              filterText={filterText}
+              handleInsertButton={handleInsertButton}
+            />
+            {/* Datatable Custom */}
+            <MyDataTable
+              mainData={data}
+              filteredData={filteredData}
+              expandedComponent={ExpandedComponent}
+              columns={columns}
+            />
+          </CCardBody>
+        </CCard>
+      )}
     </>
   )
 }

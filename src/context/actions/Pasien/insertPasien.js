@@ -10,12 +10,12 @@ const insertPasien = (values, setLoading, history, dispatch) => {
     .post(`pasien/insert`, values)
     .then((res) => {
       setLoading(false)
-      showAlertSuccess(messageSuccessTambah, 'pasien', history)
+      showAlertSuccess(messageSuccessTambah, 'data-master/pasien', history)
       getPasien(dispatch)
     })
     .catch((err) => {
       setLoading(false)
-      showAlertError(err.response.data, messageErrorTambah)
+      showAlertError(err.response.data.errors, messageErrorTambah)
       // console.log(err.response.data);
     })
 }

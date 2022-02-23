@@ -6,8 +6,8 @@ import CIcon from '@coreui/icons-react'
 import { cilArrowLeft, cilPen, cilTrash } from '@coreui/icons'
 import { MyDataTable, TableControl } from 'src/components'
 import { useHistory, useRouteMatch } from 'react-router-dom'
-import { handleDelete } from 'src/components/AlertMessages'
-import { getSolusiByIdPenyakit } from 'src/context/actions/Solusi'
+import { handleDelete2 } from 'src/components/AlertMessages'
+import { deleteSolusi, getSolusiByIdPenyakit } from 'src/context/actions/Solusi'
 import { LoadingComponent } from 'src/components/'
 
 const Solusi = () => {
@@ -35,7 +35,7 @@ const Solusi = () => {
   // Go back to parent page
   const goBackToParentPage = (e) => {
     e.preventDefault()
-    history.goBack()
+    history.push('/admin/data-master/penyakit')
   }
 
   const columns = [
@@ -57,7 +57,11 @@ const Solusi = () => {
             <CButton size="sm" color="success" onClick={() => handleEditButton(row.id_solusi)}>
               <CIcon className="text-white" icon={cilPen} />
             </CButton>
-            <CButton size="sm" color="danger" onClick={() => handleDelete(row.id_solusi)}>
+            <CButton
+              size="sm"
+              color="danger"
+              onClick={() => handleDelete2(params.id, row.id_solusi, deleteSolusi, setSolusi)}
+            >
               <CIcon className="text-white" icon={cilTrash} />
             </CButton>
           </CButtonGroup>
@@ -73,38 +77,38 @@ const Solusi = () => {
         solusi: item.solusi,
       }))
 
-  const dataDummy = [
-    {
-      id_solusi: 1,
-      solusi:
-        'Aorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
-    },
-    {
-      id_solusi: 2,
-      solusi:
-        'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
-    },
-    {
-      id_solusi: 3,
-      solusi:
-        'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
-    },
-    {
-      id_solusi: 4,
-      solusi:
-        'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
-    },
-    {
-      id_solusi: 5,
-      solusi:
-        'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
-    },
-    {
-      id_solusi: 6,
-      solusi:
-        'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
-    },
-  ]
+  // const dataDummy = [
+  //   {
+  //     id_solusi: 1,
+  //     solusi:
+  //       'Aorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
+  //   },
+  //   {
+  //     id_solusi: 2,
+  //     solusi:
+  //       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
+  //   },
+  //   {
+  //     id_solusi: 3,
+  //     solusi:
+  //       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
+  //   },
+  //   {
+  //     id_solusi: 4,
+  //     solusi:
+  //       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
+  //   },
+  //   {
+  //     id_solusi: 5,
+  //     solusi:
+  //       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
+  //   },
+  //   {
+  //     id_solusi: 6,
+  //     solusi:
+  //       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi autem repudiandae iusto facere doloremque cum voluptates sunt, cumque officia blanditiis pariatur laudantium quia recusandae sapiente quasi. Nulla, accusantium! Amet.',
+  //   },
+  // ]
 
   const filteredData = data.filter((item) =>
     item.solusi.toLowerCase().includes(filterText.toLowerCase()),

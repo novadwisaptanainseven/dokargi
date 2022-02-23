@@ -1,9 +1,9 @@
 import { messageErrorUpdate, messageSuccessUpdate } from 'src/helpers/messages'
-import { getSolusi } from '.'
+import { getSolusiByIdPenyakit } from '.'
 import { showAlertSuccess, showAlertError } from '../../../components/AlertMessages'
 import axiosInstance from 'src/helpers/axios'
 
-const editSolusi = (id, idPenyakit, values, setLoading, history, dispatch) => {
+const editSolusi = (id, idPenyakit, values, setLoading, history, setData) => {
   setLoading(true)
 
   axiosInstance
@@ -12,11 +12,11 @@ const editSolusi = (id, idPenyakit, values, setLoading, history, dispatch) => {
       setLoading(false)
       showAlertSuccess(messageSuccessUpdate, `data-master/penyakit/${idPenyakit}/solusi`, history)
 
-      getSolusi(dispatch)
+      getSolusiByIdPenyakit(idPenyakit, setData)
     })
     .catch((err) => {
       setLoading(false)
-      showAlertError(err.response.data, messageErrorUpdate)
+      showAlertError(err.response.data.errors, messageErrorUpdate)
 
       // console.log(err.response.data);
     })

@@ -10,7 +10,7 @@ const insertGejala = (values, setLoading, history, dispatch) => {
     .post(`gejala/insert`, values)
     .then((res) => {
       setLoading(false)
-      showAlertSuccess(messageSuccessTambah, 'gejala', history)
+      showAlertSuccess(messageSuccessTambah, 'data-master/gejala', history)
       getGejala(dispatch)
     })
     .catch((err) => {

@@ -2,17 +2,25 @@ import { cilArrowLeft } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { CCard, CRow, CCol, CCardHeader, CCardBody, CForm, CButton } from '@coreui/react'
 import { Formik } from 'formik'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState, useContext } from 'react'
 import { useRouteMatch } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import { FormField } from 'src/components'
 import initState from '../Formik/initState'
 import validationSchema from '../Formik/validationSchema'
+import { editPasien, getPasienById } from 'src/context/actions/Pasien'
+import { GlobalContext } from 'src/context/Provider'
 
 const Edit = () => {
   const history = useHistory()
   const match = useRouteMatch()
   const { params } = match
+  const [pasien, setPasien] = useState('')
+  const [loading, setLoading] = useState(false)
+  const { pasienDispatch } = useContext(GlobalContext)
+
+  // Get pasien by id
+  useEffect(() => getPasienById(params.id, setPasien), [params])
 
   const goBackToParentPage = (e) => {
     e.preventDefault()
@@ -25,13 +33,15 @@ const Edit = () => {
 
     formData.append('nama', values.nama)
     formData.append('tmpt_lahir', values.tmpt_lahir)
-    formData.append('tanggal_lahir', values.tanggal_lahir)
+    formData.append('tgl_lahir', values.tgl_lahir)
     formData.append('jkel', values.jkel)
     formData.append('alamat', values.alamat)
 
     for (let pair of formData.entries()) {
       console.log(pair)
     }
+
+    editPasien(params.id, formData, setLoading, history, pasienDispatch)
   }
 
   return (
@@ -49,7 +59,7 @@ const Edit = () => {
           <CRow>
             <CCol md="6">
               <Formik
-                initialValues={initState('')}
+                initialValues={initState(pasien)}
                 validationSchema={validationSchema}
                 onSubmit={handleFormSubmit}
                 enableReinitialize
@@ -141,8 +151,8 @@ const Edit = () => {
                       >
                         Reset
                       </CButton>
-                      <CButton type="submit" color="primary">
-                        Simpan
+                      <CButton type="submit" color="primary" disabled={loading}>
+                        {loading ? 'Loading...' : 'Simpan'}
                       </CButton>
                     </div>
                   </CForm>

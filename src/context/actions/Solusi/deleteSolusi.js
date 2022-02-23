@@ -1,11 +1,11 @@
-import { getSolusi } from '.'
+import { getSolusiByIdPenyakit } from '.'
 import axiosInstance from 'src/helpers/axios'
 
-const deleteSolusi = (id, dispatch, Swal) => {
+const deleteSolusi = (idPenyakit, idSolusi, setData, Swal) => {
   axiosInstance
-    .get(`solusi/hapus/${id}`)
+    .get(`solusi/hapus/${idSolusi}`)
     .then((res) => {
-      getSolusi(dispatch)
+      getSolusiByIdPenyakit(idPenyakit, setData)
 
       Swal.fire({
         icon: 'success',

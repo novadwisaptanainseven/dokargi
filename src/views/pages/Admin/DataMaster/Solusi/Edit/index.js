@@ -5,6 +5,7 @@ import { Formik } from 'formik'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { FormField } from 'src/components'
+import { editSolusi, getSolusiById } from 'src/context/actions/Solusi'
 import initState from '../Formik/initState'
 import validationSchema from '../Formik/validationSchema'
 
@@ -12,6 +13,13 @@ const Edit = () => {
   const history = useHistory()
   const match = useRouteMatch()
   const { params } = match
+  const [loading, setLoading] = useState(false)
+  const [solusi, setSolusi] = useState('')
+
+  console.log(params)
+
+  // Get data solusi by id
+  useEffect(() => getSolusiById(params.idSolusi, setSolusi), [params])
 
   const goBackToParentPage = (e) => {
     e.preventDefault()
@@ -28,6 +36,8 @@ const Edit = () => {
     for (let pair of formData.entries()) {
       console.log(pair)
     }
+
+    editSolusi(params.idSolusi, params.id, formData, setLoading, history, setSolusi)
   }
 
   return (
@@ -45,7 +55,7 @@ const Edit = () => {
           <CRow>
             <CCol md="6">
               <Formik
-                initialValues={initState('')}
+                initialValues={initState(solusi)}
                 validationSchema={validationSchema}
                 onSubmit={handleFormSubmit}
                 enableReinitialize
@@ -81,8 +91,8 @@ const Edit = () => {
                       >
                         Reset
                       </CButton>
-                      <CButton type="submit" color="primary">
-                        Simpan
+                      <CButton type="submit" color="primary" disabled={loading}>
+                        {loading ? 'Loading...' : 'Simpan'}
                       </CButton>
                     </div>
                   </CForm>

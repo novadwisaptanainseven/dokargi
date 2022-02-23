@@ -5,11 +5,4 @@ import getGejalaById from './getGejalaById'
 import insertGejala from './insertGejala'
 import editGejala from './editGejala'
 
-export {
-  selectGejala,
-  deleteGejala,
-  getGejala,
-  getGejalaById,
-  insertGejala,
-  editGejala,
-}
+export { selectGejala, deleteGejala, getGejala, getGejalaById, insertGejala, editGejala }

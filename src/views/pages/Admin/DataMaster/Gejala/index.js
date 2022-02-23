@@ -1,18 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { CCard, CCardHeader, CCardBody, CButton, CButtonGroup } from '@coreui/react'
 
 import PropTypes from 'prop-types'
 import CIcon from '@coreui/icons-react'
 import { cilPen, cilTrash } from '@coreui/icons'
-import { MyDataTable, TableControl } from 'src/components'
+import { LoadingComponent, MyDataTable, TableControl } from 'src/components'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { handleDelete } from 'src/components/AlertMessages'
+import { GlobalContext } from 'src/context/Provider'
+import { deleteGejala, getGejala } from 'src/context/actions/Gejala'
 
 const Gejala = () => {
   const [filterText, setFilterText] = useState('')
   const history = useHistory()
   const match = useRouteMatch()
   const { url } = match
+  const { gejalaState, gejalaDispatch } = useContext(GlobalContext)
+  const { data: dataGejala, loading } = gejalaState
+
+  // Get data gejala
+  useEffect(() => getGejala(gejalaDispatch), [gejalaDispatch])
 
   // Go To Insert Page
   const handleInsertButton = () => {
@@ -50,7 +57,11 @@ const Gejala = () => {
             <CButton size="sm" color="success" onClick={() => handleEditButton(row.id_gejala)}>
               <CIcon className="text-white" icon={cilPen} />
             </CButton>
-            <CButton size="sm" color="danger" onClick={() => handleDelete(row.id_gejala)}>
+            <CButton
+              size="sm"
+              color="danger"
+              onClick={() => handleDelete(row.id_gejala, deleteGejala, gejalaDispatch)}
+            >
               <CIcon className="text-white" icon={cilTrash} />
             </CButton>
           </CButtonGroup>
@@ -59,7 +70,14 @@ const Gejala = () => {
     },
   ]
 
-  const data = [
+  const data = !dataGejala
+    ? []
+    : dataGejala.map((item) => ({
+        id_gejala: item.id_gejala,
+        nm_gejala: item.nm_gejala,
+      }))
+
+  const dataDummy = [
     {
       id_gejala: 'GJ0001',
       nm_gejala: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
@@ -110,27 +128,32 @@ const Gejala = () => {
 
   return (
     <>
-      <CCard>
-        <CCardHeader>
-          <h3>Gejala</h3>
-        </CCardHeader>
-        <CCardBody className="pb-5">
-          {/* Table Control */}
-          <TableControl
-            handleFilter={handleFilter}
-            handleFilterReset={handleFilterReset}
-            filterText={filterText}
-            handleInsertButton={handleInsertButton}
-          />
-          {/* Datatable Custom */}
-          <MyDataTable
-            mainData={data}
-            filteredData={filteredData}
-            expandedComponent={ExpandedComponent}
-            columns={columns}
-          />
-        </CCardBody>
-      </CCard>
+      {/* Loading Spinner */}
+      {!dataGejala && loading && <LoadingComponent />}
+
+      {dataGejala && (
+        <CCard>
+          <CCardHeader>
+            <h3>Gejala</h3>
+          </CCardHeader>
+          <CCardBody className="pb-5">
+            {/* Table Control */}
+            <TableControl
+              handleFilter={handleFilter}
+              handleFilterReset={handleFilterReset}
+              filterText={filterText}
+              handleInsertButton={handleInsertButton}
+            />
+            {/* Datatable Custom */}
+            <MyDataTable
+              mainData={data}
+              filteredData={filteredData}
+              expandedComponent={ExpandedComponent}
+              columns={columns}
+            />
+          </CCardBody>
+        </CCard>
+      )}
     </>
   )
 }

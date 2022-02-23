@@ -2,14 +2,26 @@ import { cilArrowLeft } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { CCard, CRow, CCol, CCardHeader, CCardBody, CForm, CButton } from '@coreui/react'
 import { Formik } from 'formik'
-import React, { useCallback, useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useCallback, useEffect, useState, useContext } from 'react'
+import { useHistory, useRouteMatch } from 'react-router-dom'
 import { FormField } from 'src/components'
 import initState from '../Formik/initState'
 import validationSchema from '../Formik/validationSchema'
+import { GlobalContext } from 'src/context/Provider'
+import { editGejala, getGejalaById } from 'src/context/actions/Gejala'
 
 const Edit = () => {
   const history = useHistory()
+  const [gejala, setGejala] = useState('')
+  const [loading, setLoading] = useState(false)
+  const { gejalaDispatch } = useContext(GlobalContext)
+  const match = useRouteMatch()
+  const { params } = match
+
+  // Get gejala by id
+  useEffect(() => {
+    getGejalaById(params.id, setGejala)
+  }, [params])
 
   const goBackToParentPage = (e) => {
     e.preventDefault()
@@ -25,6 +37,8 @@ const Edit = () => {
     for (let pair of formData.entries()) {
       console.log(pair)
     }
+
+    editGejala(params.id, formData, setLoading, history, gejalaDispatch)
   }
 
   return (
@@ -42,7 +56,7 @@ const Edit = () => {
           <CRow>
             <CCol md="6">
               <Formik
-                initialValues={initState('')}
+                initialValues={initState(gejala)}
                 validationSchema={validationSchema}
                 onSubmit={handleFormSubmit}
                 enableReinitialize
@@ -78,8 +92,8 @@ const Edit = () => {
                       >
                         Reset
                       </CButton>
-                      <CButton type="submit" color="primary">
-                        Simpan
+                      <CButton type="submit" color="primary" disabled={loading}>
+                        {loading ? 'Loading...' : 'Simpan'}
                       </CButton>
                     </div>
                   </CForm>

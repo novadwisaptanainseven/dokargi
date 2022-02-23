@@ -2,14 +2,18 @@ import { cilArrowLeft } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { CCard, CRow, CCol, CCardHeader, CCardBody, CForm, CButton } from '@coreui/react'
 import { Formik } from 'formik'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { FormField } from 'src/components'
 import initState from '../Formik/initState'
 import validationSchema from '../Formik/validationSchema'
+import { insertPasien } from 'src/context/actions/Pasien'
+import { GlobalContext } from 'src/context/Provider'
 
 const Tambah = () => {
   const history = useHistory()
+  const { pasienDispatch } = useContext(GlobalContext)
+  const [loading, setLoading] = useState(false)
 
   const goBackToParentPage = (e) => {
     e.preventDefault()
@@ -22,13 +26,15 @@ const Tambah = () => {
 
     formData.append('nama', values.nama)
     formData.append('tmpt_lahir', values.tmpt_lahir)
-    formData.append('tanggal_lahir', values.tanggal_lahir)
+    formData.append('tgl_lahir', values.tgl_lahir)
     formData.append('jkel', values.jkel)
     formData.append('alamat', values.alamat)
 
     for (let pair of formData.entries()) {
       console.log(pair)
     }
+
+    insertPasien(formData, setLoading, history, pasienDispatch)
   }
 
   return (
@@ -138,8 +144,8 @@ const Tambah = () => {
                       >
                         Reset
                       </CButton>
-                      <CButton type="submit" color="primary">
-                        Simpan
+                      <CButton type="submit" color="primary" disabled={loading}>
+                        {loading ? 'Loading...' : 'Simpan'}
                       </CButton>
                     </div>
                   </CForm>

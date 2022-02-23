@@ -10,12 +10,12 @@ const editPasien = (id, values, setLoading, history, dispatch) => {
     .post(`pasien/update/${id}`, values)
     .then((res) => {
       setLoading(false)
-      showAlertSuccess(messageSuccessUpdate, 'pasien', history)
+      showAlertSuccess(messageSuccessUpdate, 'data-master/pasien', history)
       getPasien(dispatch)
     })
     .catch((err) => {
       setLoading(false)
-      showAlertError(err.response.data, messageErrorUpdate)
+      showAlertError(err.response.data.errors, messageErrorUpdate)
 
       // console.log(err.response.data);
     })
