@@ -1,12 +1,17 @@
 import { CSpinner } from '@coreui/react'
 import React from 'react'
+import PropTypes from 'prop-types'
 
-const LoadingComponent = () => {
+const LoadingComponent = ({ className = '' }) => {
   return (
-    <div>
+    <div className={className}>
       <CSpinner color="primary" />
     </div>
   )
+}
+
+LoadingComponent.propTypes = {
+  className: PropTypes.string,
 }
 
 export default LoadingComponent

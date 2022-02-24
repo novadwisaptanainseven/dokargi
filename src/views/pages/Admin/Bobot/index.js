@@ -1,19 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { CCard, CCardHeader, CCardBody, CButton, CButtonGroup } from '@coreui/react'
 
 import PropTypes from 'prop-types'
 import CIcon from '@coreui/icons-react'
 import { cilPen, cilTrash } from '@coreui/icons'
-import { MyDataTable, TableControl } from 'src/components'
+import { LoadingComponent, MyDataTable, TableControl } from 'src/components'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { handleDelete } from 'src/components/AlertMessages'
-import { SampleGambar } from 'src/assets'
+import { GlobalContext } from 'src/context/Provider'
+import { getBobot, deleteBobot } from 'src/context/actions/Bobot'
 
 const Bobot = () => {
   const [filterText, setFilterText] = useState('')
   const history = useHistory()
   const match = useRouteMatch()
   const { url } = match
+  const { bobotState, bobotDispatch } = useContext(GlobalContext)
+  const { data: dataBobot, loading } = bobotState
+
+  // Get data bobot
+  useEffect(() => getBobot(bobotDispatch), [bobotDispatch])
 
   // Go To Insert Page
   const handleInsertButton = () => {
@@ -66,7 +72,11 @@ const Bobot = () => {
             <CButton size="sm" color="success" onClick={() => handleEditButton(row.id_bobot)}>
               <CIcon className="text-white" icon={cilPen} />
             </CButton>
-            <CButton size="sm" color="danger" onClick={() => handleDelete(row.id_bobot)}>
+            <CButton
+              size="sm"
+              color="danger"
+              onClick={() => handleDelete(row.id_bobot, deleteBobot, bobotDispatch)}
+            >
               <CIcon className="text-white" icon={cilTrash} />
             </CButton>
           </CButtonGroup>
@@ -75,7 +85,17 @@ const Bobot = () => {
     },
   ]
 
-  const data = [
+  const data = !dataBobot
+    ? []
+    : dataBobot.map((item) => ({
+        id_bobot: item.id_bobot,
+        nm_penyakit: item.nm_penyakit,
+        nm_gejala: item.nm_gejala,
+        nilai_mb: item.nilai_mb,
+        nilai_md: item.nilai_md,
+      }))
+
+  const dataDummy = [
     {
       id_bobot: 'BK0001',
       nm_penyakit: 'Karies Media',
@@ -145,27 +165,31 @@ const Bobot = () => {
 
   return (
     <>
-      <CCard>
-        <CCardHeader>
-          <h3>Bobot</h3>
-        </CCardHeader>
-        <CCardBody className="pb-5">
-          {/* Table Control */}
-          <TableControl
-            handleFilter={handleFilter}
-            handleFilterReset={handleFilterReset}
-            filterText={filterText}
-            handleInsertButton={handleInsertButton}
-          />
-          {/* Datatable Custom */}
-          <MyDataTable
-            mainData={data}
-            filteredData={filteredData}
-            expandedComponent={ExpandedComponent}
-            columns={columns}
-          />
-        </CCardBody>
-      </CCard>
+      {!dataBobot && loading && <LoadingComponent />}
+
+      {dataBobot && (
+        <CCard>
+          <CCardHeader>
+            <h3>Bobot</h3>
+          </CCardHeader>
+          <CCardBody className="pb-5">
+            {/* Table Control */}
+            <TableControl
+              handleFilter={handleFilter}
+              handleFilterReset={handleFilterReset}
+              filterText={filterText}
+              handleInsertButton={handleInsertButton}
+            />
+            {/* Datatable Custom */}
+            <MyDataTable
+              mainData={data}
+              filteredData={filteredData}
+              expandedComponent={ExpandedComponent}
+              columns={columns}
+            />
+          </CCardBody>
+        </CCard>
+      )}
     </>
   )
 }

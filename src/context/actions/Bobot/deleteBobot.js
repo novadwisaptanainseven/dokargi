@@ -1,11 +1,11 @@
-import { getPasien } from '.'
+import { getBobot } from '.'
 import axiosInstance from 'src/helpers/axios'
 
 const deleteBobot = (id, dispatch, Swal) => {
   axiosInstance
     .get(`bobot/hapus/${id}`)
     .then((res) => {
-      getPasien(dispatch)
+      getBobot(dispatch)
 
       Swal.fire({
         icon: 'success',

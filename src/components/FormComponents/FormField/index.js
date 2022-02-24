@@ -18,6 +18,8 @@ const FormField = ({
   preview,
   isRequired = true,
   options,
+  disabled,
+  defaultValue = null,
 }) => {
   // Custom styles for select data
   const customStyles = (error) => ({
@@ -125,7 +127,7 @@ const FormField = ({
         </>
       )}
 
-      {/* If input type is select data */}
+      {/* If input type is select data and default value doesn't exist */}
       {type === 'selectdata' && (
         <>
           <CFormLabel htmlFor={name}>{label}</CFormLabel>
@@ -138,6 +140,8 @@ const FormField = ({
             onBlur={onBlur}
             placeholder={placeholder}
             isClearable
+            isDisabled={disabled}
+            {...(defaultValue && { defaultValue: defaultValue })}
           />
           {error && <div className="text-danger">{errorMessage}</div>}
         </>
@@ -162,6 +166,8 @@ FormField.propTypes = {
   attention: PropTypes.string,
   isRequired: PropTypes.bool,
   options: PropTypes.array,
+  disabled: PropTypes.bool,
+  defaultValue: PropTypes.object,
 }
 
 export default FormField
