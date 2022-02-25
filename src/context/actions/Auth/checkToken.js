@@ -1,6 +1,6 @@
 import axiosInstance from 'src/helpers/axios'
 
-export const checkToken = (Swal) => {
+export const checkToken = (history, Swal) => {
   axiosInstance
     .get(`${localStorage.baseURL}ceklogin`)
     .then((res) => {

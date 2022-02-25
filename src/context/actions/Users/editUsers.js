@@ -10,7 +10,7 @@ const editUsers = (id, values, setLoading, history, dispatch) => {
     .post(`pengguna/update/${id}`, values)
     .then((res) => {
       setLoading(false)
-      showAlertSuccess(messageSuccessUpdate, 'pengguna', history)
+      showAlertSuccess(messageSuccessUpdate, 'users', history)
       getUsers(dispatch)
     })
     .catch((err) => {

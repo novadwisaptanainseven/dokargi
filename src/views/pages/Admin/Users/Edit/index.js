@@ -2,21 +2,36 @@ import { cilArrowLeft } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { CCard, CRow, CCol, CCardHeader, CCardBody, CForm, CButton } from '@coreui/react'
 import { Formik } from 'formik'
-import React, { useCallback, useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useCallback, useEffect, useState, useContext } from 'react'
+import { useHistory, useRouteMatch } from 'react-router-dom'
 import { FormField } from 'src/components'
 import initState from '../Formik/initState'
 import validationSchemaEdit from '../Formik/validationSchemaEdit'
+import { GlobalContext } from 'src/context/Provider'
+import { editUsers, getUsersById } from 'src/context/actions/Users'
+import getImage from 'src/context/actions/Files/getImage'
 
 const Edit = () => {
   const history = useHistory()
   const [selectedFile, setSelectedFile] = useState(false)
   const [preview, setPreview] = useState()
+  const [users, setUsers] = useState('')
+  const { usersDispatch } = useContext(GlobalContext)
+  const match = useRouteMatch()
+  const { params } = match
+  const [loading, setLoading] = useState(false)
+
+  // Get user by id
+  useEffect(() => {
+    getUsersById(params.id, setUsers)
+  }, [params])
 
   // Menangani preview input gambar setelah dipilih
   const handleSelectedFile = useCallback(() => {
+    const img = users ? getImage('foto_pengguna', users.foto) : null
+
     if (!selectedFile) {
-      setPreview(null)
+      setPreview(img)
       return
     }
 
@@ -27,7 +42,7 @@ const Edit = () => {
     return () => {
       URL.revokeObjectURL(objectUrl)
     }
-  }, [selectedFile])
+  }, [selectedFile, users])
 
   useEffect(() => {
     handleSelectedFile()
@@ -60,6 +75,8 @@ const Edit = () => {
     for (let pair of formData.entries()) {
       console.log(pair)
     }
+
+    editUsers(params.id, formData, setLoading, history, usersDispatch)
   }
 
   return (
@@ -77,7 +94,7 @@ const Edit = () => {
           <CRow>
             <CCol md="6">
               <Formik
-                initialValues={initState('')}
+                initialValues={initState(users)}
                 validationSchema={validationSchemaEdit}
                 onSubmit={handleFormSubmit}
                 enableReinitialize
@@ -173,8 +190,8 @@ const Edit = () => {
                       >
                         Reset
                       </CButton>
-                      <CButton type="submit" color="primary">
-                        Simpan
+                      <CButton type="submit" color="primary" disabled={loading}>
+                        {loading ? 'Loading...' : 'Simpan'}
                       </CButton>
                     </div>
                   </CForm>

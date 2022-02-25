@@ -10,7 +10,7 @@ const insertUsers = (values, setLoading, history, dispatch) => {
     .post(`pengguna/insert`, values)
     .then((res) => {
       setLoading(false)
-      showAlertSuccess(messageSuccessTambah, 'pengguna', history)
+      showAlertSuccess(messageSuccessTambah, 'users', history)
       getUsers(dispatch)
     })
     .catch((err) => {
