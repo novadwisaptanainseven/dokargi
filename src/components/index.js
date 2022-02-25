@@ -11,6 +11,7 @@ import TableControl from './TableControl'
 import MyDataTable from './MyDataTable'
 import FormField from './FormComponents/FormField'
 import LoadingComponent from './LoadingComponent'
+import { ComponentToPrint } from './ComponentToPrint'
 
 export {
   AppBreadcrumb,
@@ -26,4 +27,5 @@ export {
   MyDataTable,
   FormField,
   LoadingComponent,
+  ComponentToPrint,
 }

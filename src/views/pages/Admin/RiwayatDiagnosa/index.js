@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { CCard, CCardHeader, CCardBody, CButton, CButtonGroup } from '@coreui/react'
 
 import PropTypes from 'prop-types'
@@ -7,14 +7,23 @@ import { cilInfo, cilPen, cilTrash } from '@coreui/icons'
 import { MyDataTable, TableControl } from 'src/components'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { handleDelete } from 'src/components/AlertMessages'
-import { SampleGambar } from 'src/assets'
 import { format } from 'date-fns'
+import { GlobalContext } from 'src/context/Provider'
+import { getDiagnosa, deleteDiagnosa } from 'src/context/actions/Diagnosa'
+import { LoadingComponent } from 'src/components'
 
 const RiwayatDiagnosa = () => {
   const [filterText, setFilterText] = useState('')
   const history = useHistory()
   const match = useRouteMatch()
   const { url } = match
+  const { diagnosaState, diagnosaDispatch } = useContext(GlobalContext)
+  const { data: dataDiagnosa, loading } = diagnosaState
+
+  // Get data diagnosa
+  useEffect(() => {
+    getDiagnosa(diagnosaDispatch)
+  }, [diagnosaDispatch])
 
   // Go To Insert Page
   const handleInsertButton = () => {
@@ -76,7 +85,11 @@ const RiwayatDiagnosa = () => {
             {/* <CButton size="sm" color="success" onClick={() => handleEditButton(row.id_diagnosa)}>
               <CIcon className="text-white" icon={cilPen} />
             </CButton> */}
-            <CButton size="sm" color="danger" onClick={() => handleDelete(row.id_diagnosa)}>
+            <CButton
+              size="sm"
+              color="danger"
+              onClick={() => handleDelete(row.id_diagnosa, deleteDiagnosa, diagnosaDispatch)}
+            >
               <CIcon className="text-white" icon={cilTrash} />
             </CButton>
           </CButtonGroup>
@@ -85,22 +98,32 @@ const RiwayatDiagnosa = () => {
     },
   ]
 
-  const data = [
-    {
-      id_diagnosa: 'DK0001',
-      nama: 'Nova Dwi Sapta',
-      nm_penyakit: 'Karies Media',
-      hasil_nilai_cf: 1,
-      waktu_buat: '2022-02-13 18:33:56',
-    },
-    {
-      id_diagnosa: 'DK0002',
-      nama: 'Nova Dwi Sapta',
-      nm_penyakit: 'Karies Media',
-      hasil_nilai_cf: 1,
-      waktu_buat: '2022-02-13 18:33:56',
-    },
-  ]
+  const data = !dataDiagnosa
+    ? []
+    : dataDiagnosa.map((item) => ({
+        id_diagnosa: item.id_diagnosa,
+        nama: item.nama,
+        nm_penyakit: item.nm_penyakit,
+        hasil_nilai_cf: item.hasil_nilai_cf,
+        waktu_buat: item.waktu_buat,
+      }))
+
+  // const dataDummy = [
+  //   {
+  //     id_diagnosa: 'DK0001',
+  //     nama: 'Nova Dwi Sapta',
+  //     nm_penyakit: 'Karies Media',
+  //     hasil_nilai_cf: 1,
+  //     waktu_buat: '2022-02-13 18:33:56',
+  //   },
+  //   {
+  //     id_diagnosa: 'DK0002',
+  //     nama: 'Nova Dwi Sapta',
+  //     nm_penyakit: 'Karies Media',
+  //     hasil_nilai_cf: 1,
+  //     waktu_buat: '2022-02-13 18:33:56',
+  //   },
+  // ]
 
   const filteredData = data.filter(
     (item) =>
@@ -159,26 +182,31 @@ const RiwayatDiagnosa = () => {
 
   return (
     <>
-      <CCard>
-        <CCardHeader>
-          <h3>Riwayat Diagnosa</h3>
-        </CCardHeader>
-        <CCardBody className="pb-5">
-          {/* Table Control */}
-          <TableControl
-            handleFilter={handleFilter}
-            handleFilterReset={handleFilterReset}
-            filterText={filterText}
-          />
-          {/* Datatable Custom */}
-          <MyDataTable
-            mainData={data}
-            filteredData={filteredData}
-            expandedComponent={ExpandedComponent}
-            columns={columns}
-          />
-        </CCardBody>
-      </CCard>
+      {/* Loading Component */}
+      {!dataDiagnosa && loading && <LoadingComponent />}
+
+      {dataDiagnosa && (
+        <CCard>
+          <CCardHeader>
+            <h3>Riwayat Diagnosa</h3>
+          </CCardHeader>
+          <CCardBody className="pb-5">
+            {/* Table Control */}
+            <TableControl
+              handleFilter={handleFilter}
+              handleFilterReset={handleFilterReset}
+              filterText={filterText}
+            />
+            {/* Datatable Custom */}
+            <MyDataTable
+              mainData={data}
+              filteredData={filteredData}
+              expandedComponent={ExpandedComponent}
+              columns={columns}
+            />
+          </CCardBody>
+        </CCard>
+      )}
     </>
   )
 }
