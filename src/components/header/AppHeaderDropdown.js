@@ -14,6 +14,7 @@ import CIcon from '@coreui/icons-react'
 import avatar8 from './../../assets/images/avatars/8.jpg'
 import { GlobalContext } from 'src/context/Provider'
 import getImage from 'src/context/actions/Files/getImage'
+import { handleLogout } from '../AlertMessages'
 
 const AppHeaderDropdown = () => {
   const { profileUserState } = useContext(GlobalContext)
@@ -94,7 +95,7 @@ const AppHeaderDropdown = () => {
           </CBadge>
         </CDropdownItem> */}
         <CDropdownDivider />
-        <CDropdownItem href="#">
+        <CDropdownItem href="#" onClick={(e) => handleLogout(e)}>
           <CIcon icon={cilLockLocked} className="me-2" />
           Log Out
         </CDropdownItem>
