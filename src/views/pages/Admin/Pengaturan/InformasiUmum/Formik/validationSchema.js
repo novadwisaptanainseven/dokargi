@@ -1,7 +1,7 @@
 import * as Yup from 'yup'
 
 const GAMBAR_SIZE = 1048000 // Bytes => 1 mb * 1000 kb * 1000 bytes
-const GAMBAR_SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png']
+const GAMBAR_SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'image/x-icon']
 
 const validationSchema = Yup.object().shape({
   title_website: Yup.string().required('Nama aplikasi harus diisi'),

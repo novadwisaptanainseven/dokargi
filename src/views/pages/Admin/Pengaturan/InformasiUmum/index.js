@@ -1,18 +1,31 @@
 import { CCard, CCardBody, CCardHeader, CCol, CRow, CForm, CButton } from '@coreui/react'
 import { Formik } from 'formik'
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, useContext } from 'react'
 import { FormField } from 'src/components'
 import initState from './Formik/initState'
 import validationSchema from './Formik/validationSchema'
+import { GlobalContext } from 'src/context/Provider'
+import { getKonten, editKonten } from 'src/context/actions/Konten'
+import getImage from 'src/context/actions/Files/getImage'
 
 const InformasiUmum = () => {
   const [selectedFile, setSelectedFile] = useState(false)
   const [preview, setPreview] = useState()
+  const { kontenState, kontenDispatch } = useContext(GlobalContext)
+  const { data: dataKonten } = kontenState
+  const [loading, setLoading] = useState(false)
+
+  // Get data konten
+  useEffect(() => {
+    getKonten(kontenDispatch)
+  }, [kontenDispatch])
 
   // Menangani preview input gambar setelah dipilih
   const handleSelectedFile = useCallback(() => {
+    const gambar = dataKonten ? getImage('foto_kontak', dataKonten.logo) : null
+
     if (!selectedFile) {
-      setPreview(null)
+      setPreview(gambar)
       return
     }
 
@@ -38,7 +51,22 @@ const InformasiUmum = () => {
   }
 
   const handleFormSubmit = (values) => {
-    console.log(values)
+    const formData = new FormData()
+
+    formData.append('title_website', values.title_website)
+    formData.append('deskripsi_aplikasi', values.deskripsi_aplikasi)
+    if (values.logo) {
+      formData.append('logo', values.logo)
+    }
+    formData.append('nm_kampus', values.nm_kampus)
+    formData.append('alamat_kampus', values.alamat_kampus)
+    formData.append('tentang_kami', values.tentang_kami)
+
+    for (let pair of formData.entries()) {
+      console.log(pair)
+    }
+
+    editKonten(formData, setLoading, kontenDispatch)
   }
 
   return (
@@ -48,7 +76,7 @@ const InformasiUmum = () => {
       </CCardHeader>
       <CCardBody>
         <Formik
-          initialValues={initState('')}
+          initialValues={initState(dataKonten)}
           validationSchema={validationSchema}
           onSubmit={handleFormSubmit}
           enableReinitialize
@@ -128,6 +156,7 @@ const InformasiUmum = () => {
                   />
                   <FormField
                     type="textarea"
+                    rows={5}
                     name="tentang_kami"
                     label="Tentang Kami"
                     onChange={handleChange}
@@ -151,8 +180,8 @@ const InformasiUmum = () => {
                 >
                   Reset
                 </CButton>
-                <CButton type="submit" color="primary">
-                  Simpan
+                <CButton type="submit" color="primary" disabled={loading}>
+                  {loading ? 'Loading...' : 'Simpan'}
                 </CButton>
               </div>
             </CForm>

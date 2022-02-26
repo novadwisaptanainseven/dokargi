@@ -3,7 +3,7 @@ import { messageErrorUpdate, messageSuccessUpdate } from 'src/helpers/messages'
 import { getKonten } from '.'
 import axiosInstance from 'src/helpers/axios'
 
-const editKonten = (values, setLoading, history, dispatch) => {
+const editKonten = (values, setLoading, dispatch) => {
   setLoading(true)
 
   axiosInstance
@@ -14,7 +14,7 @@ const editKonten = (values, setLoading, history, dispatch) => {
     })
     .then((res) => {
       setLoading(false)
-      showAlertSuccess(messageSuccessUpdate, 'pengaturan', history)
+      showAlertSuccess(messageSuccessUpdate, 'pengaturan')
       getKonten(dispatch)
     })
     .catch((err) => {

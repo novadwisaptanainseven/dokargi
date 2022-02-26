@@ -1,4 +1,4 @@
 import getKonten from './getKonten'
-import editKontent from './editKonten'
+import editKonten from './editKonten'
 
-export { editKontent, getKonten }
+export { editKonten, getKonten }
