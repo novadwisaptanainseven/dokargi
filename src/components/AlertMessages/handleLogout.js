@@ -14,7 +14,8 @@ const handleLogout = (e) => {
     title: 'Logout',
     text: 'Anda yakin ingin logout ?',
     confirmButtonText: 'YA',
-    showCancelButton: 'TIDAK',
+    showCancelButton: true,
+    cancelButtonText: 'TIDAK',
   }).then((result) => {
     if (result.isConfirmed) {
       logout(Swal)

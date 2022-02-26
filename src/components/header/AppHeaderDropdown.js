@@ -15,10 +15,18 @@ import avatar8 from './../../assets/images/avatars/8.jpg'
 import { GlobalContext } from 'src/context/Provider'
 import getImage from 'src/context/actions/Files/getImage'
 import { handleLogout } from '../AlertMessages'
+import { useHistory } from 'react-router-dom'
 
 const AppHeaderDropdown = () => {
+  const history = useHistory()
   const { profileUserState } = useContext(GlobalContext)
   const { data } = profileUserState
+
+  const goToEditUser = (e) => {
+    e.preventDefault()
+
+    history.push(`/admin/users/edit/${localStorage.id_user}`)
+  }
 
   return (
     <CDropdown variant="nav-item">
@@ -72,7 +80,7 @@ const AppHeaderDropdown = () => {
           </CBadge>
         </CDropdownItem> */}
         <CDropdownHeader className="bg-light fw-semibold py-2">Pengaturan</CDropdownHeader>
-        <CDropdownItem href="#">
+        <CDropdownItem href="#" onClick={(e) => goToEditUser(e)}>
           <CIcon icon={cilUser} className="me-2" />
           Profile
         </CDropdownItem>
