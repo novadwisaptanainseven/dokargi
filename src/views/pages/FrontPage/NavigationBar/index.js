@@ -9,7 +9,8 @@ const NavigationBar = () => {
           <img src={SampleGambar} alt="logo" width={50} />
           <h4 className="mb-0">DOKARGI</h4>
         </div>
-        <div className="list-nav d-flex justify-content-between">
+        {/* Desktop */}
+        <div className="list-nav d-none d-md-flex justify-content-between">
           <div className="list-nav-item1">
             <a href="#" className="list-nav-link">
               Beranda
@@ -35,6 +36,15 @@ const NavigationBar = () => {
             <div className="line nav-line4"></div>
           </div>
         </div>
+
+        {/* Mobile */}
+        <button type="button" className="d-md-none mobile-list-nav">
+          <div className="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
       </div>
     </div>
   )
