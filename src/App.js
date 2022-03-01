@@ -13,7 +13,7 @@ const loading = (
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 
 // Pages
-const FrontPage = React.lazy(() => import('./views/pages/FrontPage'))
+const FrontPageLayout = React.lazy(() => import('./views/pages/FrontPage'))
 const Login = React.lazy(() => import('./views/pages/login/Login'))
 const Register = React.lazy(() => import('./views/pages/register/Register'))
 const Page404 = React.lazy(() => import('./views/pages/page404/Page404'))
@@ -39,7 +39,7 @@ class App extends Component {
             <Route path="/admin" component={DefaultLayout} />
 
             {/* Route Landing Page */}
-            <Route path="/" name="Beranda" render={(props) => <FrontPage {...props} />} />
+            <Route path="/" name="Beranda" render={(props) => <FrontPageLayout {...props} />} />
 
             {/* <Route path="/" name="Home" render={(props) => <DefaultLayout {...props} />} /> */}
           </Switch>

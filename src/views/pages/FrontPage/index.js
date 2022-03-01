@@ -1,9 +1,14 @@
 import React from 'react'
+import Content from './Content'
+import Footer from './Footer'
+import NavigationBar from './NavigationBar'
 
 const FrontPage = () => {
   return (
-    <div>
-      <h1>This Is Front Page</h1>
+    <div className="front-page">
+      <NavigationBar />
+      <Content />
+      <Footer />
     </div>
   )
 }
