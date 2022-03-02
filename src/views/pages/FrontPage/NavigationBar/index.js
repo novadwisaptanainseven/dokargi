@@ -37,19 +37,19 @@ const NavigationBar = () => {
           </div>
           <div className="list-nav-item2">
             <a href="#" className="list-nav-link">
-              Diagnosa
+              Konsultasi
             </a>
             <div className="line nav-line2"></div>
           </div>
           <div className="list-nav-item3">
             <a href="#" className="list-nav-link">
-              Informasi
+              Informasi Penyakit
             </a>
             <div className="line nav-line3"></div>
           </div>
           <div className="list-nav-item4">
             <a href="#" className="list-nav-link">
-              Tentang
+              Bantuan
             </a>
             <div className="line nav-line4"></div>
           </div>
@@ -73,19 +73,19 @@ const NavigationBar = () => {
           </div>
           <div className="list-nav-item2 mb-3">
             <a href="#" className="list-nav-link">
-              Diagnosa
+              Konsultasi
             </a>
             <div className="line nav-line2"></div>
           </div>
           <div className="list-nav-item3 mb-3">
             <a href="#" className="list-nav-link">
-              Informasi
+              Informasi Penyakit
             </a>
             <div className="line nav-line3"></div>
           </div>
           <div className="list-nav-item4 mb-3">
             <a href="#" className="list-nav-link">
-              Tentang
+              Bantuan
             </a>
             <div className="line nav-line4"></div>
           </div>
