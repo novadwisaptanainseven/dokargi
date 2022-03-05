@@ -39,7 +39,7 @@ class App extends Component {
             <Route path="/admin" component={DefaultLayout} />
 
             {/* Route Landing Page */}
-            <Route path="/" name="Beranda" render={(props) => <FrontPageLayout {...props} />} />
+            <Route path="/" render={(props) => <FrontPageLayout {...props} />} />
 
             {/* <Route path="/" name="Home" render={(props) => <DefaultLayout {...props} />} /> */}
           </Switch>

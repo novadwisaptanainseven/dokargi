@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <div className="footer">
       <div className="container py-5">
-        <CRow>
+        <CRow className="row-footer pb-3">
           <CCol md="3">
             <div className="logo-brand d-flex align-items-center gap-2 mb-3">
               <img src={SampleGambar} alt="logo" width={50} />
@@ -82,6 +82,10 @@ const Footer = () => {
             <p>Jl. Kuaro, Gn. Kelua, Kec. Samarinda Ulu, Kota Samarinda, Kalimantan Timur 75119</p>
           </CCol>
         </CRow>
+
+        <div className="mt-4 text-center">
+          <p className="m-0">Copyright &copy; {new Date().getFullYear()}</p>
+        </div>
       </div>
     </div>
   )

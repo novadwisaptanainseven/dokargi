@@ -1,12 +1,33 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { SampleGambar } from 'src/assets'
+import { Link } from 'react-router-dom'
+import { disableScroll, enableScroll } from 'src/helpers/functions'
 
 const NavigationBar = () => {
   const [openNavMenu, setOpenNavMenu] = useState(false)
 
+  // Menu Navigasi
+  const navMenu = [
+    {
+      name: 'Beranda',
+      path: '/beranda',
+    },
+    {
+      name: 'Konsultasi',
+      path: '/konsultasi',
+    },
+    {
+      name: 'Informasi Penyakit',
+      path: '/informasi-penyakit',
+    },
+    {
+      name: 'Bantuan',
+      path: '/bantuan',
+    },
+  ]
+
   const handleOpenNavMenu = () => {
     const mobileMenuNav = document.querySelector('.mobile-nav-menu')
-    console.log(mobileMenuNav)
     mobileMenuNav.style.display = 'block'
 
     setTimeout(() => {
@@ -20,6 +41,19 @@ const NavigationBar = () => {
     }, 600)
   }
 
+  useEffect(() => {
+    if (openNavMenu) {
+      disableScroll()
+    } else {
+      enableScroll()
+    }
+  }, [openNavMenu])
+
+  // Handle close nav menu when link clicked
+  const closeNavMenu = () => {
+    setOpenNavMenu(false)
+  }
+
   return (
     <div className="navigation-bar">
       <div className="container d-flex justify-content-between">
@@ -29,30 +63,14 @@ const NavigationBar = () => {
         </div>
         {/* Desktop */}
         <div className="list-nav d-none d-md-flex justify-content-between">
-          <div className="list-nav-item1">
-            <a href="#" className="list-nav-link">
-              Beranda
-            </a>
-            <div className="line nav-line1"></div>
-          </div>
-          <div className="list-nav-item2">
-            <a href="#" className="list-nav-link">
-              Konsultasi
-            </a>
-            <div className="line nav-line2"></div>
-          </div>
-          <div className="list-nav-item3">
-            <a href="#" className="list-nav-link">
-              Informasi Penyakit
-            </a>
-            <div className="line nav-line3"></div>
-          </div>
-          <div className="list-nav-item4">
-            <a href="#" className="list-nav-link">
-              Bantuan
-            </a>
-            <div className="line nav-line4"></div>
-          </div>
+          {navMenu.map((menu, idx) => (
+            <div key={idx} className={`list-nav-item${idx + 1}`}>
+              <Link to={menu.path} className="list-nav-link">
+                {menu.name}
+              </Link>
+              <div className={`line nav-line${idx + 1}`}></div>
+            </div>
+          ))}
         </div>
 
         {/* Mobile */}
@@ -65,30 +83,14 @@ const NavigationBar = () => {
         </button>
 
         <div className={`mobile-nav-menu text-center ${openNavMenu && 'active'}`}>
-          <div className="list-nav-item1 mb-3">
-            <a href="#" className="list-nav-link">
-              Beranda
-            </a>
-            <div className="line nav-line1"></div>
-          </div>
-          <div className="list-nav-item2 mb-3">
-            <a href="#" className="list-nav-link">
-              Konsultasi
-            </a>
-            <div className="line nav-line2"></div>
-          </div>
-          <div className="list-nav-item3 mb-3">
-            <a href="#" className="list-nav-link">
-              Informasi Penyakit
-            </a>
-            <div className="line nav-line3"></div>
-          </div>
-          <div className="list-nav-item4 mb-3">
-            <a href="#" className="list-nav-link">
-              Bantuan
-            </a>
-            <div className="line nav-line4"></div>
-          </div>
+          {navMenu.map((menu, idx) => (
+            <div key={idx} className={`list-nav-item${idx + 1} mb-3`}>
+              <Link to={menu.path} className="list-nav-link" onClick={closeNavMenu}>
+                {menu.name}
+              </Link>
+              <div className={`line nav-line${idx + 1}`}></div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
