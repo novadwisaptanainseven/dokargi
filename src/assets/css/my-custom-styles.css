@@ -117,6 +117,7 @@ body {
   overflow-x: hidden;
   transition: 0.5s ease-in-out;
   display: none;
+  z-index: 9999;
 }
 
 .front-page .mobile-nav-menu.active {
@@ -191,6 +192,81 @@ body {
   right: 0;
 }
 
+.front-page .content-beranda {
+  margin-top: 80px;
+}
+
+.front-page .content-beranda .pelayanan {
+  background-color: #effbff;
+  padding: 40px;
+  color: #16b0c8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 300px;
+}
+
+.front-page .content-beranda .pelayanan p {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.front-page .content-beranda .tentang h2 {
+  font-weight: normal;
+  line-height: 1.8em;
+}
+
+.front-page .content-beranda .tentang .label-tentang {
+  font-weight: bold;
+  color: #16b0c8;
+}
+
+.front-page .content-beranda .tentang p {
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1.8em;
+}
+
+.front-page .informasi {
+  background-color: #effbff;
+  padding: 60px 0;
+  margin-top: -1px;
+}
+
+.front-page .informasi .date span {
+  font-size: 0.9em;
+}
+
+.front-page .informasi .date .icon {
+  color: #16b0c8;
+}
+
+.front-page .informasi .card .card-text {
+  text-align: justify;
+}
+
+.front-page .informasi .card .card-text a {
+  color: #16b0c8;
+  text-decoration: none;
+}
+
+.front-page .informasi .button-lainnya {
+  background-color: #16b0c8;
+  border: 0;
+  border-radius: 50px;
+  padding: 8px 20px;
+  transition: 0.1s ease-in-out;
+  color: white;
+}
+
+.front-page .informasi .button-lainnya:hover {
+  background-color: #149aaf;
+}
+
+.front-page .informasi .button-lainnya:focus {
+  outline: rgba(20, 154, 175, 0.473) solid 4px;
+}
+
 /* End of Content */
 
 /* Footer */
@@ -220,3 +296,47 @@ body {
   border-bottom: 1px solid white;
 }
 /* End of Footer */
+
+/* Responsive Mobile */
+@media screen and (max-width: 768px) {
+  /* Front Page */
+  .front-page .banner-beranda-heading p {
+    color: #ffffff;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  }
+
+  .front-page .beranda-banner-main {
+    width: 550px;
+    position: absolute;
+    top: 0;
+    left: -50px;
+  }
+
+  .front-page .banner-beranda {
+    height: 400px;
+  }
+
+  .front-page .banner-beranda-heading {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 80px;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+  }
+
+  .front-page .banner-beranda .container {
+    padding: 0;
+  }
+
+  .front-page .banner-beranda-heading h3,
+  .front-page .banner-beranda-heading h1 {
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  }
+
+  .front-page .content-beranda .tentang p {
+    font-size: 1.2em;
+    text-align: justify;
+  }
+}
