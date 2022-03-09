@@ -1,40 +1,16 @@
 import CIcon from '@coreui/icons-react'
-import {
-  CCard,
-  CCol,
-  CRow,
-  CCardBody,
-  CCardTitle,
-  CCardImage,
-  CCardText,
-  CButton,
-} from '@coreui/react'
+import { CCard, CCol, CRow, CCardBody, CCardTitle, CCardImage, CCardText } from '@coreui/react'
 import { cilCog, cilMobile, cilUser, cilCalendar } from '@coreui/icons'
 import React from 'react'
-import { BerandaBanner, BerandaImg, BerandaImg2, SampleGambar } from 'src/assets'
+import { BerandaImg, BerandaImg2 } from 'src/assets'
+import Banner from './Banner'
+import { InformasiCards } from '../../Components'
 
 const Beranda = () => {
   return (
     <div className="container-beranda">
       {/* Banner */}
-      <div className="banner-beranda">
-        <div className="container">
-          <div className="banner-beranda-heading">
-            <h3>Kamu Punya Masalah Karies Gigi ?</h3>
-            <h1>
-              Konsultasikan ke <span className="label-banner">DOKARGI</span>
-            </h1>
-            <p className="mt-4">
-              DOKARGI merupakan aplikasi yang bertujuan untuk membantu memberikan penjelasan
-              mengenai karies gigi yang pasien alami dan memberitahukan solusi untuk mengatasinya
-            </p>
-            <button type="button" className="btn btn-banner">
-              MULAI KONSULTASI
-            </button>
-          </div>
-          <img src={BerandaBanner} alt="beranda-banner" className="beranda-banner-main" />
-        </div>
-      </div>
+      <Banner />
 
       {/* Body Content */}
       <div className="content-beranda">
@@ -94,65 +70,7 @@ const Beranda = () => {
         </div>
 
         {/* Informasi Karies Gigi */}
-        <div className="informasi">
-          <h2 className="text-center mb-4">INFORMASI KARIES GIGI</h2>
-          <div className="container">
-            <CRow>
-              <CCol md="4" className="mb-3">
-                <CCard className="card border-0">
-                  <CCardImage orientation="top" src={BerandaImg2} />
-                  <CCardBody className="p-4">
-                    <div className="date d-flex gap-2">
-                      <CIcon icon={cilCalendar} className="icon" />
-                      <span className="text-secondary d-block">11 Feb 2022</span>
-                    </div>
-                    <CCardTitle className="mt-3 mb-3">Karies Superficialis</CCardTitle>
-                    <CCardText className="card-text">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Possimus perferendis
-                      repudiandae accusantium temporibus quam? <a href="#">... Baca selengkapnya</a>
-                    </CCardText>
-                  </CCardBody>
-                </CCard>
-              </CCol>
-              <CCol md="4" className="mb-3">
-                <CCard className="card border-0">
-                  <CCardImage orientation="top" src={BerandaImg2} />
-                  <CCardBody className="p-4">
-                    <div className="date d-flex gap-2">
-                      <CIcon icon={cilCalendar} className="icon" />
-                      <span className="text-secondary d-block">11 Feb 2022</span>
-                    </div>
-                    <CCardTitle className="mt-3 mb-3">Karies Superficialis</CCardTitle>
-                    <CCardText className="card-text">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Possimus perferendis
-                      repudiandae accusantium temporibus quam? <a href="#">... Baca selengkapnya</a>
-                    </CCardText>
-                  </CCardBody>
-                </CCard>
-              </CCol>
-              <CCol md="4" className="mb-3">
-                <CCard className="card border-0">
-                  <CCardImage orientation="top" src={BerandaImg2} />
-                  <CCardBody className="p-4">
-                    <div className="date d-flex gap-2">
-                      <CIcon icon={cilCalendar} className="icon" />
-                      <span className="text-secondary d-block">11 Feb 2022</span>
-                    </div>
-                    <CCardTitle className="mt-3 mb-3">Karies Superficialis</CCardTitle>
-                    <CCardText className="card-text">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Possimus perferendis
-                      repudiandae accusantium temporibus quam? <a href="#">... Baca selengkapnya</a>
-                    </CCardText>
-                  </CCardBody>
-                </CCard>
-              </CCol>
-            </CRow>
-
-            <div className="d-flex justify-content-center mt-4">
-              <button className="button-lainnya">Lihat Lainnya</button>
-            </div>
-          </div>
-        </div>
+        <InformasiCards />
       </div>
     </div>
   )

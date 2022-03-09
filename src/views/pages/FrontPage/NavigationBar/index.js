@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { SampleGambar } from 'src/assets'
-import { Link } from 'react-router-dom'
+import { Link, useRouteMatch, useLocation } from 'react-router-dom'
 import { disableScroll, enableScroll } from 'src/helpers/functions'
 
 const NavigationBar = () => {
   const [openNavMenu, setOpenNavMenu] = useState(false)
+  const location = useLocation()
+  const { pathname } = location
 
   // Menu Navigasi
   const navMenu = [
@@ -18,13 +20,20 @@ const NavigationBar = () => {
     },
     {
       name: 'Informasi Penyakit',
-      path: '/informasi-penyakit',
+      path: '/informasi',
     },
     {
       name: 'Bantuan',
       path: '/bantuan',
     },
   ]
+
+  const handleMenuActive = (pathNav) => {
+    console.log(pathNav === pathname)
+    if (pathNav === pathname) {
+      return 'active'
+    }
+  }
 
   const handleOpenNavMenu = () => {
     const mobileMenuNav = document.querySelector('.mobile-nav-menu')
@@ -65,10 +74,10 @@ const NavigationBar = () => {
         <div className="list-nav d-none d-md-flex justify-content-between">
           {navMenu.map((menu, idx) => (
             <div key={idx} className={`list-nav-item${idx + 1}`}>
-              <Link to={menu.path} className="list-nav-link">
+              <Link to={menu.path} className={`list-nav-link ${handleMenuActive(menu.path)}`}>
                 {menu.name}
               </Link>
-              <div className={`line nav-line${idx + 1}`}></div>
+              <div className={`line nav-line${idx + 1} ${handleMenuActive(menu.path)}`}></div>
             </div>
           ))}
         </div>
@@ -85,10 +94,14 @@ const NavigationBar = () => {
         <div className={`mobile-nav-menu text-center ${openNavMenu && 'active'}`}>
           {navMenu.map((menu, idx) => (
             <div key={idx} className={`list-nav-item${idx + 1} mb-3`}>
-              <Link to={menu.path} className="list-nav-link" onClick={closeNavMenu}>
+              <Link
+                to={menu.path}
+                className={`list-nav-link ${handleMenuActive(menu.path)}`}
+                onClick={closeNavMenu}
+              >
                 {menu.name}
               </Link>
-              <div className={`line nav-line${idx + 1}`}></div>
+              <div className={`line nav-line${idx + 1} ${handleMenuActive(menu.path)}`}></div>
             </div>
           ))}
         </div>

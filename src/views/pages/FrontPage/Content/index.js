@@ -8,26 +8,27 @@ import routesFront from 'src/routes_front'
 const Content = () => {
   return (
     <div className="content">
-      <Suspense fallback={<CSpinner color="primary" />} />
-      <Switch>
-        {routesFront.map((route, idx) => {
-          return (
-            route.component && (
-              <Route
-                key={idx}
-                path={route.path}
-                exact={route.exact}
-                name={route.name}
-                render={(props) => (
-                  <>
-                    <route.component {...props} />
-                  </>
-                )}
-              />
+      <Suspense fallback={<CSpinner color="primary" />}>
+        <Switch>
+          {routesFront.map((route, idx) => {
+            return (
+              route.component && (
+                <Route
+                  key={idx}
+                  path={route.path}
+                  exact={route.exact}
+                  name={route.name}
+                  render={(props) => (
+                    <>
+                      <route.component {...props} />
+                    </>
+                  )}
+                />
+              )
             )
-          )
-        })}
-      </Switch>
+          })}
+        </Switch>
+      </Suspense>
     </div>
   )
 }

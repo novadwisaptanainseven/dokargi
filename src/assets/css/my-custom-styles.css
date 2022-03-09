@@ -52,6 +52,14 @@ body {
   color: #16b0c8;
 }
 
+.front-page .list-nav-link.active {
+  color: #16b0c8;
+}
+
+.front-page .list-nav .line.active {
+  transform: scaleX(1);
+}
+
 .front-page .list-nav-item1:hover .nav-line1 {
   transform: scaleX(1);
 }
@@ -83,6 +91,10 @@ body {
   border-radius: 4px;
   background-color: transparent;
   transition: 0.1s ease-in-out;
+}
+
+.front-page .mobile-nav-menu .line.active {
+  transform: scaleX(1);
 }
 
 .front-page .mobile-list-nav:focus {
@@ -144,6 +156,8 @@ body {
 .front-page .content {
   width: 100%;
 }
+
+/* Halaman Beranda */
 .front-page .banner-beranda {
   background-color: #ececec;
   height: 500px;
@@ -267,6 +281,63 @@ body {
   outline: rgba(20, 154, 175, 0.473) solid 4px;
 }
 
+/* Halaman Informasi Penyakit */
+.front-page .banner-informasi .informasi-ilustrasi {
+  width: 100%;
+}
+
+.front-page .banner-informasi.banner-heading-informasi {
+  border: 1px solid black;
+}
+
+.front-page .banner-informasi {
+  background-color: #ececec;
+  height: 500px;
+  padding-top: 30px;
+}
+
+.front-page .banner-informasi h1 {
+  color: #16b0c8;
+  font-size: 48px;
+  line-height: 1.4em;
+}
+
+.front-page .label-banner {
+  background-color: #16b0c8;
+  color: white;
+  padding: 0 8px;
+}
+
+.front-page .prev-link {
+  text-decoration: none;
+  color: #9c9c9c;
+}
+
+.front-page .prev-link:hover {
+  color: #5b5b5b;
+}
+
+.front-page .detail-informasi-sub-header {
+  color: #16b0c8;
+}
+
+.front-page .detail-informasi-sub-header span {
+  color: #a5a5a5;
+  font-size: 0.9em;
+}
+
+.front-page .detail-informasi-body .gambar-penyakit {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+}
+
+.front-page .detail-informasi-body p {
+  text-align: justify;
+  line-height: 1.6em;
+  font-size: 1.2em;
+}
+
 /* End of Content */
 
 /* Footer */
@@ -312,8 +383,13 @@ body {
     left: -50px;
   }
 
-  .front-page .banner-beranda {
+  .front-page .banner-beranda,
+  .front-page .banner-informasi {
     height: 400px;
+  }
+
+  .front-page .banner-informasi {
+    padding-top: 80px;
   }
 
   .front-page .banner-beranda-heading {
