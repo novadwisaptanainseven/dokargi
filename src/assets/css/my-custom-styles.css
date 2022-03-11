@@ -239,6 +239,7 @@ body {
   font-size: 24px;
   font-weight: 300;
   line-height: 1.8em;
+  color: #6e6e6e;
 }
 
 .front-page .informasi {
@@ -286,8 +287,8 @@ body {
   width: 100%;
 }
 
-.front-page .banner-informasi.banner-heading-informasi {
-  border: 1px solid black;
+.front-page .banner-informasi .banner-heading-informasi {
+  /* border: 1px solid black; */
 }
 
 .front-page .banner-informasi {
@@ -404,6 +405,20 @@ body {
   top: -15px;
 }
 
+.front-page .loading-screen {
+  margin-bottom: 300px;
+}
+
+/* Halaman Konsultasi */
+.front-page .banner-informasi .konsultasi-ilustrasi {
+  width: 80%;
+}
+.front-page .alert-dokargi {
+  background-color: #ffe976;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
 /* End of Content */
 
 /* Footer */
@@ -480,5 +495,45 @@ body {
   .front-page .content-beranda .tentang p {
     font-size: 1.2em;
     text-align: justify;
+  }
+
+  .front-page .content-bantuan .timeline {
+    margin: 0;
+    margin-left: 25px;
+    margin-top: -20px !important;
+    height: 150px;
+  }
+  .front-page .content-bantuan .circle {
+    bottom: 30px;
+    left: -19px;
+    width: 40px;
+    height: 40px;
+  }
+  .front-page .content-bantuan .pointer-left {
+    display: none;
+    bottom: 0;
+    left: 0;
+  }
+  .front-page .content-bantuan .pointer-right {
+    display: none;
+    bottom: 0;
+    left: 10px;
+  }
+  .front-page .content-bantuan .textbox-left {
+    left: 30px;
+    top: 25px;
+    /* border: 1px solid black; */
+    font-size: 0.9em;
+    width: 300px;
+  }
+  .front-page .content-bantuan .textbox-right {
+    left: 30px;
+    top: 25px;
+    /* border: 1px solid black; */
+    font-size: 0.9em;
+    width: 300px;
+  }
+  .front-page .content-bantuan .timeline.mobile {
+    height: 80px;
   }
 }

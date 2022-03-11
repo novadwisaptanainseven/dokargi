@@ -1,14 +1,14 @@
 import React, { Suspense } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
-import { CSpinner } from '@coreui/react'
 
 // routes front page config
 import routesFront from 'src/routes_front'
+import { LoadingScreen } from '../Components'
 
 const Content = () => {
   return (
     <div className="content">
-      <Suspense fallback={<CSpinner color="primary" />}>
+      <Suspense fallback={<LoadingScreen />}>
         <Switch>
           {routesFront.map((route, idx) => {
             return (
