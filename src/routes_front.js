@@ -6,6 +6,7 @@ const InformasiPenyakit = React.lazy(() =>
   import('./views/pages/FrontPage/Content/InformasiPenyakit'),
 )
 const DetailInformasi = React.lazy(() => import('./views/pages/FrontPage/Content/DetailInformasi'))
+const Bantuan = React.lazy(() => import('./views/pages/FrontPage/Content/Bantuan'))
 
 const routesFront = [
   {
@@ -42,6 +43,12 @@ const routesFront = [
     path: '/informasi/:slug',
     name: 'Detail Informasi Penyakit',
     component: DetailInformasi,
+    exact: true,
+  },
+  {
+    path: '/bantuan',
+    name: 'Bantuan',
+    component: Bantuan,
     exact: true,
   },
 ]

@@ -7,6 +7,8 @@ import BerandaImg2 from './images/beranda_img2.png'
 import KonsultasiIlustration from './images/konsultasi_ilustration.svg'
 import InformasiIlustration from './images/information_ilustration.svg'
 import BantuanIlustration from './images/bantuan_ilustration.svg'
+import LineBantuanLeft from './images/line_bantuan_left.svg'
+import LineBantuanRight from './images/line_bantuan_right.svg'
 
 export {
   SampleGambar,
@@ -18,4 +20,6 @@ export {
   KonsultasiIlustration,
   InformasiIlustration,
   BantuanIlustration,
+  LineBantuanLeft,
+  LineBantuanRight,
 }
