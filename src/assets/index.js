@@ -9,6 +9,7 @@ import InformasiIlustration from './images/information_ilustration.svg'
 import BantuanIlustration from './images/bantuan_ilustration.svg'
 import LineBantuanLeft from './images/line_bantuan_left.svg'
 import LineBantuanRight from './images/line_bantuan_right.svg'
+import NoPatient from './images/no_patient.svg'
 
 export {
   SampleGambar,
@@ -22,4 +23,5 @@ export {
   BantuanIlustration,
   LineBantuanLeft,
   LineBantuanRight,
+  NoPatient,
 }

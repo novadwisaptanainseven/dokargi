@@ -418,6 +418,88 @@ body {
   padding: 10px 20px;
   border-radius: 10px;
 }
+.front-page .aksi-cari input {
+  border-radius: 60px;
+  padding: 5px 20px;
+  color: #6e6e6e;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+  outline-offset: 3px;
+  /* box-shadow: 0 0.2rem 1rem rgb(0 0 21 / 18%) !important; */
+}
+.front-page .aksi-cari input:focus {
+  box-shadow: 0 0.2rem 1rem rgb(0 0 21 / 18%) !important;
+  outline-color: #16b0c8;
+}
+.front-page .aksi-cari .btn-cari,
+.front-page .aksi-cari .btn-daftar,
+.front-page .btn-diagnosa,
+.btn-daftar-batal,
+.btn-daftar-save {
+  border-radius: 60px;
+  padding: 5px 30px;
+  transition: 0.3s;
+  outline: none;
+}
+.front-page .aksi-cari .btn-cari {
+  background-color: #16b0c8;
+  color: white;
+}
+.front-page .aksi-cari .btn-daftar {
+  background-color: #e4e900;
+  color: #404040;
+}
+.front-page .btn-diagnosa {
+  background-color: #e4e900;
+  color: #404040;
+}
+.btn-daftar-save {
+  background-color: #16b0c8;
+  color: white;
+}
+.front-page .aksi-cari .btn-cari:hover,
+.front-page .aksi-cari .btn-daftar:hover,
+.front-page .btn-diagnosa:hover,
+.btn-daftar-batal:hover,
+.btn-daftar-save:hover {
+  box-shadow: 0 0.2rem 1rem rgb(0 0 21 / 18%) !important;
+}
+.btn-daftar-save:hover {
+  background-color: #18d3f0;
+  color: white;
+}
+.btn-daftar-save:active {
+  background-color: #1396aa;
+  color: white;
+}
+.btn-daftar-save:focus {
+  background-color: #1396aa;
+  color: white;
+}
+.front-page .aksi-cari .btn-cari:active,
+.front-page .aksi-cari .btn-daftar:active,
+.front-page .btn-diagnosa:active,
+.btn-daftar-batal:active,
+.btn-daftar-save:active {
+  box-shadow: 0 0 0 rgb(0 0 21 / 18%) !important;
+}
+.front-page .aksi-cari .btn-cari:active {
+  background-color: #1396aa;
+}
+.front-page .aksi-cari .btn-daftar:active {
+  background-color: #d3d600;
+}
+.front-page .container-pasien {
+  border: 2px solid #16b0c8;
+  padding: 30px;
+  border-radius: 10px;
+}
+.front-page .no-patient-ilustration img {
+  width: 50%;
+}
+.btn-daftar-save:active {
+  background-color: #1396aa;
+}
 
 /* End of Content */
 
