@@ -11,13 +11,19 @@ import React, { useState } from 'react'
 import { NoPatient } from 'src/assets'
 import Banner from './Banner'
 import ModalDaftar from './ModalDaftar'
+import { useHistory } from 'react-router-dom'
 
 const Konsultasi = () => {
   const [pasien, setPasien] = useState(false)
   const [modalDaftar, setModalDaftar] = useState(false)
+  const history = useHistory()
 
   const handleTombolCari = () => {
     setPasien(!pasien)
+  }
+
+  const goToHasilDiagnosa = () => {
+    history.push(`/konsultasi/hasil`)
   }
 
   return (
@@ -172,7 +178,9 @@ const Konsultasi = () => {
                 </CTable>
 
                 <div className="d-flex justify-content-center">
-                  <button className="btn btn-diagnosa">Hasil Diagnosa</button>
+                  <button className="btn btn-diagnosa" onClick={goToHasilDiagnosa}>
+                    Hasil Diagnosa
+                  </button>
                 </div>
               </div>
             </>

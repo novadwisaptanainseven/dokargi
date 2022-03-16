@@ -13,6 +13,28 @@ body {
   overflow: hidden;
 }
 
+.dokargi-bgcolor-main {
+  background-color: #16b0c8;
+}
+.dokargi-bordercolor-main {
+  border: 1px solid #16b0c8;
+}
+.dokargi-bgcolor-warning {
+  background-color: #ffe976;
+}
+.dokargi-bordercolor-warning {
+  border: 1px solid #ffe976;
+}
+.dokargi-bgcolor-secondary {
+  background-color: #ececec;
+}
+.dokargi-bgcolor-dark {
+  background-color: #2b2b2b;
+}
+.dokargi-bordercolor-dark {
+  border: 1px solid #2b2b2b;
+}
+
 /* Responsive Mobile Device */
 @media screen and (max-width: 768px) {
   .btn-tambah {

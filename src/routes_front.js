@@ -2,6 +2,9 @@ import React from 'react'
 
 const Beranda = React.lazy(() => import('./views/pages/FrontPage/Content/Beranda'))
 const Konsultasi = React.lazy(() => import('./views/pages/FrontPage/Content/Konsultasi'))
+const HasilKonsultasi = React.lazy(() =>
+  import('./views/pages/FrontPage/Content/Konsultasi/HasilKonsultasi'),
+)
 const InformasiPenyakit = React.lazy(() =>
   import('./views/pages/FrontPage/Content/InformasiPenyakit'),
 )
@@ -31,6 +34,12 @@ const routesFront = [
     path: '/konsultasi',
     name: 'Konsultasi',
     component: Konsultasi,
+    exact: true,
+  },
+  {
+    path: '/konsultasi/hasil',
+    name: 'Hasil Konsultasi',
+    component: HasilKonsultasi,
     exact: true,
   },
   {

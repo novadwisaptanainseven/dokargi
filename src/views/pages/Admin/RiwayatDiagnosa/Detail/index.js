@@ -160,7 +160,7 @@ const Detail = () => {
               </CCardHeader>
               <CCardBody>
                 <CRow>
-                  <CCol md="5">
+                  <CCol md="5" className="mb-3">
                     <img
                       src={getImage('foto_penyakit', diagnosa.hasil_pakar.gambar)}
                       alt={getImage('foto_penyakit', diagnosa.hasil_pakar.gambar)}

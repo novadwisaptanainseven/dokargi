@@ -10,7 +10,7 @@ const Banner = () => {
           <CCol md="6" className="d-none d-md-block">
             <img src={BantuanIlustration} alt="gambar ilustrasi" className="bantuan-ilustrasi" />
           </CCol>
-          <CCol md="6" className="d-flex align-items-center ps-0 ps-md-5">
+          <CCol md="6" className="d-flex align-items-center ps-3 ps-md-5">
             <div className="banner-heading-informasi text-center text-md-start">
               <h1>
                 BANTUAN <br />
