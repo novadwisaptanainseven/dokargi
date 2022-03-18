@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
+import { baseRoutePath } from 'src/helpers/url'
 
 // routes front page config
 import routesFront from 'src/routes_front'
@@ -15,7 +16,7 @@ const Content = () => {
               route.component && (
                 <Route
                   key={idx}
-                  path={route.path}
+                  path={baseRoutePath + route.path}
                   exact={route.exact}
                   name={route.name}
                   render={(props) => (

@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { SampleGambar } from 'src/assets'
-import { Link, useRouteMatch, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { disableScroll, enableScroll } from 'src/helpers/functions'
+import PropTypes from 'prop-types'
+import getImage from 'src/context/actions/Files/getImage'
+import { baseRoutePath } from 'src/helpers/url'
 
-const NavigationBar = () => {
+const NavigationBar = ({ dataKonten }) => {
   const [openNavMenu, setOpenNavMenu] = useState(false)
   const location = useLocation()
   const { pathname } = location
@@ -12,24 +15,23 @@ const NavigationBar = () => {
   const navMenu = [
     {
       name: 'Beranda',
-      path: '/beranda',
+      path: 'beranda',
     },
     {
       name: 'Konsultasi',
-      path: '/konsultasi',
+      path: 'konsultasi',
     },
     {
       name: 'Informasi Penyakit',
-      path: '/informasi',
+      path: 'informasi',
     },
     {
       name: 'Bantuan',
-      path: '/bantuan',
+      path: 'bantuan',
     },
   ]
 
   const handleMenuActive = (pathNav) => {
-    console.log(pathNav === pathname)
     if (pathNav === pathname) {
       return 'active'
     }
@@ -65,16 +67,19 @@ const NavigationBar = () => {
 
   return (
     <div className="navigation-bar">
-      <div className="container d-flex justify-content-between">
+      <div className="container d-flex justify-content-between align-items-center">
         <div className="logo-brand d-flex align-items-center gap-2">
-          <img src={SampleGambar} alt="logo" width={50} />
-          <h4 className="mb-0">DOKARGI</h4>
+          <img src={dataKonten ? getImage('', dataKonten.logo) : ''} alt="logo" width={50} />
+          <h4 className="mb-0">{dataKonten && dataKonten.title_website.toUpperCase()}</h4>
         </div>
         {/* Desktop */}
         <div className="list-nav d-none d-md-flex justify-content-between">
           {navMenu.map((menu, idx) => (
             <div key={idx} className={`list-nav-item${idx + 1}`}>
-              <Link to={menu.path} className={`list-nav-link ${handleMenuActive(menu.path)}`}>
+              <Link
+                to={baseRoutePath + menu.path}
+                className={`list-nav-link ${handleMenuActive(menu.path)}`}
+              >
                 {menu.name}
               </Link>
               <div className={`line nav-line${idx + 1} ${handleMenuActive(menu.path)}`}></div>
@@ -95,7 +100,7 @@ const NavigationBar = () => {
           {navMenu.map((menu, idx) => (
             <div key={idx} className={`list-nav-item${idx + 1} mb-3`}>
               <Link
-                to={menu.path}
+                to={baseRoutePath + menu.path}
                 className={`list-nav-link ${handleMenuActive(menu.path)}`}
                 onClick={closeNavMenu}
               >
@@ -111,3 +116,7 @@ const NavigationBar = () => {
 }
 
 export default NavigationBar
+
+NavigationBar.propTypes = {
+  dataKonten: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+}

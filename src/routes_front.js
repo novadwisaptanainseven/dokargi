@@ -13,49 +13,49 @@ const Bantuan = React.lazy(() => import('./views/pages/FrontPage/Content/Bantuan
 
 const routesFront = [
   {
-    path: '/',
+    path: '',
     name: 'Beranda',
     component: Beranda,
     exact: true,
   },
   {
-    path: '/beranda',
+    path: 'beranda',
     name: 'Beranda',
     component: Beranda,
     exact: true,
   },
   {
-    path: '/beranda/:slug',
+    path: 'beranda/penyakit/:slug',
     name: 'Beranda',
     component: DetailInformasi,
     exact: true,
   },
   {
-    path: '/konsultasi',
+    path: 'konsultasi',
     name: 'Konsultasi',
     component: Konsultasi,
     exact: true,
   },
   {
-    path: '/konsultasi/hasil',
+    path: 'konsultasi/hasil',
     name: 'Hasil Konsultasi',
     component: HasilKonsultasi,
     exact: true,
   },
   {
-    path: '/informasi',
+    path: 'informasi',
     name: 'Informasi Penyakit',
     component: InformasiPenyakit,
     exact: true,
   },
   {
-    path: '/informasi/:slug',
+    path: 'informasi/:slug',
     name: 'Detail Informasi Penyakit',
     component: DetailInformasi,
     exact: true,
   },
   {
-    path: '/bantuan',
+    path: 'bantuan',
     name: 'Bantuan',
     component: Bantuan,
     exact: true,
