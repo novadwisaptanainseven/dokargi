@@ -1,4 +1,5 @@
 import axiosInstance from 'src/helpers/axios'
+import { baseRoutePath } from 'src/helpers/url'
 
 const logout = (Swal) => {
   axiosInstance
@@ -7,7 +8,7 @@ const logout = (Swal) => {
       // console.log(res.data);
       Swal.fire('Anda berhasil Logout', '', 'success').then((res) => {
         localStorage.clear()
-        window.location.href = '/login'
+        window.location.href = baseRoutePath + 'admin/login'
       })
     })
     .catch((err) => {

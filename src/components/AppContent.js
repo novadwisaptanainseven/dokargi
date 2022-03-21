@@ -4,6 +4,7 @@ import { CContainer, CSpinner } from '@coreui/react'
 
 // routes config
 import routes from '../routes'
+import { baseRoutePath } from 'src/helpers/url'
 
 const AppContent = () => {
   return (
@@ -15,7 +16,7 @@ const AppContent = () => {
               route.component && (
                 <Route
                   key={idx}
-                  path={`/admin` + route.path}
+                  path={`${baseRoutePath}admin` + route.path}
                   exact={route.exact}
                   name={route.name}
                   render={(props) => (
@@ -27,7 +28,7 @@ const AppContent = () => {
               )
             )
           })}
-          <Redirect from="/" to="/admin/dashboard" />
+          <Redirect from={`${baseRoutePath}admin/`} to={`${baseRoutePath}admin/dashboard`} />
         </Switch>
       </Suspense>
     </CContainer>

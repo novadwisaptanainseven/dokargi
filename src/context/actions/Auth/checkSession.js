@@ -1,4 +1,5 @@
 import axiosInstance from 'src/helpers/axios'
+import { baseRoutePath } from 'src/helpers/url'
 import { SUCCESS } from '../../actionTypes'
 
 const checkSession = (history, Swal, setIsLogin, profileUserDispatch) => {
@@ -19,7 +20,7 @@ const checkSession = (history, Swal, setIsLogin, profileUserDispatch) => {
         text: 'Anda belum login!',
         showConfirmButton: true,
       }).then((result) => {
-        history.push('/login')
+        history.push(`${baseRoutePath}login`)
       })
     })
 }

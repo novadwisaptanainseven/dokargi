@@ -1,4 +1,5 @@
 import axiosInstance from 'src/helpers/axios'
+import { baseRoutePath } from 'src/helpers/url'
 
 export const checkToken = (history, Swal) => {
   axiosInstance
@@ -11,7 +12,7 @@ export const checkToken = (history, Swal) => {
         showConfirmButton: true,
       }).then((result) => {
         if (result.isConfirmed) {
-          window.location.href = '/admin'
+          window.location.href = baseRoutePath + 'admin'
         }
       })
     })

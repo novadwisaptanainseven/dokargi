@@ -1,4 +1,5 @@
 import axiosInstance from 'src/helpers/axios'
+import { baseRoutePath } from 'src/helpers/url'
 import { ERROR, LOADING, SUCCESS } from '../../actionTypes'
 
 const login = (values, dispatch) => {
@@ -19,7 +20,7 @@ const login = (values, dispatch) => {
       })
 
       // Redirect to dashboard
-      window.location.href = '/admin'
+      window.location.href = baseRoutePath + 'admin'
 
       // console.log(res.data);
     })

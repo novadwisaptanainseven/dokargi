@@ -2,8 +2,9 @@ import React from 'react'
 import CIcon from '@coreui/icons-react'
 import { cilBook, cilBriefcase, cilCog, cilSpeedometer, cilUser } from '@coreui/icons'
 import { CNavGroup, CNavItem } from '@coreui/react'
+import { baseRoutePath } from './helpers/url'
 
-const rootPath = '/admin'
+const rootPath = baseRoutePath + 'admin'
 
 const _nav = [
   {

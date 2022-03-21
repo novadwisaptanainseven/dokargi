@@ -360,6 +360,17 @@ body {
   line-height: 1.6em;
   font-size: 1.2em;
 }
+.front-page .informasi .skeleton-penyakit-back {
+  width: 300px;
+}
+.front-page .informasi .skeleton-penyakit-gambar {
+  height: 300px;
+}
+.front-page .informasi .skeleton-penyakit-subjudul {
+  width: 300px;
+}
+
+/* End of Halaman Penyakit */
 
 /* Halaman Bantuan */
 .front-page .banner-informasi .bantuan-ilustrasi {
@@ -430,6 +441,8 @@ body {
 .front-page .loading-screen {
   margin-bottom: 300px;
 }
+
+/* End of Halaman Bantuan */
 
 /* Halaman Konsultasi */
 .front-page .banner-informasi .konsultasi-ilustrasi {
@@ -639,5 +652,13 @@ body {
   }
   .front-page .content-bantuan .timeline.mobile {
     height: 80px;
+  }
+
+  .front-page .informasi .skeleton-penyakit-back {
+    width: 100%;
+  }
+
+  .front-page .informasi .skeleton-penyakit-subjudul {
+    width: 100%;
   }
 }

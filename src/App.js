@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import './scss/style.scss'
 import './assets/css/my-custom-styles.css'
 
@@ -25,23 +25,39 @@ class App extends Component {
       <Router>
         <React.Suspense fallback={loading}>
           <Switch>
-            <Route exact path="/login" name="Login Page" render={(props) => <Login {...props} />} />
             <Route
               exact
-              path="/register"
+              path="/dokargi/login"
+              name="Login Page"
+              render={(props) => <Login {...props} />}
+            />
+            <Route
+              exact
+              path="/dokargi/register"
               name="Register Page"
               render={(props) => <Register {...props} />}
             />
-            <Route exact path="/404" name="Page 404" render={(props) => <Page404 {...props} />} />
-            <Route exact path="/500" name="Page 500" render={(props) => <Page500 {...props} />} />
+            <Route
+              exact
+              path="/dokargi/404"
+              name="Page 404"
+              render={(props) => <Page404 {...props} />}
+            />
+            <Route
+              exact
+              path="/dokargi/500"
+              name="Page 500"
+              render={(props) => <Page500 {...props} />}
+            />
 
             {/* Route Admin */}
-            <Route path="/admin" component={DefaultLayout} />
+            <Route path="/dokargi/admin" component={DefaultLayout} />
 
             {/* Route Landing Page */}
-            <Route path="/" render={(props) => <FrontPageLayout {...props} />} />
+            <Route path="/dokargi" render={(props) => <FrontPageLayout {...props} />} />
 
             {/* <Route path="/" name="Home" render={(props) => <DefaultLayout {...props} />} /> */}
+            <Redirect from="/" to="/dokargi" />
           </Switch>
         </React.Suspense>
       </Router>
