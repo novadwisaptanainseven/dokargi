@@ -5,6 +5,7 @@ import getDiagnosaById from './getDiagnosaById'
 import getDiagnosaByIdPasien from './getDiagnosaByIdPasien'
 import insertDiagnosa from './insertDiagnosa'
 import editDiagnosa from './editDiagnosa'
+import getKonsultasiDiagnosa from './getKonsultasiDiagnosa'
 
 export {
   selectDiagnosa,
@@ -14,4 +15,5 @@ export {
   insertDiagnosa,
   editDiagnosa,
   getDiagnosaByIdPasien,
+  getKonsultasiDiagnosa,
 }

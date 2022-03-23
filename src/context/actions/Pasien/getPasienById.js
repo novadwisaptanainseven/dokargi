@@ -12,6 +12,7 @@ const getPasienById = (id, setData, setLoading) => {
     })
     .catch((err) => {
       // console.log(err.response.data);
+      setData('')
       setLoading(false)
     })
 }

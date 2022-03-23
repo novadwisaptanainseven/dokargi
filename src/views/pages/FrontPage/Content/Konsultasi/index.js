@@ -15,6 +15,7 @@ import { useHistory, useRouteMatch } from 'react-router-dom'
 import { baseRoutePath } from 'src/helpers/url'
 import { getPasienById } from 'src/context/actions/Pasien'
 import { LoadingSkeletonKonsultasi } from '../../Components'
+import { format } from 'date-fns'
 
 const Konsultasi = () => {
   const [pasien, setPasien] = useState(false)
@@ -108,7 +109,7 @@ const Konsultasi = () => {
           )}
 
           {/* Jika pasien ditemukan */}
-          {pasien && (
+          {pasien && !loading && (
             <>
               <div className="container-pasien mb-4">
                 <CTable>
@@ -116,27 +117,29 @@ const Konsultasi = () => {
                     <CTableRow>
                       <th>ID Pasien</th>
                       <th>:</th>
-                      <td>PS0001</td>
+                      <td>{pasien.id_pasien}</td>
                     </CTableRow>
                     <CTableRow>
                       <th>Nama Pasien</th>
                       <th>:</th>
-                      <td>Nova Dwi Sapta Nain Seven</td>
+                      <td>{pasien.nama}</td>
                     </CTableRow>
                     <CTableRow>
                       <th>Jenis Kelamin</th>
                       <th>:</th>
-                      <td>Pria</td>
+                      <td>{pasien.jkel}</td>
                     </CTableRow>
                     <CTableRow>
                       <th>Tempat &amp; Tgl. Lahir</th>
                       <th>:</th>
-                      <td>Tanjung Redeb, 27 November 1997</td>
+                      <td>
+                        {pasien.tmpt_lahir + ', ' + format(new Date(pasien.tgl_lahir), 'dd-MM-y')}
+                      </td>
                     </CTableRow>
                     <CTableRow>
                       <th>Alamat</th>
                       <th>:</th>
-                      <td>Jalan Slamet Riyadi Gg. Hikmah, RT.05, No. 08, Kelurahan Karang Asam</td>
+                      <td>{pasien.alamat}</td>
                     </CTableRow>
                   </CTableBody>
                 </CTable>
