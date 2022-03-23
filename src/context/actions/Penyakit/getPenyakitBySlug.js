@@ -11,7 +11,7 @@ const getPenyakitBySlug = (slug, dispatch) => {
     .then((res) => {
       dispatch({
         type: SUCCESS,
-        payload: res.data.data_penyakit,
+        payload: res.data,
       })
     })
     .catch((err) => {

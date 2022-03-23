@@ -16,11 +16,16 @@ const InformasiCards = () => {
   const { url } = match
   const { penyakitState, penyakitDispatch } = useContext(GlobalContext)
   const { data: dataPenyakit } = penyakitState
+  const currentRoutePath = baseRoutePath + 'informasi'
 
   // Get data penyakit
   useEffect(() => {
     getPenyakit(penyakitDispatch)
   }, [penyakitDispatch])
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  })
 
   const goToDetailPage = (e, slug) => {
     e.preventDefault()
@@ -69,11 +74,13 @@ const InformasiCards = () => {
           </CRow>
         )}
 
-        <div className="d-flex justify-content-center mt-4">
-          <button className="button-lainnya" onClick={goToInformasiPage}>
-            Lihat Lainnya
-          </button>
-        </div>
+        {url != currentRoutePath && (
+          <div className="d-flex justify-content-center mt-4">
+            <button className="button-lainnya" onClick={goToInformasiPage}>
+              Lihat Lainnya
+            </button>
+          </div>
+        )}
       </div>
     </div>
   )

@@ -16,7 +16,7 @@ const getKonten = (dispatch) => {
         payload: res.data,
       })
       // console.log(res.data);
-      document.title = res.data.title_website
+      document.title = res.data.title_website.toUpperCase()
       logoApp.setAttribute('href', baseUrlImg + res.data.logo)
       // console.log(logoApp);
     })

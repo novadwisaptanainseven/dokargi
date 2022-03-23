@@ -355,7 +355,8 @@ body {
   object-fit: cover;
 }
 
-.front-page .detail-informasi-body p {
+.front-page .detail-informasi-body p,
+.front-page .detail-informasi-body ul {
   text-align: justify;
   line-height: 1.6em;
   font-size: 1.2em;
@@ -520,6 +521,11 @@ body {
 }
 .front-page .aksi-cari .btn-cari:active {
   background-color: #1396aa;
+}
+.front-page .aksi-cari .btn-cari:disabled {
+  /* background-color: #aa1313; */
+  cursor: not-allowed;
+  pointer-events: all !important;
 }
 .front-page .aksi-cari .btn-daftar:active {
   background-color: #d3d600;

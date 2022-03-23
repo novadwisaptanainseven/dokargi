@@ -7,23 +7,45 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { NoPatient } from 'src/assets'
 import Banner from './Banner'
 import ModalDaftar from './ModalDaftar'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useRouteMatch } from 'react-router-dom'
+import { baseRoutePath } from 'src/helpers/url'
+import { getPasienById } from 'src/context/actions/Pasien'
+import { LoadingSkeletonKonsultasi } from '../../Components'
 
 const Konsultasi = () => {
   const [pasien, setPasien] = useState(false)
   const [modalDaftar, setModalDaftar] = useState(false)
+  const [loading, setLoading] = useState(false)
   const history = useHistory()
+  const [pencarian, setPencarian] = useState('')
+  const match = useRouteMatch()
+  const { url } = match
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+  const [isCariBtnClicked, setIsCariBtnClicked] = useState(false)
 
   const handleTombolCari = () => {
-    setPasien(!pasien)
+    setIsCariBtnClicked(true)
+
+    getPasienById(pencarian, setPasien, setLoading)
+  }
+
+  const handlePencarian = (e) => {
+    setPencarian(e.target.value)
   }
 
   const goToHasilDiagnosa = () => {
-    history.push(`/konsultasi/hasil`)
+    history.push(`${url}/hasil`)
+  }
+
+  const goToBantuanPage = (e) => {
+    e.preventDefault()
+    history.push(baseRoutePath + 'bantuan')
   }
 
   return (
@@ -35,15 +57,29 @@ const Konsultasi = () => {
       <div className="content-konsultasi mt-5">
         <div className="container">
           <div className="alert-dokargi mb-3">
-            Silahkan mencari nama pasien apabila sudah pernah daftar sebelum memilih gejala. Jika
-            belum, daftar terlebih dahulu. Lebih jelasnya, silahkan baca panduan di menu bantuan
+            Silahkan mencari pasien berdasarkan <b>id pasien</b> apabila sudah pernah daftar sebelum
+            memilih gejala. Jika belum, daftar terlebih dahulu. Lebih jelasnya, silahkan baca
+            panduan di{' '}
+            <a href={baseRoutePath + 'bantuan'} onClick={(e) => goToBantuanPage(e)}>
+              menu bantuan
+            </a>{' '}
             untuk mengetahui alur konsultasi
           </div>
 
-          <h4 className="text-center text-md-start">Cari Pasien</h4>
+          <h4 className="text-center text-md-start">Cari ID Pasien</h4>
           <div className="aksi-cari d-flex gap-2 mb-3 flex-column flex-md-row">
-            <input type="text" name="keyword-cari" />
-            <button type="button" className="btn btn-cari" onClick={handleTombolCari}>
+            <input
+              type="text"
+              name="keyword-cari"
+              placeholder="ID Pasien"
+              onChange={(e) => handlePencarian(e)}
+            />
+            <button
+              type="button"
+              className="btn btn-cari"
+              onClick={handleTombolCari}
+              disabled={!pencarian ? true : false}
+            >
               Cari
             </button>
             <button type="button" className="btn btn-daftar" onClick={() => setModalDaftar(true)}>
@@ -51,14 +87,28 @@ const Konsultasi = () => {
             </button>
           </div>
 
-          {!pasien ? (
+          {loading && <LoadingSkeletonKonsultasi />}
+
+          {/* Jika user belum mengisi kolom pencarian pasien */}
+          {!isCariBtnClicked && !loading && (
             <>
               <div className="d-flex flex-column align-items-center no-patient-ilustration gap-3">
                 <img src={NoPatient} alt="no-patient-ilustration" />
                 <h3>Pasien Belum Dicari</h3>
               </div>
             </>
-          ) : (
+          )}
+
+          {/* Jika user sudah mencari tapi data pasien tidak ditemukan */}
+          {isCariBtnClicked && !pasien && !loading && (
+            <div className="d-flex flex-column align-items-center no-patient-ilustration gap-3">
+              <img src={NoPatient} alt="no-patient-ilustration" />
+              <h3>Pasien Tidak Ditemukan</h3>
+            </div>
+          )}
+
+          {/* Jika pasien ditemukan */}
+          {pasien && (
             <>
               <div className="container-pasien mb-4">
                 <CTable>
@@ -72,6 +122,11 @@ const Konsultasi = () => {
                       <th>Nama Pasien</th>
                       <th>:</th>
                       <td>Nova Dwi Sapta Nain Seven</td>
+                    </CTableRow>
+                    <CTableRow>
+                      <th>Jenis Kelamin</th>
+                      <th>:</th>
+                      <td>Pria</td>
                     </CTableRow>
                     <CTableRow>
                       <th>Tempat &amp; Tgl. Lahir</th>

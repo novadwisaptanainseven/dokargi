@@ -31,6 +31,11 @@ const NavigationBar = ({ dataKonten }) => {
     },
   ]
 
+  // Change title in page browser depends on active nav menu
+  const handleChangeTitlePageBrowser = (navName) => {
+    document.title = (dataKonten.title_website + ' | ' + navName).toUpperCase()
+  }
+
   const handleMenuActive = (pathNav) => {
     if (pathNav === pathname) {
       return 'active'
@@ -78,11 +83,14 @@ const NavigationBar = ({ dataKonten }) => {
             <div key={idx} className={`list-nav-item${idx + 1}`}>
               <Link
                 to={baseRoutePath + menu.path}
-                className={`list-nav-link ${handleMenuActive(menu.path)}`}
+                className={`list-nav-link ${handleMenuActive(baseRoutePath + menu.path)}`}
+                onClick={() => handleChangeTitlePageBrowser(menu.name)}
               >
                 {menu.name}
               </Link>
-              <div className={`line nav-line${idx + 1} ${handleMenuActive(menu.path)}`}></div>
+              <div
+                className={`line nav-line${idx + 1} ${handleMenuActive(baseRoutePath + menu.path)}`}
+              ></div>
             </div>
           ))}
         </div>
@@ -101,12 +109,14 @@ const NavigationBar = ({ dataKonten }) => {
             <div key={idx} className={`list-nav-item${idx + 1} mb-3`}>
               <Link
                 to={baseRoutePath + menu.path}
-                className={`list-nav-link ${handleMenuActive(menu.path)}`}
+                className={`list-nav-link ${handleMenuActive(baseRoutePath + menu.path)}`}
                 onClick={closeNavMenu}
               >
                 {menu.name}
               </Link>
-              <div className={`line nav-line${idx + 1} ${handleMenuActive(menu.path)}`}></div>
+              <div
+                className={`line nav-line${idx + 1} ${handleMenuActive(baseRoutePath + menu.path)}`}
+              ></div>
             </div>
           ))}
         </div>

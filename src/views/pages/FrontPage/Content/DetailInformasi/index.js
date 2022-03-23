@@ -43,9 +43,9 @@ const DetailInformasi = () => {
   return (
     <div className="informasi">
       {/* Loading Skeleton appeared when data is loading */}
-      {loading && <LoadingSkeletonPenyakit />}
+      {loading && !penyakit && <LoadingSkeletonPenyakit />}
 
-      {!loading && (
+      {!loading && penyakit && (
         <div className="container">
           <a href="/informasi" className="prev-link" onClick={(e) => goBackToPrevPage(e)}>
             <CIcon icon={cilArrowLeft} className="me-2" />
@@ -53,32 +53,34 @@ const DetailInformasi = () => {
           </a>
           <div className="detail-informasi mt-3">
             <div className="detail-informasi-header">
-              <h1>{penyakit.nm_penyakit}</h1>
+              <h1>{penyakit.data_penyakit.nm_penyakit}</h1>
               <div className="detail-informasi-sub-header d-flex gap-4">
                 <div className="d-flex gap-2 align-items-center">
                   <CIcon icon={cilCalendar} />
-                  <span>{penyakit && format(new Date(penyakit.waktu_buat), 'dd MMM y')}</span>
+                  <span>
+                    {penyakit && format(new Date(penyakit.data_penyakit.waktu_buat), 'dd MMM y')}
+                  </span>
                 </div>
                 <div className="d-flex gap-2 align-items-center">
                   <CIcon icon={cilUser} />
-                  <span>{penyakit.nm_pembuat}</span>
+                  <span>{penyakit.data_penyakit.nm_pembuat}</span>
                 </div>
               </div>
             </div>
             <div className="detail-informasi-body mt-3">
               <img
-                src={getImage('foto_penyakit', penyakit.gambar)}
+                src={getImage('foto_penyakit', penyakit.data_penyakit.gambar)}
                 alt="gambar-penyakit"
                 className="gambar-penyakit mb-4"
               />
-              <p>{penyakit.deskripsi}</p>
+              <p>{penyakit.data_penyakit.deskripsi}</p>
 
               <h3>Saran Pengobatan</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, amet! Provident
-                voluptas commodi facilis libero. Doloremque cupiditate sed neque ab delectus ipsam
-                quam praesentium. Porro unde libero quam ex tempore!
-              </p>
+              <ul>
+                {penyakit.data_solusi.map((item, idx) => (
+                  <li key={idx}>{item.solusi}</li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
