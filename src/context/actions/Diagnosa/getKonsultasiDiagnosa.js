@@ -2,7 +2,7 @@ import axiosInstance from 'src/helpers/axios'
 
 const getKonsultasiDiagnosa = (id, setData) => {
   axiosInstance
-    .post(`diagnosa/tambah/${id}`)
+    .get(`diagnosa/tambah/${id}`)
     .then((res) => {
       setData(res.data)
     })

@@ -14,11 +14,13 @@ import ModalDaftar from './ModalDaftar'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { baseRoutePath } from 'src/helpers/url'
 import { getPasienById } from 'src/context/actions/Pasien'
+import { getKonsultasiDiagnosa } from 'src/context/actions/Diagnosa'
 import { LoadingSkeletonKonsultasi } from '../../Components'
 import { format } from 'date-fns'
 
 const Konsultasi = () => {
   const [pasien, setPasien] = useState(false)
+  const [konsultasi, setKonsultasi] = useState('')
   const [modalDaftar, setModalDaftar] = useState(false)
   const [loading, setLoading] = useState(false)
   const history = useHistory()
@@ -34,6 +36,7 @@ const Konsultasi = () => {
     setIsCariBtnClicked(true)
 
     getPasienById(pencarian, setPasien, setLoading)
+    getKonsultasiDiagnosa(pencarian, setKonsultasi)
   }
 
   const handlePencarian = (e) => {
@@ -127,7 +130,7 @@ const Konsultasi = () => {
                     <CTableRow>
                       <th>Jenis Kelamin</th>
                       <th>:</th>
-                      <td>{pasien.jkel}</td>
+                      <td>{pasien.jkel == 1 ? 'Laki - Laki' : 'Perempuan'}</td>
                     </CTableRow>
                     <CTableRow>
                       <th>Tempat &amp; Tgl. Lahir</th>
@@ -172,66 +175,24 @@ const Konsultasi = () => {
                     </CTableRow>
                   </CTableHead>
                   <CTableBody>
-                    <CTableRow>
-                      <CTableHeaderCell scope="row">1</CTableHeaderCell>
-                      <CTableDataCell>G0001</CTableDataCell>
-                      <CTableDataCell width={700}>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut esse iusto
-                        ratione enim repellendus impedit numquam veritatis molestiae quibusdam.
-                        Molestias!
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        <CFormSelect
-                          aria-label="Pilih Gejala"
-                          options={[
-                            'Pilih Gejala',
-                            { label: 'One', value: '1' },
-                            { label: 'Two', value: '2' },
-                            { label: 'Three', value: '3', disabled: true },
-                          ]}
-                        />
-                      </CTableDataCell>
-                    </CTableRow>
-                    <CTableRow>
-                      <CTableHeaderCell scope="row">2</CTableHeaderCell>
-                      <CTableDataCell>G0002</CTableDataCell>
-                      <CTableDataCell width={700}>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut esse iusto
-                        ratione enim repellendus impedit numquam veritatis molestiae quibusdam.
-                        Molestias!
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        <CFormSelect
-                          aria-label="Pilih Gejala"
-                          options={[
-                            'Pilih Gejala',
-                            { label: 'One', value: '1' },
-                            { label: 'Two', value: '2' },
-                            { label: 'Three', value: '3', disabled: true },
-                          ]}
-                        />
-                      </CTableDataCell>
-                    </CTableRow>
-                    <CTableRow>
-                      <CTableHeaderCell scope="row">3</CTableHeaderCell>
-                      <CTableDataCell>G0003</CTableDataCell>
-                      <CTableDataCell width={700}>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut esse iusto
-                        ratione enim repellendus impedit numquam veritatis molestiae quibusdam.
-                        Molestias!
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        <CFormSelect
-                          aria-label="Pilih Gejala"
-                          options={[
-                            'Pilih Gejala',
-                            { label: 'One', value: '1' },
-                            { label: 'Two', value: '2' },
-                            { label: 'Three', value: '3', disabled: true },
-                          ]}
-                        />
-                      </CTableDataCell>
-                    </CTableRow>
+                    {konsultasi.data_gejala.map((item, idx) => (
+                      <CTableRow key={idx}>
+                        <CTableHeaderCell scope="row">{idx + 1}</CTableHeaderCell>
+                        <CTableDataCell>{item.id_gejala}</CTableDataCell>
+                        <CTableDataCell width={700}>{item.nm_gejala}</CTableDataCell>
+                        <CTableDataCell>
+                          <CFormSelect
+                            aria-label="Pilih Gejala"
+                            options={[
+                              'Pilih Gejala',
+                              { label: 'One', value: '1' },
+                              { label: 'Two', value: '2' },
+                              { label: 'Three', value: '3', disabled: true },
+                            ]}
+                          />
+                        </CTableDataCell>
+                      </CTableRow>
+                    ))}
                   </CTableBody>
                 </CTable>
 
