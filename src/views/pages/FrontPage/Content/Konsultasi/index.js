@@ -19,7 +19,7 @@ import { LoadingSkeletonKonsultasi } from '../../Components'
 import { format } from 'date-fns'
 
 const Konsultasi = () => {
-  const [pasien, setPasien] = useState(false)
+  const [pasien, setPasien] = useState('')
   const [konsultasi, setKonsultasi] = useState('')
   const [modalDaftar, setModalDaftar] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -27,10 +27,32 @@ const Konsultasi = () => {
   const [pencarian, setPencarian] = useState('')
   const match = useRouteMatch()
   const { url } = match
+  const [isCariBtnClicked, setIsCariBtnClicked] = useState(false)
+
+  const listKondisi = !konsultasi
+    ? []
+    : konsultasi.data_kondisi.map((item, idx) => {
+        if (idx == 0) {
+          return {
+            label: 'Pilih Gejala',
+            value: '',
+          }
+        }
+        return {
+          label: item.nm_kondisi,
+          value: item.bobot,
+        }
+      })
+
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
-  const [isCariBtnClicked, setIsCariBtnClicked] = useState(false)
+
+  // useEffect(() => {
+  //   if (!pasien) {
+  //     setIsCariBtnClicked(true)
+  //   }
+  // }, [pasien])
 
   const handleTombolCari = () => {
     setIsCariBtnClicked(true)
@@ -112,7 +134,7 @@ const Konsultasi = () => {
           )}
 
           {/* Jika pasien ditemukan */}
-          {pasien && !loading && (
+          {pasien && konsultasi && !loading && (
             <>
               <div className="container-pasien mb-4">
                 <CTable>
@@ -183,12 +205,8 @@ const Konsultasi = () => {
                         <CTableDataCell>
                           <CFormSelect
                             aria-label="Pilih Gejala"
-                            options={[
-                              'Pilih Gejala',
-                              { label: 'One', value: '1' },
-                              { label: 'Two', value: '2' },
-                              { label: 'Three', value: '3', disabled: true },
-                            ]}
+                            options={listKondisi}
+                            defaultValue={''}
                           />
                         </CTableDataCell>
                       </CTableRow>
@@ -208,7 +226,14 @@ const Konsultasi = () => {
       </div>
 
       {/* Modal Daftar Pasien */}
-      <ModalDaftar visibility={modalDaftar} onClose={() => setModalDaftar(false)} />
+      <ModalDaftar
+        visibility={modalDaftar}
+        onClose={() => setModalDaftar(false)}
+        setPasien={setPasien}
+        setKonsultasi={setKonsultasi}
+        setIsCariBtnClicked={setIsCariBtnClicked}
+        setLoadingSkeleton={setLoading}
+      />
     </div>
   )
 }

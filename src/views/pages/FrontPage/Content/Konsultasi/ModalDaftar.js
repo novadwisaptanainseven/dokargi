@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   CModal,
   CModalHeader,
@@ -18,8 +18,18 @@ import { Formik } from 'formik'
 import initState from './Formik/initState'
 import validationSchema from './Formik/validationSchema'
 import { FormField } from 'src/components'
+import { daftarPasien } from 'src/context/actions/Pasien'
 
-const ModalDaftar = ({ visibility, onClose }) => {
+const ModalDaftar = ({
+  visibility,
+  onClose,
+  setPasien,
+  setKonsultasi,
+  setIsCariBtnClicked,
+  setLoadingSkeleton,
+}) => {
+  const [loading, setLoading] = useState(false)
+
   const jenisKelamin = [
     {
       label: '-- Jenis Kelamin --',
@@ -47,6 +57,9 @@ const ModalDaftar = ({ visibility, onClose }) => {
     for (let pair of formData.entries()) {
       console.log(pair)
     }
+
+    setIsCariBtnClicked(true)
+    daftarPasien(formData, setLoading, setPasien, setKonsultasi, onClose, setLoadingSkeleton)
   }
 
   return (
@@ -59,7 +72,7 @@ const ModalDaftar = ({ visibility, onClose }) => {
         validationSchema={validationSchema}
         onSubmit={handleFormSubmit}
       >
-        {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => (
+        {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
           <>
             <CForm onSubmit={handleSubmit}>
               <CModalBody>
@@ -132,11 +145,15 @@ const ModalDaftar = ({ visibility, onClose }) => {
                 </div>
               </CModalBody>
               <CModalFooter>
-                <button className="btn btn-daftar-batal btn-dark" onClick={onClose}>
+                <button type="button" className="btn btn-daftar-batal btn-dark" onClick={onClose}>
                   Batal
                 </button>
-                <button type="submit" className="btn btn-daftar-save">
-                  Daftar
+                <button
+                  type="submit"
+                  className="btn btn-daftar-save"
+                  disabled={loading ? true : false}
+                >
+                  {loading ? 'Loading...' : 'Daftar'}
                 </button>
               </CModalFooter>
             </CForm>
@@ -150,6 +167,10 @@ const ModalDaftar = ({ visibility, onClose }) => {
 ModalDaftar.propTypes = {
   visibility: PropTypes.bool,
   onClose: PropTypes.func,
+  setPasien: PropTypes.func,
+  setKonsultasi: PropTypes.func,
+  setIsCariBtnClicked: PropTypes.func,
+  setLoadingSkeleton: PropTypes.func,
 }
 
 export default ModalDaftar
