@@ -17,6 +17,7 @@ import { getPasienById } from 'src/context/actions/Pasien'
 import { getKonsultasiDiagnosa } from 'src/context/actions/Diagnosa'
 import { LoadingSkeletonKonsultasi } from '../../Components'
 import { format } from 'date-fns'
+import { changeValueObj, removeArrayByValue } from 'src/helpers/functions'
 
 const Konsultasi = () => {
   const [pasien, setPasien] = useState('')
@@ -28,16 +29,19 @@ const Konsultasi = () => {
   const match = useRouteMatch()
   const { url } = match
   const [isCariBtnClicked, setIsCariBtnClicked] = useState(false)
+  const [listDiagnosaGejala, setListDiagnosaGejala] = useState([])
+  const [listDiagnosaKondisi, setListDiagnosaKondisi] = useState([])
 
   const listKondisi = !konsultasi
     ? []
     : konsultasi.data_kondisi.map((item, idx) => {
         if (idx == 0) {
           return {
-            label: 'Pilih Gejala',
-            value: '',
+            label: item.nm_kondisi,
+            value: item.bobot,
           }
         }
+
         return {
           label: item.nm_kondisi,
           value: item.bobot,
@@ -66,12 +70,56 @@ const Konsultasi = () => {
   }
 
   const goToHasilDiagnosa = () => {
-    history.push(`${url}/hasil`)
+    const hasil = {
+      input_diagnosa: listDiagnosaGejala,
+    }
+
+    console.log(hasil)
   }
 
   const goToBantuanPage = (e) => {
     e.preventDefault()
     history.push(baseRoutePath + 'bantuan')
+  }
+
+  useEffect(() => {
+    console.log(listDiagnosaGejala)
+    // console.log(listDiagnosaKondisi)
+  }, [listDiagnosaGejala, listDiagnosaKondisi])
+
+  const handlePilihGejala = (e) => {
+    const { name: idGejala, value: kondisi } = e.target
+
+    // Cari id kondisi berdasarkan bobot kondisi
+    const idKondisi =
+      konsultasi.data_kondisi.filter((item) => item.bobot.toString() == kondisi)[0]?.id_kondisi ||
+      '0'
+
+    if (kondisi != '0') {
+      const gejalaHasExist = listDiagnosaGejala.filter((item) => item.id_gejala.includes(idGejala))
+
+      // Mengatasi jika ada ID gejala yang sama maka tidak akan dipush ke array lagi
+      const valueDiagnosa = {
+        id_gejala: idGejala,
+        id_kondisi: idKondisi,
+      }
+      if (gejalaHasExist.length == 0) {
+        setListDiagnosaGejala([...listDiagnosaGejala, valueDiagnosa])
+      } else {
+        // Ganti id kondisi lama dengan id kondisi baru
+        changeValueObj(listDiagnosaGejala, idGejala, idKondisi)
+        setListDiagnosaGejala([...listDiagnosaGejala])
+      }
+
+      // listDiagnosaKondisi.pop()
+
+      // setListDiagnosaKondisi([...listDiagnosaKondisi, idKondisi])
+    } else {
+      // const arrAfterRemove = removeArrayByValue([...listDiagnosaGejala], idGejala)
+      const arrAfterRemove = listDiagnosaGejala.filter((item) => item.id_gejala != idGejala)
+
+      setListDiagnosaGejala(arrAfterRemove)
+    }
   }
 
   return (
@@ -204,9 +252,17 @@ const Konsultasi = () => {
                         <CTableDataCell width={700}>{item.nm_gejala}</CTableDataCell>
                         <CTableDataCell>
                           <CFormSelect
+                            name={item.id_gejala}
                             aria-label="Pilih Gejala"
-                            options={listKondisi}
+                            options={[
+                              {
+                                label: 'Pilih Gejala',
+                                value: '0',
+                              },
+                              ...listKondisi,
+                            ]}
                             defaultValue={''}
+                            onChange={(e) => handlePilihGejala(e)}
                           />
                         </CTableDataCell>
                       </CTableRow>
@@ -214,7 +270,11 @@ const Konsultasi = () => {
                   </CTableBody>
                 </CTable>
 
-                <div className="d-flex justify-content-center">
+                <div
+                  className={`${
+                    listDiagnosaGejala.length > 0 ? 'd-flex' : 'd-none'
+                  } justify-content-center`}
+                >
                   <button className="btn btn-diagnosa" onClick={goToHasilDiagnosa}>
                     Hasil Diagnosa
                   </button>
