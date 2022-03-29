@@ -3,6 +3,7 @@ import LoadingScreen from './LoadingScreen'
 import LoadingSkeleton from './LoadingSkeleton'
 import LoadingSkeletonPenyakit from './LoadingSkeletonPenyakit'
 import LoadingSkeletonKonsultasi from './LoadingSkeletonKonsultasi'
+import LoadingSkeletonHasilDiagnosa from './LoadingSkeletonHasilDiagnosa'
 
 export {
   InformasiCards,
@@ -10,4 +11,5 @@ export {
   LoadingSkeleton,
   LoadingSkeletonPenyakit,
   LoadingSkeletonKonsultasi,
+  LoadingSkeletonHasilDiagnosa,
 }

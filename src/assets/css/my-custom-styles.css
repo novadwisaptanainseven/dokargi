@@ -361,7 +361,7 @@ body {
   line-height: 1.6em;
   font-size: 1.2em;
 }
-.front-page .informasi .skeleton-penyakit-back {
+.front-page .skeleton-penyakit-back {
   width: 300px;
 }
 .front-page .informasi .skeleton-penyakit-gambar {
@@ -489,6 +489,10 @@ body {
   background-color: #e4e900;
   color: #404040;
 }
+.front-page .btn-diagnosa:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
 .btn-daftar-save {
   background-color: #16b0c8;
   color: white;
@@ -549,6 +553,17 @@ body {
 }
 
 /* End of Content */
+
+/* Halaman Hasil Konsultasi */
+.front-page .skeleton-diagnosa-judul {
+  height: 50px;
+  width: 260px;
+}
+.front-page .skeleton-diagnosa-print {
+  height: 50px;
+  width: 150px;
+}
+/* End of Halaman Hasil Konsultasi */
 
 /* Footer */
 .front-page .footer {
@@ -666,11 +681,18 @@ body {
     height: 80px;
   }
 
-  .front-page .informasi .skeleton-penyakit-back {
+  .front-page .skeleton-penyakit-back {
     width: 100%;
   }
 
   .front-page .informasi .skeleton-penyakit-subjudul {
+    width: 100%;
+  }
+
+  .front-page .skeleton-diagnosa-judul {
+    width: 100%;
+  }
+  .front-page .skeleton-diagnosa-print {
     width: 100%;
   }
 }

@@ -1,21 +1,34 @@
-import { messageErrorTambah, messageSuccessTambah } from 'src/helpers/messages'
-import { getDiagnosa } from '.'
+import { messageErrorKonsultasi, messageSuccessKonsultasi } from 'src/helpers/messages'
 import { showAlertError, showAlertSuccess } from '../../../components/AlertMessages'
 import axiosInstance from 'src/helpers/axios'
+import { ERROR, LOADING, SUCCESS } from 'src/context/actionTypes'
 
-const insertDiagnosa = (values, setLoading, history, dispatch) => {
-  setLoading(true)
+const insertDiagnosa = (idPasien, values, history, dispatch) => {
+  dispatch({
+    type: LOADING,
+  })
 
   axiosInstance
-    .post(`diagnosa/insert`, values)
+    .post(`diagnosa/insert/${idPasien}`, values)
     .then((res) => {
-      setLoading(false)
-      showAlertSuccess(messageSuccessTambah, 'diagnosa', history)
-      getDiagnosa(dispatch)
+      dispatch({
+        type: SUCCESS,
+        payload: res.data,
+      })
+      showAlertSuccess(
+        messageSuccessKonsultasi,
+        `konsultasi/hasil/${res.data.id_diagnosa}`,
+        history,
+        '',
+        '',
+        false,
+      )
     })
     .catch((err) => {
-      setLoading(false)
-      showAlertError(err.response.data, messageErrorTambah)
+      dispatch({
+        type: ERROR,
+      })
+      showAlertError(err.response.data, messageErrorKonsultasi)
       // console.log(err.response.data);
     })
 }

@@ -39,6 +39,9 @@ export const GlobalProvider = ({ children }) => {
   // Detail Informasi
   const [detailPenyakitState, detailPenyakitDispatch] = useReducer(reducer, initState)
 
+  // Hasil Diagnosa
+  const [hasilDiagnosaState, hasilDiagnosaDispatch] = useReducer(reducer, initState)
+
   const dataGlobal = {
     loginState,
     loginDispatch,
@@ -62,6 +65,8 @@ export const GlobalProvider = ({ children }) => {
     diagnosaDispatch,
     detailPenyakitState,
     detailPenyakitDispatch,
+    hasilDiagnosaState,
+    hasilDiagnosaDispatch,
   }
 
   return (

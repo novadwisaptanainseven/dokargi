@@ -7,14 +7,15 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { NoPatient } from 'src/assets'
 import Banner from './Banner'
 import ModalDaftar from './ModalDaftar'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { baseRoutePath } from 'src/helpers/url'
 import { getPasienById } from 'src/context/actions/Pasien'
-import { getKonsultasiDiagnosa } from 'src/context/actions/Diagnosa'
+import { GlobalContext } from 'src/context/Provider'
+import { getKonsultasiDiagnosa, insertDiagnosa } from 'src/context/actions/Diagnosa'
 import { LoadingSkeletonKonsultasi } from '../../Components'
 import { format } from 'date-fns'
 import { changeValueObj, removeArrayByValue } from 'src/helpers/functions'
@@ -31,6 +32,8 @@ const Konsultasi = () => {
   const [isCariBtnClicked, setIsCariBtnClicked] = useState(false)
   const [listDiagnosaGejala, setListDiagnosaGejala] = useState([])
   const [listDiagnosaKondisi, setListDiagnosaKondisi] = useState([])
+  const { hasilDiagnosaState, hasilDiagnosaDispatch } = useContext(GlobalContext)
+  const { loading: loadingDiagnosa } = hasilDiagnosaState
 
   const listKondisi = !konsultasi
     ? []
@@ -52,14 +55,9 @@ const Konsultasi = () => {
     window.scrollTo(0, 0)
   }, [])
 
-  // useEffect(() => {
-  //   if (!pasien) {
-  //     setIsCariBtnClicked(true)
-  //   }
-  // }, [pasien])
-
   const handleTombolCari = () => {
     setIsCariBtnClicked(true)
+    setListDiagnosaGejala([])
 
     getPasienById(pencarian, setPasien, setLoading)
     getKonsultasiDiagnosa(pencarian, setKonsultasi)
@@ -74,7 +72,7 @@ const Konsultasi = () => {
       input_diagnosa: listDiagnosaGejala,
     }
 
-    console.log(hasil)
+    insertDiagnosa(pasien.id_pasien, hasil, history, hasilDiagnosaDispatch)
   }
 
   const goToBantuanPage = (e) => {
@@ -275,8 +273,12 @@ const Konsultasi = () => {
                     listDiagnosaGejala.length > 0 ? 'd-flex' : 'd-none'
                   } justify-content-center`}
                 >
-                  <button className="btn btn-diagnosa" onClick={goToHasilDiagnosa}>
-                    Hasil Diagnosa
+                  <button
+                    className="btn btn-diagnosa"
+                    onClick={goToHasilDiagnosa}
+                    disabled={loadingDiagnosa}
+                  >
+                    {loadingDiagnosa ? 'Harap tunggu...' : 'Hasil Diagnosa'}
                   </button>
                 </div>
               </div>

@@ -37,7 +37,7 @@ const routesFront = [
     exact: true,
   },
   {
-    path: 'konsultasi/hasil',
+    path: 'konsultasi/hasil/:id',
     name: 'Hasil Konsultasi',
     component: HasilKonsultasi,
     exact: true,
