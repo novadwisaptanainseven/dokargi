@@ -25,10 +25,10 @@ const NavigationBar = ({ dataKonten }) => {
       name: 'Informasi Penyakit',
       path: 'informasi',
     },
-    {
-      name: 'Bantuan',
-      path: 'bantuan',
-    },
+    // {
+    //   name: 'Bantuan',
+    //   path: 'bantuan',
+    // },
   ]
 
   // Change title in page browser depends on active nav menu

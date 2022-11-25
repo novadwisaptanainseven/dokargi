@@ -71,6 +71,11 @@ const Pasien = React.lazy(() => import('./views/pages/Admin/DataMaster/Pasien'))
 const TambahPasien = React.lazy(() => import('./views/pages/Admin/DataMaster/Pasien/Tambah'))
 const EditPasien = React.lazy(() => import('./views/pages/Admin/DataMaster/Pasien/Edit'))
 
+// Kondisi
+const Kondisi = React.lazy(() => import('./views/pages/Admin/DataMaster/Kondisi'))
+const TambahKondisi = React.lazy(() => import('./views/pages/Admin/DataMaster/Kondisi/Tambah'))
+const EditKondisi = React.lazy(() => import('./views/pages/Admin/DataMaster/Kondisi/Edit'))
+
 // Users
 const Users = React.lazy(() => import('./views/pages/Admin/Users'))
 const TambahUsers = React.lazy(() => import('./views/pages/Admin/Users/Tambah'))
@@ -147,6 +152,19 @@ const routes = [
     path: '/data-master/pasien/edit/:id',
     name: 'Edit Pasien',
     component: EditPasien,
+  },
+
+  // Kondisi
+  { path: '/data-master/kondisi', name: 'Kondisi', component: Kondisi, exact: true },
+  {
+    path: '/data-master/kondisi/tambah',
+    name: 'Tambah Kondisi',
+    component: TambahKondisi,
+  },
+  {
+    path: '/data-master/kondisi/edit/:id',
+    name: 'Edit Kondisi',
+    component: EditKondisi,
   },
 
   // Users

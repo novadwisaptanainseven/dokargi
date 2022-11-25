@@ -17,10 +17,11 @@ const Edit = () => {
   const { params } = match
   const [pasien, setPasien] = useState('')
   const [loading, setLoading] = useState(false)
+  const [loadingEdit, setLoadingEdit] = useState(false)
   const { pasienDispatch } = useContext(GlobalContext)
 
   // Get pasien by id
-  useEffect(() => getPasienById(params.id, setPasien), [params])
+  useEffect(() => getPasienById(params.id, setPasien, setLoading), [params])
 
   const goBackToParentPage = (e) => {
     e.preventDefault()
@@ -41,7 +42,7 @@ const Edit = () => {
       console.log(pair)
     }
 
-    editPasien(params.id, formData, setLoading, history, pasienDispatch)
+    editPasien(params.id, formData, setLoadingEdit, history, pasienDispatch)
   }
 
   return (
@@ -151,8 +152,8 @@ const Edit = () => {
                       >
                         Reset
                       </CButton>
-                      <CButton type="submit" color="primary" disabled={loading}>
-                        {loading ? 'Loading...' : 'Simpan'}
+                      <CButton type="submit" color="primary" disabled={loadingEdit}>
+                        {loadingEdit ? 'Loading...' : 'Simpan'}
                       </CButton>
                     </div>
                   </CForm>

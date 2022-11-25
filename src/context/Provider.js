@@ -27,6 +27,9 @@ export const GlobalProvider = ({ children }) => {
   // Pasien
   const [pasienState, pasienDispatch] = useReducer(reducer, initState)
 
+  // Kondisi
+  const [kondisiState, kondisiDispatch] = useReducer(reducer, initState)
+
   // Bobot
   const [bobotState, bobotDispatch] = useReducer(reducer, initState)
 
@@ -57,6 +60,8 @@ export const GlobalProvider = ({ children }) => {
     gejalaDispatch,
     pasienState,
     pasienDispatch,
+    kondisiState,
+    kondisiDispatch,
     bobotState,
     bobotDispatch,
     usersState,

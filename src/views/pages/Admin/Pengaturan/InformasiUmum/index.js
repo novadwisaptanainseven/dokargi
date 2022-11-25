@@ -22,7 +22,7 @@ const InformasiUmum = () => {
 
   // Menangani preview input gambar setelah dipilih
   const handleSelectedFile = useCallback(() => {
-    const gambar = dataKonten ? getImage('foto_kontak', dataKonten.logo) : null
+    const gambar = dataKonten ? getImage('', dataKonten.logo) : null
 
     if (!selectedFile) {
       setPreview(gambar)

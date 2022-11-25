@@ -35,7 +35,7 @@ const Solusi = () => {
   // Go back to parent page
   const goBackToParentPage = (e) => {
     e.preventDefault()
-    history.push('/admin/data-master/penyakit')
+    history.push('/dokargi/admin/data-master/penyakit')
   }
 
   const columns = [

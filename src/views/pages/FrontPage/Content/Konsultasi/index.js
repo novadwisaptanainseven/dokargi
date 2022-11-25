@@ -130,12 +130,12 @@ const Konsultasi = () => {
         <div className="container">
           <div className="alert-dokargi mb-3">
             Silahkan mencari pasien berdasarkan <b>id pasien</b> apabila sudah pernah daftar sebelum
-            memilih gejala. Jika belum, daftar terlebih dahulu. Lebih jelasnya, silahkan baca
-            panduan di{' '}
+            memilih gejala. Jika belum, daftar terlebih dahulu.
+            {/* Lebih jelasnya, silahkan baca panduan di{' '}
             <a href={baseRoutePath + 'bantuan'} onClick={(e) => goToBantuanPage(e)}>
               menu bantuan
             </a>{' '}
-            untuk mengetahui alur konsultasi
+            untuk mengetahui alur konsultasi */}
           </div>
 
           <h4 className="text-center text-md-start">Cari ID Pasien</h4>
@@ -221,8 +221,8 @@ const Konsultasi = () => {
 
                 <div className="alert-dokargi mb-3">
                   Silahkan memilih gejala sesuai dengan kondisi gigi Anda, Anda dapat memilih
-                  kepastian kondisi dari pasti sampai dengan tidak pasti. Jika sudah, tekan tombol
-                  Hasil Diagnosis untuk melihat hasil
+                  kepastian kondisi dari sangat setuju sampai dengan sangat tidak setuju. Jika
+                  sudah, tekan tombol Hasil Diagnosis untuk melihat hasil
                 </div>
 
                 <CTable responsive="sm" borderless striped>

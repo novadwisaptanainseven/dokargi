@@ -2,22 +2,18 @@ import { cilArrowLeft } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { CCard, CRow, CCol, CCardHeader, CCardBody, CForm, CButton } from '@coreui/react'
 import { Formik } from 'formik'
-import React, { useCallback, useEffect, useState } from 'react'
-import { useHistory, useRouteMatch } from 'react-router-dom'
+import React, { useCallback, useEffect, useState, useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 import { FormField } from 'src/components'
-import { editSolusi, getSolusiById } from 'src/context/actions/Solusi'
 import initState from '../Formik/initState'
 import validationSchema from '../Formik/validationSchema'
+import { GlobalContext } from 'src/context/Provider'
+import { insertKondisi } from 'src/context/actions/Kondisi'
 
-const Edit = () => {
+const Tambah = () => {
   const history = useHistory()
-  const match = useRouteMatch()
-  const { params } = match
   const [loading, setLoading] = useState(false)
-  const [solusi, setSolusi] = useState('')
-
-  // Get data solusi by id
-  useEffect(() => getSolusiById(params.idSolusi, setSolusi), [params])
+  const { kondisiDispatch } = useContext(GlobalContext)
 
   const goBackToParentPage = (e) => {
     e.preventDefault()
@@ -28,14 +24,14 @@ const Edit = () => {
   const handleFormSubmit = (values) => {
     const formData = new FormData()
 
-    formData.append('id_penyakit', params.id)
-    formData.append('solusi', values.solusi)
+    formData.append('nm_kondisi', values.nm_kondisi)
+    formData.append('bobot', values.bobot)
 
     for (let pair of formData.entries()) {
       console.log(pair)
     }
 
-    editSolusi(params.idSolusi, params.id, formData, setLoading, history, setSolusi)
+    insertKondisi(formData, setLoading, history, kondisiDispatch)
   }
 
   return (
@@ -46,14 +42,14 @@ const Edit = () => {
             <a href="." onClick={(e) => goBackToParentPage(e)}>
               <CIcon icon={cilArrowLeft} size="xl" />
             </a>
-            <span>Edit Solusi untuk Penyakit {params.id}</span>
+            <span>Tambah Kondisi</span>
           </h3>
         </CCardHeader>
         <CCardBody>
           <CRow>
             <CCol md="6">
               <Formik
-                initialValues={initState(solusi)}
+                initialValues={initState('')}
                 validationSchema={validationSchema}
                 onSubmit={handleFormSubmit}
                 enableReinitialize
@@ -69,14 +65,25 @@ const Edit = () => {
                 }) => (
                   <CForm onSubmit={handleSubmit}>
                     <FormField
-                      name="solusi"
-                      label="Solusi"
+                      name="nm_kondisi"
+                      label="Kondisi"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      placeholder="Masukkan solusi"
-                      value={values.solusi}
-                      error={errors.solusi && touched.solusi}
-                      errorMessage={errors.solusi}
+                      placeholder="Masukkan Kondisi"
+                      value={values.nm_kondisi}
+                      error={errors.nm_kondisi && touched.nm_kondisi}
+                      errorMessage={errors.nm_kondisi}
+                    />
+                    <FormField
+                      type="number"
+                      name="bobot"
+                      label="Bobot"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      placeholder="Masukkan Bobot. Contoh: 0.1"
+                      value={values.bobot}
+                      error={errors.bobot && touched.bobot}
+                      errorMessage={errors.bobot}
                     />
 
                     <div className="d-flex flex-column-reverse flex-md-row justify-content-md-end gap-1">
@@ -104,4 +111,4 @@ const Edit = () => {
   )
 }
 
-export default Edit
+export default Tambah

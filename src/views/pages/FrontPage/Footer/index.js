@@ -1,6 +1,7 @@
 import { CRow, CCol } from '@coreui/react'
 import React from 'react'
 import { SampleGambar } from 'src/assets'
+import getImage from 'src/context/actions/Files/getImage'
 
 const Footer = () => {
   return (
@@ -9,11 +10,11 @@ const Footer = () => {
         <CRow className="row-footer pb-3">
           <CCol md="3">
             <div className="logo-brand d-flex align-items-center gap-2 mb-3">
-              <img src={SampleGambar} alt="logo" width={50} />
+              <img src={getImage('', '63800b8aa0468.png')} alt="logo" width={50} />
               <h4 className="mb-0">DOKARGI</h4>
             </div>
             <p>
-              DORISGI merupakan aplikasi yang bertujuan untuk membantu memberikan penjelasan
+              Dokargi merupakan aplikasi yang bertujuan untuk membantu memberikan penjelasan
               mengenai karies gigi yang pasien alami dan memberitahukan solusi untuk mengatasinya
             </p>
           </CCol>

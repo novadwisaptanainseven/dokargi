@@ -43,6 +43,11 @@ const _nav = [
         name: 'Pasien',
         to: rootPath + '/data-master/pasien',
       },
+      {
+        component: CNavItem,
+        name: 'Kondisi',
+        to: rootPath + '/data-master/kondisi',
+      },
     ],
   },
   {

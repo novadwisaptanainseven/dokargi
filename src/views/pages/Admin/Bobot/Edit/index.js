@@ -82,61 +82,6 @@ const Edit = () => {
         </CCardHeader>
         <CCardBody>
           <CRow>
-            <CCol md="6" className="mb-3">
-              <CCard color="info" textColor="white">
-                <CCardHeader>
-                  <h5>Petunjuk Pengisian Pakar / Bobot !</h5>
-                </CCardHeader>
-                <CCardBody>
-                  <CCardText style={{ textAlign: 'justify' }}>
-                    <p>
-                      Silahkan pilih gejala yang sesuai dengan penyakit yang ada dan berikan nilai
-                      kepastian <b>(MB &amp; MD)</b> dengan cakupan sebagai berikut.
-                    </p>
-                    <ul>
-                      <li>
-                        <b>1.0</b> (Pasti Ya)
-                      </li>
-                      <li>
-                        <b>0.8</b> (Hampir Pasti)
-                      </li>
-                      <li>
-                        <b>0.6</b> (Kemungkinan Besar)
-                      </li>
-                      <li>
-                        <b>0.4</b> (Mungkin)
-                      </li>
-                      <li>
-                        <b>0.2</b> (Hampir Mungkin)
-                      </li>
-                      <li>
-                        <b>0.0</b> (Tidak Tahu atau Tidak Yakin)
-                      </li>
-                    </ul>
-                    <p>
-                      <b>CF (Pakar) = MB - MD</b> <br />
-                      MB: Ukuran kenaikan kepercayaan (measure of increased belief)
-                      <br />
-                      MD: Ukuran kenaikan ketidakpercayaan (measure of increased disbelief)
-                    </p>
-                    <p>
-                      <b>Contoh: </b> <br />
-                      Jika kepercayaan <b>(MB)</b> Anda terhadap gejala kedalaman lubang gigi kecil
-                      untuk penyakit Karies Gigi Superficialis adalah <b>0.8 (Hampir Pasti)</b>{' '}
-                      <br />
-                      Dan ketidakpercayaan <b>(MD)</b> Anda terhadap gejala kedalaman lubang gigi
-                      kecil untuk penyakit Karies Gigi Superficialis adalah{' '}
-                      <b>0.2 (Hampir Mungkin)</b>
-                    </p>
-                    <p>
-                      <b>Maka: </b> CF(Pakar) = MB - MD (0.8 - 0.2) = 0.8 <br />
-                      Di mana nilai kepastian Anda terhadap gejala kedalaman lubang gigi kecil untuk
-                      penyakit Karies Gigi Superficialis adalah <b>0.6 (Kemungkinan Besar)</b>
-                    </p>
-                  </CCardText>
-                </CCardBody>
-              </CCard>
-            </CCol>
             <CCol md="6">
               <Formik
                 initialValues={initState(dataEditBobot.data_bobot)}
