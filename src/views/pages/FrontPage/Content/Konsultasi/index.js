@@ -221,8 +221,8 @@ const Konsultasi = () => {
 
                 <div className="alert-dokargi mb-3">
                   Silahkan memilih gejala sesuai dengan kondisi gigi Anda, Anda dapat memilih
-                  kepastian kondisi dari sangat setuju sampai dengan sangat tidak setuju. Jika
-                  sudah, tekan tombol Hasil Diagnosis untuk melihat hasil
+                  kepastian kondisi dari pasti sampai dengan ragu-ragu. Jika sudah, tekan tombol
+                  Hasil Diagnosis untuk melihat hasil
                 </div>
 
                 <CTable responsive="sm" borderless striped>
