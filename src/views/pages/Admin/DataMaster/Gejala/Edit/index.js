@@ -34,9 +34,9 @@ const Edit = () => {
 
     formData.append('nm_gejala', values.nm_gejala)
 
-    for (let pair of formData.entries()) {
-      console.log(pair)
-    }
+    // for (let pair of formData.entries()) {
+    //   console.log(pair)
+    // }
 
     editGejala(params.id, formData, setLoading, history, gejalaDispatch)
   }

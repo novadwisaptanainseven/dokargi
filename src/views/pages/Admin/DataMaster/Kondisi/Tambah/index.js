@@ -27,9 +27,9 @@ const Tambah = () => {
     formData.append('nm_kondisi', values.nm_kondisi)
     formData.append('bobot', values.bobot)
 
-    for (let pair of formData.entries()) {
-      console.log(pair)
-    }
+    // for (let pair of formData.entries()) {
+    //   console.log(pair)
+    // }
 
     insertKondisi(formData, setLoading, history, kondisiDispatch)
   }

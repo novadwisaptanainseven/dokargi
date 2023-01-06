@@ -17,17 +17,17 @@ const NavigationBar = ({ dataKonten }) => {
       name: 'Beranda',
       path: 'beranda',
     },
-    {
-      name: 'Konsultasi',
-      path: 'konsultasi',
-    },
+    // {
+    //   name: 'Konsultasi',
+    //   path: 'konsultasi',
+    // },
     {
       name: 'Informasi Penyakit',
       path: 'informasi',
     },
     {
       name: 'Admin',
-      path: 'login',
+      path: 'admin',
     },
   ]
 

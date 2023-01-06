@@ -52,7 +52,7 @@ const Login = () => {
   }, [loginDispatch, history])
 
   const handleFormSubmit = (values) => {
-    console.log(values)
+    // console.log(values)
 
     login(values, loginDispatch)
   }

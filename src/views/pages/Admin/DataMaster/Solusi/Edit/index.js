@@ -31,9 +31,9 @@ const Edit = () => {
     formData.append('id_penyakit', params.id)
     formData.append('solusi', values.solusi)
 
-    for (let pair of formData.entries()) {
-      console.log(pair)
-    }
+    // for (let pair of formData.entries()) {
+    //   console.log(pair)
+    // }
 
     editSolusi(params.idSolusi, params.id, formData, setLoading, history, setSolusi)
   }

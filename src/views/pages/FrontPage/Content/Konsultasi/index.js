@@ -81,7 +81,7 @@ const Konsultasi = () => {
   }
 
   useEffect(() => {
-    console.log(listDiagnosaGejala)
+    // console.log(listDiagnosaGejala)
     // console.log(listDiagnosaKondisi)
   }, [listDiagnosaGejala, listDiagnosaKondisi])
 

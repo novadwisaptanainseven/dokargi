@@ -67,9 +67,9 @@ const Tambah = () => {
     formData.append('nilai_mb', values.nilai_mb)
     formData.append('nilai_md', values.nilai_md)
 
-    for (let pair of formData.entries()) {
-      console.log(pair)
-    }
+    // for (let pair of formData.entries()) {
+    //   console.log(pair)
+    // }
 
     insertBobot(formData, setLoading, history, bobotDispatch)
   }

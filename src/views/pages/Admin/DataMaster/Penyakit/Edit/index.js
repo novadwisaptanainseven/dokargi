@@ -71,9 +71,9 @@ const Edit = () => {
       formData.append('gambar', values.gambar)
     }
 
-    for (let pair of formData.entries()) {
-      console.log(pair)
-    }
+    // for (let pair of formData.entries()) {
+    //   console.log(pair)
+    // }
 
     editPenyakit(params.id, formData, setLoading, history, penyakitDispatch)
   }

@@ -61,9 +61,9 @@ const Tambah = () => {
       formData.append('foto', values.foto)
     }
 
-    for (let pair of formData.entries()) {
-      console.log(pair)
-    }
+    // for (let pair of formData.entries()) {
+    //   console.log(pair)
+    // }
 
     insertUsers(formData, setLoading, history, usersDispatch)
   }

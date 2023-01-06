@@ -60,9 +60,9 @@ const Tambah = () => {
       formData.append('gambar', values.gambar)
     }
 
-    for (let pair of formData.entries()) {
-      console.log(pair)
-    }
+    // for (let pair of formData.entries()) {
+    //   console.log(pair)
+    // }
 
     insertPenyakit(formData, setLoading, history, penyakitDispatch)
   }

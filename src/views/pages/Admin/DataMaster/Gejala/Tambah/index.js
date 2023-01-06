@@ -26,9 +26,9 @@ const Tambah = () => {
 
     formData.append('nm_gejala', values.nm_gejala)
 
-    for (let pair of formData.entries()) {
-      console.log(pair)
-    }
+    // for (let pair of formData.entries()) {
+    //   console.log(pair)
+    // }
 
     insertGejala(formData, setLoading, history, gejalaDispatch)
   }

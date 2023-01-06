@@ -16,10 +16,13 @@ import {
   CTableHead,
 } from '@coreui/react'
 import getImage from 'src/context/actions/Files/getImage'
+import { format } from 'date-fns'
 
 export class ComponentToPrint extends React.Component {
   render() {
     const { diagnosa } = this.props
+
+    const dataPasien = diagnosa.data_pasien
 
     const dataGejala = diagnosa.data_gejala.map((item) => ({
       id_diagnosa_gejala: item.id_diagnosa_gejala,
@@ -52,6 +55,40 @@ export class ComponentToPrint extends React.Component {
 
     return (
       <div>
+        <div className="container-pasien mb-4">
+          <CTable>
+            <CTableBody>
+              <CTableRow>
+                <th>ID Pasien</th>
+                <th>:</th>
+                <td>{dataPasien.id_pasien}</td>
+              </CTableRow>
+              <CTableRow>
+                <th>Nama Pasien</th>
+                <th>:</th>
+                <td>{dataPasien.nama}</td>
+              </CTableRow>
+              <CTableRow>
+                <th>Jenis Kelamin</th>
+                <th>:</th>
+                <td>{dataPasien.jkel == 1 ? 'Laki - Laki' : 'Perempuan'}</td>
+              </CTableRow>
+              <CTableRow>
+                <th>Tempat &amp; Tgl. Lahir</th>
+                <th>:</th>
+                <td>
+                  {dataPasien.tmpt_lahir + ', ' + format(new Date(dataPasien.tgl_lahir), 'dd-MM-y')}
+                </td>
+              </CTableRow>
+              <CTableRow>
+                <th>Alamat</th>
+                <th>:</th>
+                <td>{dataPasien.alamat}</td>
+              </CTableRow>
+            </CTableBody>
+          </CTable>
+        </div>
+
         <div>
           <h5>Gejala - Gejala</h5>
           <CTable striped>
@@ -85,7 +122,7 @@ export class ComponentToPrint extends React.Component {
         </div>
 
         {/* Diagnosa Penyakit */}
-        <CCard className={`mb-4 border-info`}>
+        <CCard className={`mb-2 border-info`}>
           <CCardHeader className="bg-info text-white">
             <h5 className="mb-0">Diagnosis Penyakit</h5>
           </CCardHeader>
@@ -99,7 +136,9 @@ export class ComponentToPrint extends React.Component {
                 />
               </CCol>
               <CCol>
-                <CCardTitle>{diagnosa.hasil_pakar.nm_penyakit}</CCardTitle>
+                <CCardTitle>
+                  {diagnosa.hasil_pakar.nm_penyakit} ({diagnosa.hasil_pakar.nilai_cf})
+                </CCardTitle>
                 <CCardText style={{ textAlign: 'justify' }}>
                   {diagnosa.hasil_pakar.deskripsi}
                 </CCardText>
@@ -109,7 +148,7 @@ export class ComponentToPrint extends React.Component {
         </CCard>
 
         {/* Saran Pengobatan */}
-        <CCard className={`mb-4 border-warning`}>
+        <CCard className={`mb-2 border-warning`}>
           <CCardHeader className="bg-warning">
             <h5 className="mb-0">Saran Pengobatan</h5>
           </CCardHeader>
@@ -123,7 +162,7 @@ export class ComponentToPrint extends React.Component {
         </CCard>
 
         {/* Penyakit Lain */}
-        <CCard className={`mb-4 border-dark`}>
+        <CCard className={`mb-2 border-dark`}>
           <CCardHeader className="bg-dark text-white">
             <h5 className="mb-0">Kemungkinan Penyakit Lain</h5>
           </CCardHeader>
@@ -131,7 +170,8 @@ export class ComponentToPrint extends React.Component {
             <ul>
               {dataPenyakitLain.map((item, idx) => (
                 <li key={idx}>
-                  {item.nm_penyakit} ({item.nilai_cf} / {item.nilai_cf * 100} %)
+                  {/* {item.nm_penyakit} ({item.nilai_cf} / {item.nilai_cf * 100} %) */}
+                  {item.nm_penyakit} ({item.nilai_cf})
                 </li>
               ))}
             </ul>

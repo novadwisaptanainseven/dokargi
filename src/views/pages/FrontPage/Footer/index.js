@@ -30,11 +30,6 @@ const Footer = () => {
               </li>
               <li>
                 <a href="#" className="text-decoration-none">
-                  Konsultasi
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-decoration-none">
                   Informasi Penyakit
                 </a>
               </li>

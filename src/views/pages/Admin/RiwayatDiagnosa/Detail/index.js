@@ -24,6 +24,7 @@ import { ComponentToPrint, LoadingComponent } from 'src/components'
 import getImage from 'src/context/actions/Files/getImage'
 import { cilPrint } from '@coreui/icons'
 import { useReactToPrint } from 'react-to-print'
+import { format } from 'date-fns'
 
 const Detail = () => {
   const history = useHistory()
@@ -59,12 +60,14 @@ const Detail = () => {
     getDiagnosaById(params.id, setDiagnosa)
   }, [params])
 
-  console.log(diagnosa)
+  // console.log(diagnosa)
 
   const goBackToParentPage = (e) => {
     e.preventDefault()
     history.goBack()
   }
+
+  const dataPasien = !diagnosa ? [] : diagnosa.data_pasien
 
   const dataGejala = !diagnosa
     ? []
@@ -120,6 +123,42 @@ const Detail = () => {
             </CButton>
           </CCardHeader>
           <CCardBody>
+            <div className="container-pasien mb-4">
+              <CTable>
+                <CTableBody>
+                  <CTableRow>
+                    <th>ID Pasien</th>
+                    <th>:</th>
+                    <td>{dataPasien.id_pasien}</td>
+                  </CTableRow>
+                  <CTableRow>
+                    <th>Nama Pasien</th>
+                    <th>:</th>
+                    <td>{dataPasien.nama}</td>
+                  </CTableRow>
+                  <CTableRow>
+                    <th>Jenis Kelamin</th>
+                    <th>:</th>
+                    <td>{dataPasien.jkel == 1 ? 'Laki - Laki' : 'Perempuan'}</td>
+                  </CTableRow>
+                  <CTableRow>
+                    <th>Tempat &amp; Tgl. Lahir</th>
+                    <th>:</th>
+                    <td>
+                      {dataPasien.tmpt_lahir +
+                        ', ' +
+                        format(new Date(dataPasien.tgl_lahir), 'dd-MM-y')}
+                    </td>
+                  </CTableRow>
+                  <CTableRow>
+                    <th>Alamat</th>
+                    <th>:</th>
+                    <td>{dataPasien.alamat}</td>
+                  </CTableRow>
+                </CTableBody>
+              </CTable>
+            </div>
+
             {/* Gejala */}
             <div className="mb-4">
               <h5>Gejala - Gejala</h5>
@@ -168,7 +207,9 @@ const Detail = () => {
                     />
                   </CCol>
                   <CCol>
-                    <CCardTitle>{diagnosa.hasil_pakar.nm_penyakit}</CCardTitle>
+                    <CCardTitle>
+                      {diagnosa.hasil_pakar.nm_penyakit} ({diagnosa.hasil_pakar.nilai_cf})
+                    </CCardTitle>
                     <CCardText style={{ textAlign: 'justify' }}>
                       {diagnosa.hasil_pakar.deskripsi}
                     </CCardText>
@@ -200,7 +241,8 @@ const Detail = () => {
                 <ul>
                   {dataPenyakitLain.map((item, idx) => (
                     <li key={idx}>
-                      {item.nm_penyakit} ({item.nilai_cf} / {item.nilai_cf * 100} %)
+                      {/* {item.nm_penyakit} ({item.nilai_cf} / {item.nilai_cf * 100} %) */}
+                      {item.nm_penyakit} ({item.nilai_cf})
                     </li>
                   ))}
                 </ul>

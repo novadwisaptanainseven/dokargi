@@ -72,9 +72,9 @@ const Edit = () => {
       formData.append('foto', values.foto)
     }
 
-    for (let pair of formData.entries()) {
-      console.log(pair)
-    }
+    // for (let pair of formData.entries()) {
+    //   console.log(pair)
+    // }
 
     editUsers(params.id, formData, setLoading, history, usersDispatch)
   }

@@ -29,9 +29,9 @@ const Tambah = () => {
     formData.append('id_penyakit', params.id)
     formData.append('solusi', values.solusi)
 
-    for (let pair of formData.entries()) {
-      console.log(pair)
-    }
+    // for (let pair of formData.entries()) {
+    //   console.log(pair)
+    // }
 
     insertSolusi(params.id, formData, setLoading, history, penyakitDispatch)
   }

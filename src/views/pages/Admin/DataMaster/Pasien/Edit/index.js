@@ -38,9 +38,9 @@ const Edit = () => {
     formData.append('jkel', values.jkel)
     formData.append('alamat', values.alamat)
 
-    for (let pair of formData.entries()) {
-      console.log(pair)
-    }
+    // for (let pair of formData.entries()) {
+    //   console.log(pair)
+    // }
 
     editPasien(params.id, formData, setLoadingEdit, history, pasienDispatch)
   }

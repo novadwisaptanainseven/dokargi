@@ -62,9 +62,9 @@ const InformasiUmum = () => {
     formData.append('alamat_kampus', values.alamat_kampus)
     formData.append('tentang_kami', values.tentang_kami)
 
-    for (let pair of formData.entries()) {
-      console.log(pair)
-    }
+    // for (let pair of formData.entries()) {
+    //   console.log(pair)
+    // }
 
     editKonten(formData, setLoading, kontenDispatch)
   }
