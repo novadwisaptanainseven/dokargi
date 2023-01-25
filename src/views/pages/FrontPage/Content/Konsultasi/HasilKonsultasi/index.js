@@ -182,17 +182,18 @@ const HasilKonsultasi = () => {
                 </CCardHeader>
                 <CCardBody>
                   <CRow>
-                    <CCol md="5" className="mb-3">
+                    <CCol sm="2" className="mb-3">
                       <img
                         src={getImage('foto_penyakit', dataHasilPakar.gambar)}
                         alt={'gambar-penyakit'}
                         className="w-100"
                       />
                     </CCol>
-                    <CCol>
+                    <CCol sm="10">
                       <CCardTitle>
                         {/* {dataHasilPakar.nm_penyakit} / CF ({dataHasilPakar.nilai_cf * 100} %) */}
-                        {dataHasilPakar.nm_penyakit} ({dataHasilPakar.nilai_cf})
+                        {dataHasilPakar.nm_penyakit}, nilai akurasi sebesar (
+                        {dataHasilPakar.nilai_cf})
                       </CCardTitle>
                       <CCardText style={{ textAlign: 'justify' }}>
                         {dataHasilPakar.deskripsi}

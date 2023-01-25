@@ -199,16 +199,17 @@ const Detail = () => {
               </CCardHeader>
               <CCardBody>
                 <CRow>
-                  <CCol md="5" className="mb-3">
+                  <CCol sm="2" className="mb-3">
                     <img
                       src={getImage('foto_penyakit', diagnosa.hasil_pakar.gambar)}
                       alt={getImage('foto_penyakit', diagnosa.hasil_pakar.gambar)}
                       className="w-100"
                     />
                   </CCol>
-                  <CCol>
+                  <CCol sm="10">
                     <CCardTitle>
-                      {diagnosa.hasil_pakar.nm_penyakit} ({diagnosa.hasil_pakar.nilai_cf})
+                      {diagnosa.hasil_pakar.nm_penyakit}, nilai akurasi sebesar{' '}
+                      {diagnosa.hasil_pakar.nilai_cf}
                     </CCardTitle>
                     <CCardText style={{ textAlign: 'justify' }}>
                       {diagnosa.hasil_pakar.deskripsi}

@@ -128,14 +128,14 @@ export class ComponentToPrint extends React.Component {
           </CCardHeader>
           <CCardBody>
             <CRow>
-              <CCol>
+              <CCol sm="2">
                 <img
                   src={getImage('foto_penyakit', diagnosa.hasil_pakar.gambar)}
                   alt={getImage('foto_penyakit', diagnosa.hasil_pakar.gambar)}
                   className="w-100"
                 />
               </CCol>
-              <CCol>
+              <CCol sm="10">
                 <CCardTitle>
                   {diagnosa.hasil_pakar.nm_penyakit} ({diagnosa.hasil_pakar.nilai_cf})
                 </CCardTitle>
