@@ -251,10 +251,10 @@ const Konsultasi = () => {
                         <CTableDataCell>
                           <CFormSelect
                             name={item.id_gejala}
-                            aria-label="Pilih Gejala"
+                            aria-label="Pilih Kondisi"
                             options={[
                               {
-                                label: 'Pilih Gejala',
+                                label: '-- Pilih Kondisi --',
                                 value: '0',
                               },
                               ...listKondisi,
