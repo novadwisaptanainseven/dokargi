@@ -27,7 +27,7 @@ const NavigationBar = ({ dataKonten }) => {
     },
     {
       name: 'Admin',
-      path: 'admin',
+      path: 'login',
     },
   ]
 
